@@ -44,7 +44,7 @@ export function GameOverModal({
       onUpdate(editedVtuber);
 
       // 2. 创建 GitHub PR
-      const token = "$PR_TOKEN";
+      const token = process.env.PR_TOKEN;
       if (!token) {
         throw new Error("GitHub token not found. Please login first.");
       }
