@@ -492,23 +492,21 @@ export const vtubers: VTuber[] = [
     ],
   },
   {
-    id: "5ada11c7-cff7-46ce-b9a4-3d7db192e735",
-    avatar:
-      "https://vrp.live/static/2021-10-28/039df62b-33ba-40c3-95fd-df93dd279799.png",
+        id: "5ada11c7-cff7-46ce-b9a4-3d7db192e735",
+    avatar: "https://vrp.live/static/2021-10-28/039df62b-33ba-40c3-95fd-df93dd279799.png",
     name: "祖娅纳惜",
     nameEN: "Aria",
     agency: "VirtuaReal",
     debutDate: "2020-07-17",
     birthDate: "4月11日",
-    description:
-      "VirtuaReal Star成员。拥有百变的声线的她，可燃可甜，以其超宽音域及对不同曲风的个性演绎而为粉丝喜爱，代表作有原创曲《子不语·罗刹鸟》、《眉间不点砂》，翻唱《囍》、《天下局》等。",
+    description: "VirtuaReal Star成员。拥有百变的声线的她，可燃可甜，以其超宽音域及对不同曲风的个性演绎而为粉丝喜爱，代表作有原创曲《子不语·罗刹鸟》、《眉间不点砂》，翻唱《囍》、《天下局》等。",
     seiza: "白羊座",
     gender: "女",
     age: 0,
     hairColor: "白发",
     eyeColor: "蓝瞳",
     height: 166.5,
-    tags: ["口胡", "歌姬"],
+    tags: ["口胡"],
   },
   {
     id: "7c66b7ca-c63c-49d3-b8e3-08fba30fec38",
