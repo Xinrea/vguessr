@@ -1,103 +1,99 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import { useGame } from "@/hooks/useGame";
+import { GameOverModal } from "@/components/GameOverModal";
+import GuessResult from "@/components/GuessResult";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const {
+    targetVtuber,
+    attempts,
+    guessResults,
+    isGameOver,
+    searchResults,
+    searchQuery,
+    setSearchQuery,
+    submitGuess,
+    startNewGame,
+  } = useGame();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <main className="min-h-screen bg-gray-100 text-gray-900">
+      <div className="container mx-auto px-4 py-4 sm:py-8 max-w-2xl">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-2">
+          <h1 className="text-3xl sm:text-4xl font-bold">VTuber Guessr</h1>
+          <div className="text-lg sm:text-xl">
+            剩余尝试次数: {6 - attempts.length}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg p-4 sm:p-6 relative shadow-sm"
+          >
+            <div className="space-y-3 sm:space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  搜索 VTuber
+                </label>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="输入 VTuber 的名字..."
+                  className="w-full px-3 py-2 sm:px-4 sm:py-2 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+
+              {searchResults.length > 0 && (
+                <div className="absolute left-0 right-0 mt-1 z-10 mx-4">
+                  <div className="bg-white rounded-lg shadow-lg max-h-[60vh] overflow-y-auto border border-gray-200">
+                    {searchResults.map((vtuber) => (
+                      <button
+                        key={vtuber.id}
+                        onClick={() => submitGuess(vtuber)}
+                        className="w-full p-3 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0"
+                      >
+                        <div className="font-medium text-base">
+                          {vtuber.name}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {vtuber.agency}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg p-4 sm:p-6 shadow-sm"
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+              猜测历史
+            </h2>
+            <div className="space-y-3 sm:space-y-4">
+              {guessResults.map((result, index) => (
+                <GuessResult key={index} result={result} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <GameOverModal
+          isOpen={isGameOver}
+          onClose={() => {}}
+          answer={targetVtuber}
+          onRestart={startNewGame}
+        />
+      </div>
+    </main>
   );
 }
