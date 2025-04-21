@@ -141,6 +141,7 @@ export function GameOverModal({
                 >
                   游戏结束！
                 </Dialog.Title>
+                <div className="mt-1 text-sm text-gray-500">正确答案</div>
                 <div className="mt-4 space-y-2">
                   {renderEditableField("名字", answer.name, "name")}
                   {renderEditableField(
@@ -201,6 +202,11 @@ export function GameOverModal({
                   {error && (
                     <div className="mt-2 text-sm text-red-600">{error}</div>
                   )}
+                  {isEditing && (
+                    <div className="mt-2 text-xs text-gray-500">
+                      （变动将在审核后生效）
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-6 flex justify-end gap-2">
@@ -211,7 +217,7 @@ export function GameOverModal({
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={handleStartEditing}
                       >
-                        编辑
+                        申请编辑
                       </button>
                       <button
                         type="button"
