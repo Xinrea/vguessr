@@ -136,7 +136,7 @@ export function useGame() {
     const targetBirthDateNum = parseInt(targetBirthDate, 10);
     const birthDateMatch = guessBirthDateNum === targetBirthDateNum;
     const birthDateHint = !birthDateMatch
-      ? guessBirthDateNum > targetBirthDateNum
+      ? targetBirthDateNum > guessBirthDateNum
         ? "higher"
         : "lower"
       : "equal";
@@ -150,7 +150,7 @@ export function useGame() {
     // 检查出道时间
     const debutDateMatch = guess.debutDate === target.debutDate;
     const debutDateHint = !debutDateMatch
-      ? guess.debutDate > target.debutDate
+      ? target.debutDate > guess.debutDate
         ? "higher"
         : "lower"
       : "equal";
@@ -165,7 +165,7 @@ export function useGame() {
     // 检查身高
     const heightMatch = guess.height === target.height;
     const heightHint = !heightMatch
-      ? guess.height > target.height
+      ? target.height > guess.height
         ? "higher"
         : "lower"
       : "equal";
