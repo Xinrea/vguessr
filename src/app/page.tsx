@@ -27,18 +27,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
       <div className="container mx-auto px-2 py-6 sm:py-10 max-w-6xl">
-        <div className="flex flex-col items-center mb-8">
-          <a
-            href="https://github.com/xinreasuper/vtuber-guessr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
-          >
-            <CodeBracketIcon className="w-5 h-5" />
-            <span className="text-lg">GitHub</span>
-          </a>
-        </div>
-
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex items-center gap-3">
             <TrophyIcon className="w-8 h-8 text-yellow-500" />
@@ -108,37 +96,49 @@ export default function Home() {
             <h2 className="text-base sm:text-lg font-bold mb-2">猜测历史</h2>
             <div className="overflow-x-auto">
               {/* Desktop table */}
-              <table className="w-full hidden md:table">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    {guessResults[0]?.differences
-                      .filter((diff) => diff.attribute !== "标签")
-                      .map((diff, index) => (
-                        <th
-                          key={index}
-                          className="py-1.5 px-1.5 text-left text-xs font-medium text-gray-700 border-r border-gray-100 last:border-r-0"
-                        >
-                          {diff.attribute}
-                        </th>
-                      ))}
-                    <th className="py-1.5 pl-2 pr-1.5 text-left text-xs font-medium text-gray-700">
-                      标签
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
+              {guessResults.length > 0 ? (
+                <table className="w-full hidden md:table">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      {guessResults[0]?.differences
+                        .filter((diff) => diff.attribute !== "标签")
+                        .map((diff, index) => (
+                          <th
+                            key={index}
+                            className="py-1.5 px-1.5 text-left text-xs font-medium text-gray-700 border-r border-gray-100 last:border-r-0"
+                          >
+                            {diff.attribute}
+                          </th>
+                        ))}
+                      <th className="py-1.5 pl-2 pr-1.5 text-left text-xs font-medium text-gray-700">
+                        标签
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {guessResults.map((result, index) => (
+                      <GuessResult key={index} result={result} />
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="text-sm text-gray-500 text-center py-4">
+                  暂无猜测记录
+                </div>
+              )}
+
+              {/* Mobile cards */}
+              {guessResults.length > 0 ? (
+                <div className="md:hidden">
                   {guessResults.map((result, index) => (
                     <GuessResult key={index} result={result} />
                   ))}
-                </tbody>
-              </table>
-
-              {/* Mobile cards */}
-              <div className="md:hidden">
-                {guessResults.map((result, index) => (
-                  <GuessResult key={index} result={result} />
-                ))}
-              </div>
+                </div>
+              ) : (
+                <div className="text-sm text-gray-500 text-center py-4 md:hidden">
+                  暂无猜测记录
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
@@ -150,6 +150,31 @@ export default function Home() {
           onRestart={startNewGame}
           onUpdate={updateVtuber}
         />
+
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="flex items-center justify-center gap-2">
+            <CodeBracketIcon className="w-4 h-4" />
+            <a
+              href="https://github.com/Xinrea/vguessr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-900 transition-colors"
+            >
+              GitHub
+            </a>
+            <span>·</span>
+            <span>
+              Created by{" "}
+              <a
+                href="https://space.bilibili.com/475210"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @Xinrea
+              </a>
+            </span>
+          </div>
+        </div>
       </div>
     </main>
   );
