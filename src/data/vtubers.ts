@@ -21,8 +21,7 @@ export const vtubers: VTuber[] = [
   },
   {
     id: "e4ee71f5-32b1-4810-bce0-31ada923ff58",
-    avatar:
-      "https://vrp.live/static/2023-10-26/5f57a985-9dce-44d7-86a0-b9719efae26b.png",
+    avatar: "https://vrp.live/static/2023-10-26/5f57a985-9dce-44d7-86a0-b9719efae26b.png",
     name: "哎小呜",
     nameEN: "Awu",
     agency: "VirtuaReal",
@@ -35,7 +34,7 @@ export const vtubers: VTuber[] = [
     hairColor: "橙发",
     eyeColor: "蓝瞳",
     height: 158,
-    tags: ["马娘", "双角", "植物发饰", "巨乳", "兽耳"],
+    tags: ["马娘", "双角", "巨乳", "兽耳"],
   },
   {
     id: "7f417380-11a4-4c6a-9175-79a185d8f5c4",
