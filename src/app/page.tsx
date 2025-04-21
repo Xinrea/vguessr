@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
-      <div className="container mx-auto px-4 py-6 sm:py-10 max-w-2xl">
+      <div className="container mx-auto px-2 py-6 sm:py-10 max-w-6xl">
         <div className="flex flex-col items-center mb-8">
           <a
             href="https://github.com/xinreasuper/vtuber-guessr"
@@ -103,13 +103,42 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-6 shadow-sm"
+            className="bg-white rounded-xl p-4 shadow-sm"
           >
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">猜测历史</h2>
-            <div className="space-y-4">
-              {guessResults.map((result, index) => (
-                <GuessResult key={index} result={result} />
-              ))}
+            <h2 className="text-base sm:text-lg font-bold mb-2">猜测历史</h2>
+            <div className="overflow-x-auto">
+              {/* Desktop table */}
+              <table className="w-full hidden md:table">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    {guessResults[0]?.differences
+                      .filter((diff) => diff.attribute !== "标签")
+                      .map((diff, index) => (
+                        <th
+                          key={index}
+                          className="py-1.5 px-1.5 text-left text-xs font-medium text-gray-700 border-r border-gray-100 last:border-r-0"
+                        >
+                          {diff.attribute}
+                        </th>
+                      ))}
+                    <th className="py-1.5 pl-2 pr-1.5 text-left text-xs font-medium text-gray-700">
+                      标签
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {guessResults.map((result, index) => (
+                    <GuessResult key={index} result={result} />
+                  ))}
+                </tbody>
+              </table>
+
+              {/* Mobile cards */}
+              <div className="md:hidden">
+                {guessResults.map((result, index) => (
+                  <GuessResult key={index} result={result} />
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
