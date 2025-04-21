@@ -79,8 +79,6 @@ export function useGame() {
         heteronym: false,
       }).join("");
 
-      console.log(namePinyin);
-
       if (namePinyin.toLowerCase().includes(queryLower)) {
         return true;
       }
@@ -130,16 +128,28 @@ export function useGame() {
     });
 
     // 检查生日
-    const guessBirthDate = guess.birthDate.replace(/\D/g, "");
-    const targetBirthDate = target.birthDate.replace(/\D/g, "");
-    const guessBirthDateNum = parseInt(guessBirthDate, 10);
-    const targetBirthDateNum = parseInt(targetBirthDate, 10);
+    // 格式：x月y日
+    const guessBirthDate = [
+      guess.birthDate.split("月")[0],
+      guess.birthDate.split("月")[1].split("日")[0],
+    ];
+    const targetBirthDate = [
+      target.birthDate.split("月")[0],
+      target.birthDate.split("月")[1].split("日")[0],
+    ];
+
+    const guessBirthDateNum =
+      parseInt(guessBirthDate[0], 10) * 100 + parseInt(guessBirthDate[1], 10);
+    const targetBirthDateNum =
+      parseInt(targetBirthDate[0], 10) * 100 + parseInt(targetBirthDate[1], 10);
+
     const birthDateMatch = guessBirthDateNum === targetBirthDateNum;
     const birthDateHint = !birthDateMatch
       ? targetBirthDateNum > guessBirthDateNum
         ? "higher"
         : "lower"
       : "equal";
+
     differences.push({
       attribute: "生日",
       value: guess.birthDate,
