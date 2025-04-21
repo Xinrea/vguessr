@@ -1,14 +1,6 @@
 # VTuber Guessr
 
-一个基于 Next.js 的 VTuber 猜谜游戏，玩家需要根据视频片段猜测 VTuber 的名字。
-
-## 功能特点
-
-- 随机播放 VTuber 视频片段
-- 实时计分系统
-- 排行榜功能
-- 响应式设计
-- 现代化的 UI/UX
+一个基于 Next.js 的 VTuber 猜谜游戏，玩家需要猜测 VTuber 的名字。
 
 ## 技术栈
 

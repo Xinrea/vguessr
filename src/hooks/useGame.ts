@@ -32,8 +32,7 @@ export function useGame() {
   };
 
   const startNewGame = () => {
-    const vtuber = getRandomVtuber();
-    setTargetVtuber(vtuber);
+    setTargetVtuber(null);
     setAttempts([]);
     setGuessResults([]);
     setIsGameOver(false);
@@ -42,11 +41,17 @@ export function useGame() {
   };
 
   const checkGuess = (guess: VTuber): GuessResult => {
-    if (!targetVtuber) throw new Error("No target VTuber set");
+    // Generate target VTuber if it's the first guess
+    let target = targetVtuber;
+    if (!target) {
+      const vtuber = getRandomVtuber();
+      setTargetVtuber(vtuber);
+      target = vtuber;
+    }
 
     const nameMatch = guess.name
       .split("")
-      .map((char, index) => targetVtuber.name[index] === char);
+      .map((char, index) => target.name[index] === char);
 
     const differences: GuessResult["differences"] = [];
 
@@ -54,20 +59,20 @@ export function useGame() {
     differences.push({
       attribute: "名字",
       value: guess.name,
-      isMatch: guess.name === targetVtuber.name,
+      isMatch: guess.name === target.name,
     });
 
     // 检查性别
     differences.push({
       attribute: "性别",
       value: guess.gender,
-      isMatch: guess.gender === targetVtuber.gender,
+      isMatch: guess.gender === target.gender,
     });
 
     // 检查生日
     // 只保留字符串中的数字，然后再进行比较
     const guessBirthDate = guess.birthDate.replace(/\D/g, "");
-    const targetBirthDate = targetVtuber.birthDate.replace(/\D/g, "");
+    const targetBirthDate = target.birthDate.replace(/\D/g, "");
     const guessBirthDateNum = parseInt(guessBirthDate, 10);
     const targetBirthDateNum = parseInt(targetBirthDate, 10);
     const birthDateMatch = guessBirthDateNum === targetBirthDateNum;
@@ -83,9 +88,9 @@ export function useGame() {
     });
 
     // 检查出道时间
-    const debutDateMatch = guess.debutDate === targetVtuber.debutDate;
+    const debutDateMatch = guess.debutDate === target.debutDate;
     const debutDateHint = !debutDateMatch
-      ? guess.debutDate > targetVtuber.debutDate
+      ? guess.debutDate > target.debutDate
         ? "↓"
         : "↑"
       : "";
@@ -97,9 +102,9 @@ export function useGame() {
     });
 
     // 检查身高
-    const heightMatch = guess.height === targetVtuber.height;
+    const heightMatch = guess.height === target.height;
     const heightHint = !heightMatch
-      ? guess.height > targetVtuber.height
+      ? guess.height > target.height
         ? "↓"
         : "↑"
       : "";
@@ -113,27 +118,27 @@ export function useGame() {
     differences.push({
       attribute: "发色",
       value: guess.hairColor,
-      isMatch: guess.hairColor === targetVtuber.hairColor,
+      isMatch: guess.hairColor === target.hairColor,
     });
 
     // 检查瞳色
     differences.push({
       attribute: "瞳色",
       value: guess.eyeColor,
-      isMatch: guess.eyeColor === targetVtuber.eyeColor,
+      isMatch: guess.eyeColor === target.eyeColor,
     });
 
     differences.push({
       attribute: "星座",
       value: guess.seiza,
-      isMatch: guess.seiza === targetVtuber.seiza,
+      isMatch: guess.seiza === target.seiza,
     });
 
     // 检查标签
     if (guess.tags) {
       // 为每个标签创建一个单独的差异项
       guess.tags.forEach((tag) => {
-        const isMatch = targetVtuber.tags?.includes(tag) || false;
+        const isMatch = target.tags?.includes(tag) || false;
         differences.push({
           attribute: "标签",
           value: tag,
@@ -143,7 +148,7 @@ export function useGame() {
     }
 
     return {
-      isCorrect: guess.id === targetVtuber.id,
+      isCorrect: guess.id === target.id,
       name: guess.name,
       nameMatch,
       differences,
@@ -151,8 +156,6 @@ export function useGame() {
   };
 
   const submitGuess = (guess: VTuber) => {
-    if (!targetVtuber) return;
-
     const result = checkGuess(guess);
     setAttempts((prev) => [guess, ...prev]);
     setGuessResults((prev) => [result, ...prev]);
@@ -163,10 +166,6 @@ export function useGame() {
       setIsGameOver(true);
     }
   };
-
-  useEffect(() => {
-    startNewGame();
-  }, []);
 
   useEffect(() => {
     if (searchQuery) {

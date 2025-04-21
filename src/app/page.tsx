@@ -21,6 +21,21 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900">
       <div className="container mx-auto px-4 py-4 sm:py-8 max-w-2xl">
+        <div className="flex flex-col items-center mb-6">
+          <a
+            href="https://github.com/xinreasuper/vtuber-guessr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
+          >
+            <span className="text-lg">GitHub</span>
+          </a>
+          <p className="text-center text-gray-600 max-w-lg">
+            一个有趣的 VTuber 猜谜游戏！测试你对 VTuber 的了解程度，看看你能在 6
+            次尝试内猜出目标 VTuber 吗？
+          </p>
+        </div>
+
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-2">
           <h1 className="text-3xl sm:text-4xl font-bold">VTuber Guessr</h1>
           <div className="text-lg sm:text-xl">
