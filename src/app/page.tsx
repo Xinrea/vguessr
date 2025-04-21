@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useGame } from "@/hooks/useGame";
 import { GameOverModal } from "@/components/GameOverModal";
 import GuessResult from "@/components/GuessResult";
+import Stats from "@/components/Stats";
 import {
   CodeBracketIcon,
   MagnifyingGlassIcon,
@@ -22,6 +23,7 @@ export default function Home() {
     submitGuess,
     startNewGame,
     updateVtuber,
+    stats,
   } = useGame();
 
   return (
@@ -32,12 +34,7 @@ export default function Home() {
             <TrophyIcon className="w-8 h-8 text-yellow-500" />
             <h1 className="text-3xl sm:text-4xl font-bold">VTuber Guessr</h1>
           </div>
-          <div className="flex items-center gap-2 text-lg sm:text-xl bg-white px-4 py-2 rounded-full shadow-sm">
-            <span className="text-gray-600">剩余尝试次数:</span>
-            <span className="font-semibold text-blue-600">
-              {6 - attempts.length}
-            </span>
-          </div>
+          <Stats {...stats} />
         </div>
 
         <div className="grid grid-cols-1 gap-6">
@@ -47,22 +44,28 @@ export default function Home() {
             className="bg-white rounded-xl p-6 relative shadow-sm"
           >
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700">
+              <div className="flex justify-between items-center">
+                <label className="block text-sm font-medium text-gray-700">
                   搜索 VTuber
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="输入 VTuber 的名字..."
-                    className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  />
+                <div className="flex items-center gap-1.5 text-sm">
+                  <span className="text-gray-500">剩余次数</span>
+                  <span className="font-medium text-blue-600">
+                    {6 - attempts.length}
+                  </span>
                 </div>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="输入 VTuber 的名字..."
+                  className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
               </div>
 
               {searchResults.length > 0 && (
@@ -117,7 +120,11 @@ export default function Home() {
                   </thead>
                   <tbody>
                     {guessResults.map((result, index) => (
-                      <GuessResult key={index} result={result} />
+                      <GuessResult
+                        key={index}
+                        result={result}
+                        isMobile={false}
+                      />
                     ))}
                   </tbody>
                 </table>
@@ -131,7 +138,7 @@ export default function Home() {
               {guessResults.length > 0 ? (
                 <div className="md:hidden">
                   {guessResults.map((result, index) => (
-                    <GuessResult key={index} result={result} />
+                    <GuessResult key={index} result={result} isMobile={true} />
                   ))}
                 </div>
               ) : (

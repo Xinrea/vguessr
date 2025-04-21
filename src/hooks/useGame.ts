@@ -4,6 +4,13 @@ import { vtubers } from "@/data/vtubers";
 
 const MAX_ATTEMPTS = 6;
 
+interface GameStats {
+  totalGames: number;
+  wins: number;
+  losses: number;
+  averageAttempts: number;
+}
+
 export function useGame() {
   const [targetVtuber, setTargetVtuber] = useState<VTuber | null>(null);
   const [attempts, setAttempts] = useState<VTuber[]>([]);
@@ -11,6 +18,17 @@ export function useGame() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [stats, setStats] = useState<GameStats>(() => {
+    const savedStats = localStorage.getItem("vtuber-guessr-stats");
+    return savedStats
+      ? JSON.parse(savedStats)
+      : {
+          totalGames: 0,
+          wins: 0,
+          losses: 0,
+          averageAttempts: 0,
+        };
+  });
 
   const getRandomVtuber = (): VTuber => {
     const randomIndex = Math.floor(Math.random() * vtubers.length);
@@ -79,7 +97,6 @@ export function useGame() {
     });
 
     // 检查生日
-    // 只保留字符串中的数字，然后再进行比较
     const guessBirthDate = guess.birthDate.replace(/\D/g, "");
     const targetBirthDate = target.birthDate.replace(/\D/g, "");
     const guessBirthDateNum = parseInt(guessBirthDate, 10);
@@ -87,40 +104,43 @@ export function useGame() {
     const birthDateMatch = guessBirthDateNum === targetBirthDateNum;
     const birthDateHint = !birthDateMatch
       ? guessBirthDateNum > targetBirthDateNum
-        ? "↓"
-        : "↑"
-      : "";
+        ? "higher"
+        : "lower"
+      : "equal";
     differences.push({
       attribute: "生日",
-      value: `${guess.birthDate}${birthDateHint}`,
+      value: guess.birthDate,
       isMatch: birthDateMatch,
+      hint: birthDateHint,
     });
 
     // 检查出道时间
     const debutDateMatch = guess.debutDate === target.debutDate;
     const debutDateHint = !debutDateMatch
       ? guess.debutDate > target.debutDate
-        ? "↓"
-        : "↑"
-      : "";
+        ? "higher"
+        : "lower"
+      : "equal";
 
     differences.push({
       attribute: "出道时间",
-      value: `${guess.debutDate}${debutDateHint}`,
+      value: guess.debutDate,
       isMatch: debutDateMatch,
+      hint: debutDateHint,
     });
 
     // 检查身高
     const heightMatch = guess.height === target.height;
     const heightHint = !heightMatch
       ? guess.height > target.height
-        ? "↓"
-        : "↑"
-      : "";
+        ? "higher"
+        : "lower"
+      : "equal";
     differences.push({
       attribute: "身高",
-      value: `${guess.height}${heightHint}`,
+      value: guess.height,
       isMatch: heightMatch,
+      hint: heightHint,
     });
 
     // 检查发色
@@ -173,6 +193,19 @@ export function useGame() {
 
     if (result.isCorrect || attempts.length + 1 >= MAX_ATTEMPTS) {
       setIsGameOver(true);
+
+      // Update stats
+      const newStats = {
+        totalGames: stats.totalGames + 1,
+        wins: stats.wins + (result.isCorrect ? 1 : 0),
+        losses: stats.losses + (result.isCorrect ? 0 : 1),
+        averageAttempts: result.isCorrect
+          ? (stats.averageAttempts * stats.wins + attempts.length + 1) /
+            (stats.wins + 1)
+          : stats.averageAttempts,
+      };
+      setStats(newStats);
+      localStorage.setItem("vtuber-guessr-stats", JSON.stringify(newStats));
     }
   };
 
@@ -195,5 +228,6 @@ export function useGame() {
     submitGuess,
     startNewGame,
     updateVtuber,
+    stats,
   };
 }

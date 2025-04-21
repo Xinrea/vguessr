@@ -30,8 +30,9 @@ export interface GuessResult {
   nameMatch: boolean[];
   differences: {
     attribute: string;
-    value: string;
+    value: string | number;
     isMatch: boolean;
+    hint?: "higher" | "lower" | "equal";
   }[];
 }
 
