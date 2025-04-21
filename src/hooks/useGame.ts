@@ -17,6 +17,15 @@ export function useGame() {
     return vtubers[randomIndex];
   };
 
+  const updateVtuber = (updatedVtuber: VTuber) => {
+    setTargetVtuber(updatedVtuber);
+    // 更新本地数据
+    const index = vtubers.findIndex((v) => v.id === updatedVtuber.id);
+    if (index !== -1) {
+      vtubers[index] = updatedVtuber;
+    }
+  };
+
   const searchVtubers = async (query: string) => {
     if (!query) {
       setSearchResults([]);
@@ -185,5 +194,6 @@ export function useGame() {
     setSearchQuery,
     submitGuess,
     startNewGame,
+    updateVtuber,
   };
 }
