@@ -65,22 +65,57 @@ export default function Home() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="输入 VTuber 的名字..."
                   className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === "ArrowDown" && searchResults.length > 0) {
+                      e.preventDefault();
+                      const firstItem = document.querySelector(
+                        ".search-result-item"
+                      ) as HTMLElement;
+                      firstItem?.focus();
+                    }
+                  }}
                 />
               </div>
 
               {searchResults.length > 0 && (
-                <div className="absolute left-0 right-0 mt-1 z-10 mx-6">
-                  <div className="bg-white rounded-lg shadow-lg max-h-[60vh] overflow-y-auto border border-gray-200">
-                    {searchResults.map((vtuber) => (
+                <div className="absolute left-0 right-0 mt-0.5 z-10 mx-6">
+                  <div className="bg-white rounded-lg shadow-lg max-h-[40vh] overflow-y-auto border border-gray-200">
+                    {searchResults.map((vtuber, index) => (
                       <button
                         key={vtuber.id}
                         onClick={() => submitGuess(vtuber)}
-                        className="w-full p-3 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0"
+                        className="w-full p-2 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-gray-50 search-result-item"
+                        onKeyDown={(e) => {
+                          if (e.key === "ArrowDown") {
+                            e.preventDefault();
+                            const next = searchResults[index + 1];
+                            if (next) {
+                              const nextElement = (e.target as HTMLElement)
+                                .nextElementSibling as HTMLElement;
+                              nextElement?.focus();
+                            }
+                          } else if (e.key === "ArrowUp") {
+                            e.preventDefault();
+                            const prev = searchResults[index - 1];
+                            if (prev) {
+                              const prevElement = (e.target as HTMLElement)
+                                .previousElementSibling as HTMLElement;
+                              prevElement?.focus();
+                            } else {
+                              // 如果到达第一个选项，焦点回到输入框
+                              const input = document.querySelector(
+                                'input[type="text"]'
+                              ) as HTMLElement;
+                              input?.focus();
+                            }
+                          } else if (e.key === "Enter") {
+                            e.preventDefault();
+                            submitGuess(vtuber);
+                          }
+                        }}
                       >
-                        <div className="font-medium text-base">
-                          {vtuber.name}
-                        </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="font-medium text-sm">{vtuber.name}</div>
+                        <div className="text-xs text-gray-500">
                           {vtuber.agency}
                         </div>
                       </button>

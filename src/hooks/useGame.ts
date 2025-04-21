@@ -18,17 +18,20 @@ export function useGame() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [stats, setStats] = useState<GameStats>(() => {
-    const savedStats = localStorage.getItem("vtuber-guessr-stats");
-    return savedStats
-      ? JSON.parse(savedStats)
-      : {
-          totalGames: 0,
-          wins: 0,
-          losses: 0,
-          averageAttempts: 0,
-        };
+  const [stats, setStats] = useState<GameStats>({
+    totalGames: 0,
+    wins: 0,
+    losses: 0,
+    averageAttempts: 0,
   });
+
+  useEffect(() => {
+    // 只在客户端加载统计数据
+    const savedStats = localStorage.getItem("vtuber-guessr-stats");
+    if (savedStats) {
+      setStats(JSON.parse(savedStats));
+    }
+  }, []);
 
   const getRandomVtuber = (): VTuber => {
     const randomIndex = Math.floor(Math.random() * vtubers.length);
@@ -49,11 +52,12 @@ export function useGame() {
       setSearchResults([]);
       return;
     }
-    // 使用本地数据进行搜索
+    // 使用本地数据进行搜索，排除已经猜测过的 VTuber
     const result = vtubers.filter(
       (vtuber) =>
-        vtuber.name.toLowerCase().includes(query.toLowerCase()) ||
-        vtuber.nameEN.toLowerCase().includes(query.toLowerCase())
+        !attempts.some((attempt) => attempt.id === vtuber.id) &&
+        (vtuber.name.toLowerCase().includes(query.toLowerCase()) ||
+          vtuber.nameEN.toLowerCase().includes(query.toLowerCase()))
     );
     setSearchResults(result);
   };
@@ -205,7 +209,10 @@ export function useGame() {
           : stats.averageAttempts,
       };
       setStats(newStats);
-      localStorage.setItem("vtuber-guessr-stats", JSON.stringify(newStats));
+      // 只在客户端保存统计数据
+      if (typeof window !== "undefined") {
+        localStorage.setItem("vtuber-guessr-stats", JSON.stringify(newStats));
+      }
     }
   };
 
