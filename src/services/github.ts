@@ -102,7 +102,7 @@ export async function createPullRequest(
   }
 
   // 2. 更新文件
-  const filePath = "src/data/vtubers.ts";
+  const filePath = "src/data/vtubers.json";
   const fileContent = await fetch(
     `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}?ref=${branchName}`,
     {
@@ -119,35 +119,20 @@ export async function createPullRequest(
     "utf-8"
   );
 
+  // 解析当前 JSON 内容
+  const vtubers = JSON.parse(currentContent);
+
+  // 找到并更新对应的 VTuber
+  const index = vtubers.findIndex((v: VTuber) => v.id === vtuber.id);
+  if (index === -1) {
+    throw new Error(`VTuber with id ${vtuber.id} not found`);
+  }
+
   // 更新 VTuber 数据
-  const vtuberObject = { ...vtuber };
+  vtubers[index] = vtuber;
 
-  // 将对象转换为 TypeScript 格式的字符串
-  const vtuberString = Object.entries(vtuberObject)
-    .map(([key, value]) => {
-      let prefix_space = "    ";
-      if (key == "id") {
-        prefix_space = "";
-      }
-      if (Array.isArray(value)) {
-        return `${prefix_space}${key}: [${value
-          .map((v) => `"${v}"`)
-          .join(", ")}],`;
-      } else if (typeof value === "string") {
-        return `${prefix_space}${key}: "${value}",`;
-      } else if (typeof value === "number") {
-        return `${prefix_space}${key}: ${value},`;
-      } else if (value === null || value === undefined) {
-        return `${prefix_space}${key}: null,`;
-      }
-      return `${prefix_space}${key}: "${value}",`;
-    })
-    .join("\n");
-
-  const updatedContent = currentContent.replace(
-    new RegExp(`id: "${vtuber.id}".*?},`, "s"),
-    `${vtuberString}\n  },`
-  );
+  // 转换为格式化的 JSON 字符串
+  const updatedContent = JSON.stringify(vtubers, null, 2);
 
   // 提交更改
   await fetch(
