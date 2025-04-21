@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { VTuber, GuessResult } from "@/types/vtuber";
 import { vtubers } from "@/data/vtubers";
+import pinyin from "pinyin";
 
 const MAX_ATTEMPTS = 6;
 
@@ -52,13 +53,41 @@ export function useGame() {
       setSearchResults([]);
       return;
     }
+
+    const queryLower = query.toLowerCase();
+
     // 使用本地数据进行搜索，排除已经猜测过的 VTuber
-    const result = vtubers.filter(
-      (vtuber) =>
-        !attempts.some((attempt) => attempt.id === vtuber.id) &&
-        (vtuber.name.toLowerCase().includes(query.toLowerCase()) ||
-          vtuber.nameEN.toLowerCase().includes(query.toLowerCase()))
-    );
+    const result = vtubers.filter((vtuber) => {
+      // 检查是否已经猜测过
+      if (attempts.some((attempt) => attempt.id === vtuber.id)) {
+        return false;
+      }
+
+      // 检查英文名
+      if (vtuber.nameEN.toLowerCase().includes(queryLower)) {
+        return true;
+      }
+
+      // 检查中文名
+      if (vtuber.name.toLowerCase().includes(queryLower)) {
+        return true;
+      }
+
+      // 检查拼音
+      const namePinyin = pinyin(vtuber.name, {
+        style: pinyin.STYLE_NORMAL,
+        heteronym: false,
+      }).join("");
+
+      console.log(namePinyin);
+
+      if (namePinyin.toLowerCase().includes(queryLower)) {
+        return true;
+      }
+
+      return false;
+    });
+
     setSearchResults(result);
   };
 
