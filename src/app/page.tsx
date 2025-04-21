@@ -164,7 +164,7 @@ export default function Home() {
                   </tbody>
                 </table>
               ) : (
-                <div className="text-sm text-gray-500 text-center py-4">
+                <div className="text-sm text-gray-500 text-center py-4 hidden md:block">
                   暂无猜测记录
                 </div>
               )}
