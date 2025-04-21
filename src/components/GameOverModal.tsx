@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { VTuber } from "@/types/vtuber";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { createPullRequest } from "@/services/github";
+import { ConfettiEffect } from "./ConfettiEffect";
 
 interface GameOverModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface GameOverModalProps {
   answer: VTuber | null;
   onRestart: () => void;
   onUpdate: (vtuber: VTuber) => void;
+  isCorrect: boolean;
 }
 
 export function GameOverModal({
@@ -18,6 +20,7 @@ export function GameOverModal({
   answer,
   onRestart,
   onUpdate,
+  isCorrect,
 }: GameOverModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedVtuber, setEditedVtuber] = useState<VTuber | null>(null);
@@ -111,6 +114,7 @@ export function GameOverModal({
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
+        {isOpen && isCorrect && <ConfettiEffect />}
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -134,7 +138,13 @@ export function GameOverModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel
+                className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all ${
+                  isCorrect
+                    ? "ring-2 ring-green-400 ring-offset-2"
+                    : "ring-2 ring-red-400 ring-offset-2"
+                }`}
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"

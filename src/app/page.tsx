@@ -191,6 +191,7 @@ export default function Home() {
           answer={targetVtuber}
           onRestart={startNewGame}
           onUpdate={updateVtuber}
+          isCorrect={guessResults.length > 0 && guessResults[0].isCorrect}
         />
 
         <div className="mt-8 text-center text-sm text-gray-500">
