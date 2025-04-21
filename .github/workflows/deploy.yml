@@ -34,3 +34,4 @@ jobs:
           port: 22
           source: "out"
           target: /var/www/html/vguessr
+          strip_components: 1
