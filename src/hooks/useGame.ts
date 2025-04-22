@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { VTuber, GuessResult } from "@/types/vtuber";
 import { vtubers } from "@/data/vtubers";
 import pinyin from "pinyin";
+import { v4 as uuidv4 } from "uuid";
+import { createAddVtuberPullRequest } from "@/services/github";
 
 const MAX_ATTEMPTS = 6;
 
@@ -25,6 +27,8 @@ export function useGame() {
     losses: 0,
     averageAttempts: 0,
   });
+  const [isAddingVtuber, setIsAddingVtuber] = useState(false);
+  const [addVtuberError, setAddVtuberError] = useState<string | null>(null);
 
   useEffect(() => {
     // 只在客户端加载统计数据
@@ -45,6 +49,28 @@ export function useGame() {
     const index = vtubers.findIndex((v) => v.id === updatedVtuber.id);
     if (index !== -1) {
       vtubers[index] = updatedVtuber;
+    }
+  };
+
+  const addVtuber = async (newVtuber: Omit<VTuber, "id">) => {
+    try {
+      setIsAddingVtuber(true);
+      setAddVtuberError(null);
+
+      const vtuber: VTuber = {
+        ...newVtuber,
+        id: uuidv4(),
+      };
+
+      await createAddVtuberPullRequest(vtuber, process.env.PR_TOKEN || "");
+      return vtuber;
+    } catch (error) {
+      setAddVtuberError(
+        error instanceof Error ? error.message : "Failed to add VTuber"
+      );
+      throw error;
+    } finally {
+      setIsAddingVtuber(false);
     }
   };
 
@@ -274,6 +300,9 @@ export function useGame() {
     submitGuess,
     startNewGame,
     updateVtuber,
+    addVtuber,
+    isAddingVtuber,
+    addVtuberError,
     stats,
   };
 }

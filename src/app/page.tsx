@@ -1,14 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useGame } from "@/hooks/useGame";
 import { GameOverModal } from "@/components/GameOverModal";
 import GuessResult from "@/components/GuessResult";
 import Stats from "@/components/Stats";
+import AddVtuberModal from "@/components/AddVtuberModal";
 import {
   CodeBracketIcon,
   MagnifyingGlassIcon,
   TrophyIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Home() {
@@ -23,8 +26,11 @@ export default function Home() {
     submitGuess,
     startNewGame,
     updateVtuber,
+    addVtuber,
     stats,
   } = useGame();
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
@@ -44,15 +50,24 @@ export default function Home() {
             className="bg-white rounded-xl p-6 relative shadow-sm"
           >
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                 <label className="block text-sm font-medium text-gray-700">
                   搜索 VTuber
                 </label>
-                <div className="flex items-center gap-1.5 text-sm">
-                  <span className="text-gray-500">剩余次数</span>
-                  <span className="font-medium text-blue-600">
-                    {6 - attempts.length}
-                  </span>
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <PlusIcon className="w-4 h-4" />
+                    <span>申请添加新 VTuber 信息</span>
+                  </button>
+                  <div className="flex items-center gap-1.5 text-sm ml-auto sm:ml-0">
+                    <span className="text-gray-500">剩余次数</span>
+                    <span className="font-medium text-blue-600">
+                      {6 - attempts.length}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="relative">
@@ -192,6 +207,12 @@ export default function Home() {
           onRestart={startNewGame}
           onUpdate={updateVtuber}
           isCorrect={guessResults.length > 0 && guessResults[0].isCorrect}
+        />
+
+        <AddVtuberModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onSubmit={addVtuber}
         />
 
         <div className="mt-8 text-center text-sm text-gray-500">
