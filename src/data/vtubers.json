@@ -1922,5 +1922,26 @@
       "护士服"
     ],
     "id": "a54c5c30-4b43-43a1-b43e-a09bad75bfda"
+  },
+  {
+    "avatar": "",
+    "name": "笙歌",
+    "nameEN": "Sheng Ge",
+    "agency": "P-SP",
+    "gender": "女",
+    "birthDate": "1月16日",
+    "debutDate": "2021-02-01",
+    "height": 0,
+    "hairColor": "金发",
+    "eyeColor": "金瞳",
+    "seiza": "摩羯座",
+    "description": "",
+    "age": 17,
+    "tags": [
+      "温柔",
+      "歌势",
+      "国风"
+    ],
+    "id": "a4a5d882-0ae1-466e-885b-0034b257389d"
   }
 ]
