@@ -1747,5 +1747,22 @@
       "腿环"
     ],
     "id": "15c8a36f-85d3-4ed4-876a-55cc8a149259"
+  },
+  {
+    "avatar": "",
+    "name": "星街彗星",
+    "nameEN": "hoshimachisuisei",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "1月1日",
+    "debutDate": "2019年",
+    "height": 0,
+    "hairColor": "蓝",
+    "eyeColor": "黄",
+    "seiza": "射手座",
+    "description": "",
+    "age": 18,
+    "tags": [],
+    "id": "6a70dbd9-89a6-4ca1-b608-3ad748ea075b"
   }
 ]
