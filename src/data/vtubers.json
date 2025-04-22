@@ -1747,5 +1747,22 @@
       "腿环"
     ],
     "id": "15c8a36f-85d3-4ed4-876a-55cc8a149259"
+  },
+  {
+    "avatar": "",
+    "name": "星街彗星",
+    "nameEN": "Hoshimachi Suisei",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "3月22日",
+    "debutDate": "2018-03-22",
+    "height": 160,
+    "hairColor": "蓝发",
+    "eyeColor": "蓝瞳",
+    "seiza": "白羊座",
+    "description": "",
+    "age": 18,
+    "tags": ["歌姬","偶像","全能天才","元气","贝雷帽","长靴","星星眼","侧单马尾","精神病","正太控"],
+    "id": "6a70dbd9-89a6-4ca1-b608-3ad748ea075b"
   }
 ]
