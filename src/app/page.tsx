@@ -13,6 +13,7 @@ import {
   TrophyIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
+import { vtubers } from "@/data/vtubers";
 
 export default function Home() {
   const {
@@ -213,6 +214,7 @@ export default function Home() {
           isOpen={isAddModalOpen}
           onClose={() => setIsAddModalOpen(false)}
           onSubmit={addVtuber}
+          existingVtubers={vtubers}
         />
 
         <div className="mt-8 text-center text-sm text-gray-500">

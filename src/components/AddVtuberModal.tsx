@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 import { VTuber } from "@/types/vtuber";
 
 interface AddVtuberModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (vtuber: Omit<VTuber, "id">) => Promise<VTuber>;
+  existingVtubers: VTuber[];
 }
 
 const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  existingVtubers,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     avatar: "",
     name: "",
@@ -33,6 +39,18 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+
+    // 检查是否有重复的 VTuber
+    const isDuplicate = existingVtubers.some(
+      (v) => v.name === formData.name && v.nameEN === formData.nameEN
+    );
+
+    if (isDuplicate) {
+      setError("已存在相同中文名和英文名的 VTuber，请检查后重试");
+      return;
+    }
+
     setIsLoading(true);
     try {
       await onSubmit({
@@ -43,6 +61,8 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
           .filter(Boolean),
       });
       onClose();
+    } catch {
+      setError("提交失败，请稍后重试");
     } finally {
       setIsLoading(false);
     }
@@ -62,6 +82,13 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
             <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+            <ExclamationTriangleIcon className="w-5 h-5 text-red-500 mt-0.5" />
+            <p className="text-red-700 text-sm">{error}</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-2">
           <div className="grid grid-cols-2 gap-2">
