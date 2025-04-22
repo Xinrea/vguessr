@@ -13,6 +13,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     avatar: "",
     name: "",
@@ -32,14 +33,19 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await onSubmit({
-      ...formData,
-      tags: formData.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
-    });
-    onClose();
+    setIsLoading(true);
+    try {
+      await onSubmit({
+        ...formData,
+        tags: formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+      });
+      onClose();
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -278,9 +284,14 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+              disabled={isLoading}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${
+                isLoading
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
             >
-              提交
+              {isLoading ? "提交中..." : "提交"}
             </button>
           </div>
         </form>
