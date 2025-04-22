@@ -16,7 +16,9 @@ const GuessResult: React.FC<GuessResultProps> = ({
   isMobile = false,
 }) => {
   // Separate tags from other attributes
-  const tags = result.differences.filter((diff) => diff.attribute === "标签");
+  const tags = result.differences
+    .filter((diff) => diff.attribute === "标签")
+    .sort((a, b) => (b.isMatch ? 1 : 0) - (a.isMatch ? 1 : 0));
   const otherAttributes = result.differences.filter(
     (diff) => diff.attribute !== "标签"
   );
