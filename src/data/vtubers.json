@@ -1503,10 +1503,13 @@
     "seiza": "摩羯座",
     "gender": "女",
     "age": 0,
-    "hairColor": "白发",
-    "eyeColor": "红瞳",
+    "hairColor": "棕发",
+    "eyeColor": "棕瞳",
     "height": 156,
-    "tags": []
+    "tags": [
+      "已毕业",
+      "link"
+    ]
   },
   {
     "id": "Tokimori Seisa",
