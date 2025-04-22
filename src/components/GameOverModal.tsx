@@ -37,7 +37,19 @@ export function GameOverModal({
   };
 
   const handleSave = async () => {
-    if (!editedVtuber) return;
+    if (!editedVtuber || !answer) return;
+
+    // Check if there are any changes
+    const hasChanges = Object.keys(editedVtuber).some(
+      (key) =>
+        JSON.stringify(editedVtuber[key as keyof VTuber]) !==
+        JSON.stringify(answer[key as keyof VTuber])
+    );
+
+    if (!hasChanges) {
+      setIsEditing(false);
+      return;
+    }
 
     setIsSubmitting(true);
     setError(null);
