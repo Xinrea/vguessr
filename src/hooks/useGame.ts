@@ -146,6 +146,13 @@ export function useGame() {
       isMatch: guess.name === target.name,
     });
 
+    // 检查团体
+    differences.push({
+      attribute: "团体",
+      value: guess.agency || "无",
+      isMatch: guess.agency === target.agency,
+    });
+
     // 检查性别
     differences.push({
       attribute: "性别",
