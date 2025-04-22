@@ -516,13 +516,14 @@
     "seiza": "狮子座",
     "gender": "女",
     "age": 0,
-    "hairColor": "黑发带蓝挑染",
-    "eyeColor": "异色瞳（灰-蓝）",
+    "hairColor": "黑发",
+    "eyeColor": "异色瞳",
     "height": 162,
     "tags": [
       "猫耳",
       "傲娇",
-      "帽子"
+      "帽子",
+      "挑染"
     ]
   },
   {
