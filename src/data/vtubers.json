@@ -1575,5 +1575,27 @@
       "腹黑"
     ],
     "id": "a9048e5e-ce2a-41c0-ba8e-390b2d39f78a"
+  },
+  {
+    "name": "贝拉",
+    "nameEN": "Bella",
+    "agency": "A-SOUL",
+    "gender": "女",
+    "birthDate": "7月17日",
+    "debutDate": "2020-11-26",
+    "height": 0,
+    "hairColor": "紫色",
+    "eyeColor": "紫色",
+    "seiza": "巨蟹座",
+    "description": "",
+    "age": 19,
+    "tags": [
+      "偶像",
+      "姬发式",
+      "队长",
+      "泪痣",
+      "露脐装"
+    ],
+    "id": "e7924773-c17c-4a5a-92d4-845ae6edf7b5"
   }
 ]
