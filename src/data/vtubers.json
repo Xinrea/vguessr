@@ -475,7 +475,10 @@
     "hairColor": "黑发",
     "eyeColor": "紫瞳",
     "height": 185,
-    "tags": []
+    "tags": [
+      "活动中",
+      "兽耳"
+    ]
   },
   {
     "id": "edb4ee78-38d3-48b8-9caa-dfa09dd0f19c",
