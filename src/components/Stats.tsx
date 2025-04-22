@@ -21,7 +21,7 @@ const Stats: React.FC<StatsProps> = ({
 
   return (
     <>
-      <div className="flex flex-wrap justify-end gap-x-4 gap-y-1 text-sm">
+      <div className="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-1 text-sm">
         <div className="flex items-center gap-1.5">
           <TrophyIcon className="w-4 h-4 text-yellow-500" />
           <span className="text-gray-500">局</span>
