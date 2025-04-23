@@ -2540,5 +2540,27 @@
       "已毕业"
     ],
     "id": "bfa2c30c-8a70-437d-8077-3222f7b22c26"
+  },
+  {
+    "avatar": "",
+    "name": "绮楼",
+    "nameEN": "Qilou",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "1月23日",
+    "debutDate": "2021-05-02",
+    "height": 165,
+    "hairColor": "黑发",
+    "eyeColor": "金瞳",
+    "seiza": "水瓶座",
+    "description": "",
+    "age": 99999,
+    "tags": [
+      "短发",
+      "酒豪",
+      "尾巴",
+      "已毕业"
+    ],
+    "id": "2edaf182-9811-40cd-85ed-ab6579e69886"
   }
 ]
