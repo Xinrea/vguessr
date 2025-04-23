@@ -7,11 +7,13 @@ import { GameOverModal } from "@/components/GameOverModal";
 import GuessResult from "@/components/GuessResult";
 import Stats from "@/components/Stats";
 import AddVtuberModal from "@/components/AddVtuberModal";
+import SettingsModal from "@/components/SettingsModal";
 import {
   CodeBracketIcon,
   MagnifyingGlassIcon,
   TrophyIcon,
   PlusIcon,
+  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import { vtubers } from "@/data/vtubers";
 
@@ -29,9 +31,12 @@ export default function Home() {
     updateVtuber,
     addVtuber,
     stats,
+    settings,
+    updateSettings,
   } = useGame();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900">
@@ -46,7 +51,9 @@ export default function Home() {
               </span>
             </div>
           </div>
-          <Stats {...stats} />
+          <div className="flex items-center gap-4">
+            <Stats {...stats} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6">
@@ -222,6 +229,13 @@ export default function Home() {
           existingVtubers={vtubers}
         />
 
+        <SettingsModal
+          isOpen={isSettingsModalOpen}
+          onClose={() => setIsSettingsModalOpen(false)}
+          settings={settings}
+          onUpdateSettings={updateSettings}
+        />
+
         <div className="mt-8 text-center text-sm text-gray-500">
           <div className="flex items-center justify-center gap-2">
             <CodeBracketIcon className="w-4 h-4" />
@@ -233,6 +247,14 @@ export default function Home() {
             >
               GitHub
             </a>
+            <span>·</span>
+            <button
+              onClick={() => setIsSettingsModalOpen(true)}
+              className="flex items-center gap-1.5 hover:text-gray-900 transition-colors"
+            >
+              <Cog6ToothIcon className="w-4 h-4" />
+              <span>设置</span>
+            </button>
             <span>·</span>
             <span>
               Created by{" "}

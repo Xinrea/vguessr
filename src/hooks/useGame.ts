@@ -21,6 +21,17 @@ export function useGame() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [settings, setSettings] = useState<{
+    excludedAgencies: string[];
+  }>(() => {
+    if (typeof window !== "undefined") {
+      const savedSettings = localStorage.getItem("vtuber-guessr-settings");
+      return savedSettings
+        ? JSON.parse(savedSettings)
+        : { excludedAgencies: [] };
+    }
+    return { excludedAgencies: [] };
+  });
   const [stats, setStats] = useState<GameStats>({
     totalGames: 0,
     wins: 0,
@@ -38,9 +49,22 @@ export function useGame() {
     }
   }, []);
 
+  const updateSettings = (newSettings: { excludedAgencies: string[] }) => {
+    setSettings(newSettings);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "vtuber-guessr-settings",
+        JSON.stringify(newSettings)
+      );
+    }
+  };
+
   const getRandomVtuber = (): VTuber => {
-    const randomIndex = Math.floor(Math.random() * vtubers.length);
-    return vtubers[randomIndex];
+    const filteredVtubers = vtubers.filter(
+      (v) => !settings.excludedAgencies.includes(v.agency || "")
+    );
+    const randomIndex = Math.floor(Math.random() * filteredVtubers.length);
+    return filteredVtubers[randomIndex];
   };
 
   const updateVtuber = (updatedVtuber: VTuber) => {
@@ -82,10 +106,15 @@ export function useGame() {
 
     const queryLower = query.toLowerCase();
 
-    // 使用本地数据进行搜索，排除已经猜测过的 VTuber
+    // 使用本地数据进行搜索，排除已经猜测过的 VTuber 和排除的企划
     const result = vtubers.filter((vtuber) => {
       // 检查是否已经猜测过
       if (attempts.some((attempt) => attempt.id === vtuber.id)) {
+        return false;
+      }
+
+      // 检查是否在排除的企划中
+      if (settings.excludedAgencies.includes(vtuber.agency || "")) {
         return false;
       }
 
@@ -311,5 +340,7 @@ export function useGame() {
     isAddingVtuber,
     addVtuberError,
     stats,
+    settings,
+    updateSettings,
   };
 }
