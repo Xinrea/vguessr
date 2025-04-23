@@ -3031,5 +3031,26 @@
       "调查员"
     ],
     "id": "93632a0d-94c5-4597-b100-7d092586c17e"
+  },
+  {
+    "avatar": "",
+    "name": "阿命",
+    "nameEN": "Inochi",
+    "agency": "VirtuaReal",
+    "gender": "男",
+    "birthDate": "2月27日",
+    "debutDate": "2024-05-06",
+    "height": 180,
+    "hairColor": "白发",
+    "eyeColor": "蓝瞳",
+    "seiza": "双鱼座",
+    "description": "来自于CF21号行星的外星人，在进行星际旅游的时候，无意间被卷入黑洞，来到了地球。",
+    "age": 0,
+    "tags": [
+      "活动中",
+      "外星人",
+      "玩偶熊"
+    ],
+    "id": "d322a58c-b2b1-415b-81e8-220fdead567f"
   }
 ]
