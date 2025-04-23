@@ -102,7 +102,12 @@ export default function SettingsModal({
                               htmlFor={`agency-${agency}`}
                               className="ml-2 sm:ml-3 text-sm font-medium text-gray-700 hover:text-gray-900 cursor-pointer transition-colors duration-200 ease-in-out"
                             >
-                              {agency}
+                              {agency} (
+                              {
+                                vtubers.filter((v) => v.agency === agency)
+                                  .length
+                              }
+                              )
                             </label>
                           </div>
                         ))}
