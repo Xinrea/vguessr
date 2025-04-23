@@ -1992,5 +1992,24 @@
       "活动中"
     ],
     "id": "f1aa0951-ae8e-4c70-9dc6-12131774bd63"
+  },
+  {
+    "avatar": "",
+    "name": "蕾姆",
+    "nameEN": "rem",
+    "agency": "自由",
+    "gender": "女",
+    "birthDate": "7月10号",
+    "debutDate": "2024-10-1",
+    "height": 156,
+    "hairColor": "蓝色",
+    "eyeColor": "蓝色",
+    "seiza": "巨蟹",
+    "description": "一个温柔善解人意的女仆",
+    "age": 16,
+    "tags": [
+      "女仆，知心，可爱，鬼人"
+    ],
+    "id": "1fa1fb8a-9b02-44d2-8921-b05d792eb1cd"
   }
 ]
