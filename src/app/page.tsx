@@ -39,7 +39,12 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex items-center gap-3">
             <TrophyIcon className="w-8 h-8 text-yellow-500" />
-            <h1 className="text-3xl sm:text-4xl font-bold">VTuber Guessr</h1>
+            <div className="flex flex-col">
+              <h1 className="text-3xl sm:text-4xl font-bold">VTuber Guessr</h1>
+              <span className="text-sm text-gray-500">
+                当前数据库中 VTuber 数量：{vtubers.length}
+              </span>
+            </div>
           </div>
           <Stats {...stats} />
         </div>
