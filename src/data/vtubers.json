@@ -193,7 +193,7 @@
     "seiza": "狮子座",
     "gender": "女",
     "age": 0,
-    "hairColor": "黄发",
+    "hairColor": "金发",
     "eyeColor": "蓝瞳",
     "height": 156,
     "tags": [
@@ -335,7 +335,9 @@
       "游戏",
       "米游",
       "FF14",
-      "活动中"
+      "活动中",
+      "短发",
+      "异瞳"
     ]
   },
   {
@@ -1174,7 +1176,8 @@
       "触手",
       "兽娘",
       "裸奔",
-      "已毕业"
+      "已毕业",
+      "歌势"
     ]
   },
   {
@@ -2186,7 +2189,7 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "1月28日",
-    "debutDate": "2020-01-16",
+    "debutDate": "2022-01-16",
     "height": 167,
     "hairColor": "黄发",
     "eyeColor": "黄瞳",
@@ -2582,7 +2585,10 @@
       "人来疯",
       "元气",
       "真空",
-      "已毕业"
+      "已毕业",
+      "发卡",
+      "眼镜",
+      "有官配"
     ],
     "id": "98ad6d33-3c2a-43c8-b261-37b8168c234e"
   },
@@ -2615,7 +2621,7 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "8月10日",
-    "debutDate": "2024-07-19",
+    "debutDate": "2021-07-19",
     "height": 158,
     "hairColor": "白发",
     "eyeColor": "红瞳",
@@ -2657,5 +2663,77 @@
       "冒险者"
     ],
     "id": "d3081e42-a064-47e6-9635-7a4955779a94"
+  },
+  {
+    "avatar": "",
+    "name": "有加",
+    "nameEN": "Plus",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "6月3日",
+    "debutDate": "2019-09-16",
+    "height": 149,
+    "hairColor": "白发",
+    "eyeColor": "红瞳",
+    "seiza": "双子座",
+    "description": "蛰居在奢华的宅邸中，总是有着一位乌鸦管家环伺在身边的兔人大小姐。\n\n她格外钟情于观察可爱的少年少女，并把他们的信息记录在自己的手帐上，再通过各式各样的手段邀请他们做客。\n\n她希望通过直播来结识更多的客人，以此来交到更棒，更优秀的朋友。",
+    "age": 13,
+    "tags": [
+      "已毕业",
+      "兽娘",
+      "兔娘",
+      "手套",
+      "发箍",
+      "大小姐"
+    ],
+    "id": "b5351acc-0f44-4477-ac0a-4d2e5311bbb1"
+  },
+  {
+    "avatar": "",
+    "name": "呜诶诶",
+    "nameEN": "5AA",
+    "agency": "个人",
+    "gender": "不明",
+    "birthDate": "4月14日",
+    "debutDate": "2022-05-20",
+    "height": 163,
+    "hairColor": "蓝绿色",
+    "eyeColor": "黄色",
+    "seiza": "白羊座",
+    "description": "虚拟铜锣湾的高智商女仆。",
+    "age": 18,
+    "tags": [
+      "熊耳",
+      "高智商",
+      "女仆",
+      "笨蛋美人"
+    ],
+    "id": "6fed2800-e312-4803-9b51-fe8f74b8f80e"
+  },
+  {
+    "avatar": "",
+    "name": "羽音",
+    "nameEN": "Hanon",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "2月5日",
+    "debutDate": "2019-11-1",
+    "height": 0,
+    "hairColor": "白发",
+    "eyeColor": "红瞳",
+    "seiza": "水瓶座",
+    "description": "",
+    "age": 4,
+    "tags": [
+      "神",
+      "幼女",
+      "迷糊",
+      "白丝",
+      "翅膀",
+      "超长袖",
+      "玛丽珍鞋",
+      "翅膀型耳朵"
+    ],
+    "id": "69f1deb5-f6c3-45ed-8945-4adf28cdcb92"
   }
 ]
