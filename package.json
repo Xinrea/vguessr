@@ -2,6 +2,9 @@
   "name": "vtuber-guessr",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "shared"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -11,7 +14,9 @@
   "dependencies": {
     "@headlessui/react": "^2.2.2",
     "@heroicons/react": "^2.2.0",
+    "@types/socket.io-client": "^1.4.36",
     "@types/uuid": "^10.0.0",
+    "@vtuber-guessr/shared": "file:shared",
     "axios": "^1.8.4",
     "framer-motion": "^12.7.4",
     "next": "15.3.1",
@@ -19,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "segmentit": "^2.0.3",
+    "socket.io-client": "^4.8.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

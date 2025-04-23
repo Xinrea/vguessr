@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   XMarkIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
-import { VTuber } from "@/types/vtuber";
+import { VTuber } from "@vtuber-guessr/shared";
 
 interface AddVtuberModalProps {
   isOpen: boolean;

@@ -1,5 +1,5 @@
 import React from "react";
-import { GuessResult as GuessResultType } from "../types/vtuber";
+import { GuessResult as GuessResultType } from "@vtuber-guessr/shared";
 import {
   ArrowUpIcon,
   ArrowDownIcon,
@@ -22,6 +22,17 @@ const GuessResult: React.FC<GuessResultProps> = ({
   const otherAttributes = result.differences.filter(
     (diff) => diff.attribute !== "标签"
   );
+
+  const getBGStyle = () => {
+    switch (result.marker) {
+      case 1:
+        return "bg-blue-50";
+      case 2:
+        return "bg-white";
+      default:
+        return "bg-white";
+    }
+  };
 
   const renderHintIcon = (hint?: "higher" | "lower" | "equal") => {
     if (!hint) return null;
@@ -51,7 +62,9 @@ const GuessResult: React.FC<GuessResultProps> = ({
 
   if (isMobile) {
     return (
-      <div className="p-2 border-b border-gray-100 last:border-b-0">
+      <div
+        className={`p-2 border-b border-gray-100 last:border-b-0 ${getBGStyle()}`}
+      >
         <div className="grid grid-cols-2 gap-1.5 mb-1.5">
           {otherAttributes.map((attr, index) => (
             <div key={index}>
@@ -93,7 +106,7 @@ const GuessResult: React.FC<GuessResultProps> = ({
   }
 
   return (
-    <tr className="border-b border-gray-100 last:border-b-0">
+    <tr className={`border-b border-gray-100 last:border-b-0 ${getBGStyle()}`}>
       {otherAttributes.map((attr, index) => (
         <td
           key={index}

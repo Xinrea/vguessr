@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { VTuber } from "@/types/vtuber";
+import { VTuber } from "@vtuber-guessr/shared";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { createPullRequest } from "@/services/github";
 import { ConfettiEffect } from "./ConfettiEffect";
@@ -125,7 +125,7 @@ export function GameOverModal({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-10" onClose={() => {}}>
         {isOpen && isCorrect && <ConfettiEffect />}
         <Transition.Child
           as={Fragment}
@@ -157,11 +157,27 @@ export function GameOverModal({
                     : "ring-2 ring-red-400 ring-offset-2"
                 }`}
               >
+                <div className="absolute top-4 right-4">
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={onClose}
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
+                </div>
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center"
                 >
-                  游戏结束！
+                  <span>游戏结束！</span>
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={onClose}
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
                 </Dialog.Title>
                 <div className="mt-1 text-sm text-gray-500">正确答案</div>
                 <div className="mt-4 space-y-2">

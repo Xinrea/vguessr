@@ -1,4 +1,4 @@
-import { VTuber } from "@/types/vtuber";
+import { VTuber } from "@vtuber-guessr/shared";
 import { v4 as uuidv4 } from "uuid";
 
 const GITHUB_API_URL = "https://api.github.com";
@@ -102,7 +102,7 @@ export async function createPullRequest(
   }
 
   // 2. 更新文件
-  const filePath = "src/data/vtubers.json";
+  const filePath = "shared/src/data/vtubers.json";
   const fileContent = await fetch(
     `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}?ref=${branchName}`,
     {

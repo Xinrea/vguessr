@@ -1,0 +1,14 @@
+{
+  "name": "@vtuber-guessr/shared",
+  "version": "1.0.0",
+  "description": "Shared types and logic for VTuber Guessr",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && cp src/vtubers.json dist/",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+} 

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { vtubers } from "@/data/vtubers";
+import { vtubers } from "@vtuber-guessr/shared";
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -31,6 +31,13 @@ export default function SettingsModal({
     onUpdateSettings({
       excludedAgencies: newExcludedAgencies,
     });
+  };
+
+  const handleClearUserInfo = () => {
+    localStorage.removeItem("vtuber-guessr-user-id");
+    localStorage.removeItem("vtuber-guessr-stats");
+    localStorage.removeItem("vtuber-guessr-stats-pvp");
+    window.location.reload();
   };
 
   return (
@@ -112,6 +119,14 @@ export default function SettingsModal({
                           </div>
                         ))}
                       </div>
+                    </div>
+                    <div className="mt-6 border-t border-gray-200 pt-4">
+                      <button
+                        onClick={handleClearUserInfo}
+                        className="w-full rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                      >
+                        清除用户信息
+                      </button>
                     </div>
                   </div>
                 </div>
