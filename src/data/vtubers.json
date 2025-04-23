@@ -1992,5 +1992,29 @@
       "活动中"
     ],
     "id": "f1aa0951-ae8e-4c70-9dc6-12131774bd63"
+  },
+  {
+    "avatar": "",
+    "name": "瑞芙",
+    "nameEN": "Reve",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "3月9日",
+    "debutDate": "2020-09-30",
+    "height": 155,
+    "hairColor": "绿发",
+    "eyeColor": "绿瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "已毕业",
+      "魔女",
+      "老板娘",
+      "猫嘴",
+      "短发",
+      "头饰"
+    ],
+    "id": "7daeec84-68f9-42c6-ba96-1b715d28817f"
   }
 ]
