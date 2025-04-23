@@ -2762,6 +2762,29 @@
   },
   {
     "avatar": "",
+    "name": "星瞳",
+    "nameEN": "xingtong",
+    "agency": "腾讯",
+    "gender": "女",
+    "birthDate": "10月21日",
+    "debutDate": "2021-06-11",
+    "height": 168,
+    "hairColor": "银白发",
+    "eyeColor": "蓝瞳",
+    "seiza": "天秤座",
+    "description": "星瞳是QQ炫舞系列虚拟代言人，中国首个虚拟时尚博主，同时也是一位虚拟歌手。",
+    "age": 18,
+    "tags": [
+      "白毛",
+      "呆毛",
+      "天然呆",
+      "温柔",
+      "短发"
+    ],
+    "id": "822f42ad-2e47-44bc-9f77-b966a3d8eeb4"
+  },
+  {
+    "avatar": "",
     "name": "卡欧斯",
     "nameEN": "Chaos",
     "agency": "VirtuaReal",
