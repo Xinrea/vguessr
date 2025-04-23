@@ -2040,5 +2040,22 @@
       "头饰"
     ],
     "id": "7daeec84-68f9-42c6-ba96-1b715d28817f"
+  },
+  {
+    "avatar": "",
+    "name": "百变小音",
+    "nameEN": "devilcat0",
+    "agency": "Virtual real",
+    "gender": "女",
+    "birthDate": "2007.7.9",
+    "debutDate": "2025.1.15",
+    "height": 166,
+    "hairColor": "粉色",
+    "eyeColor": "蓝色",
+    "seiza": "巨蟹",
+    "description": "",
+    "age": 18,
+    "tags": [],
+    "id": "54760eec-bdd3-4b44-a3a3-abfd9912aeff"
   }
 ]
