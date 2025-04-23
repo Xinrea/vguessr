@@ -767,7 +767,7 @@
     "gender": "男",
     "age": 19,
     "hairColor": "亚麻发带绿挑染",
-    "eyeColor": "异色瞳（红蓝）",
+    "eyeColor": "异色瞳",
     "height": 178,
     "tags": [
       "傲娇",
@@ -873,7 +873,7 @@
     "gender": "女",
     "age": 0,
     "hairColor": "棕发",
-    "eyeColor": "红瞳",
+    "eyeColor": "黄瞳",
     "height": 155.5,
     "tags": [
       "小天使",
@@ -2016,5 +2016,29 @@
       "贝拉"
     ],
     "id": "6a6ba6fa-835b-4c05-a89b-add77bc2b02c"
+  },
+  {
+    "avatar": "",
+    "name": "瑞芙",
+    "nameEN": "Reve",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "3月9日",
+    "debutDate": "2020-09-30",
+    "height": 155,
+    "hairColor": "绿发",
+    "eyeColor": "绿瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "已毕业",
+      "魔女",
+      "老板娘",
+      "猫嘴",
+      "短发",
+      "头饰"
+    ],
+    "id": "7daeec84-68f9-42c6-ba96-1b715d28817f"
   }
 ]
