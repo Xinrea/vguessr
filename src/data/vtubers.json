@@ -2040,5 +2040,24 @@
       "头饰"
     ],
     "id": "7daeec84-68f9-42c6-ba96-1b715d28817f"
+  },
+  {
+    "avatar": "",
+    "name": "名乃",
+    "nameEN": "Nano",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "5月16日",
+    "debutDate": "2022-05-16",
+    "height": 160,
+    "hairColor": "黑发",
+    "eyeColor": "紫瞳",
+    "seiza": "金牛座",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "高攻低防"
+    ],
+    "id": "dc7c7d28-fb3e-4804-a566-46a79e77cfcd"
   }
 ]
