@@ -22,6 +22,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { VTuber, vtubers } from "@vtuber-guessr/shared";
+import { ModificationRequests } from "@/components/ModificationRequests";
 
 export default function Home() {
   const {
@@ -306,6 +307,8 @@ export default function Home() {
               </motion.div>
             </>
           )}
+
+          <ModificationRequests />
         </div>
 
         <GameOverModal
