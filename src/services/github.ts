@@ -102,7 +102,7 @@ export async function createPullRequest(
   }
 
   // 2. 更新文件
-  const filePath = "shared/src/data/vtubers.json";
+  const filePath = "shared/src/vtubers.json";
   const fileContent = await fetch(
     `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}?ref=${branchName}`,
     {
@@ -267,7 +267,7 @@ export async function createAddVtuberPullRequest(
   }
 
   // 2. 更新文件
-  const filePath = "shared/src/data/vtubers.json";
+  const filePath = "shared/src/vtubers.json";
   const fileContent = await fetch(
     `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}?ref=${branchName}`,
     {
