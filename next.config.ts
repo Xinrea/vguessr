@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     config.plugins.push(
       new webpack.DefinePlugin({
         "process.env.PR_TOKEN": JSON.stringify(process.env.PR_TOKEN),
+        "process.env.NEXT_PUBLIC_SOCKET_URL": JSON.stringify(
+          process.env.NEXT_PUBLIC_SOCKET_URL
+        ),
       })
     );
     return config;

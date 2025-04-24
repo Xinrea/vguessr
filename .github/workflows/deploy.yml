@@ -76,8 +76,10 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: |
-          PR_TOKEN=${{ secrets.PR_TOKEN }} npm run build
+        env:
+          PR_TOKEN: ${{ secrets.PR_TOKEN }}
+          NEXT_PUBLIC_SOCKET_URL: ${{ secrets.NEXT_PUBLIC_SOCKET_URL }}
+        run: npm run build
 
       - name: Deploy via SSH
         uses: appleboy/scp-action@v0.1.7
