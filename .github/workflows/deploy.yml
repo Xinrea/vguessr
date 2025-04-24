@@ -1,16 +1,60 @@
-name: Deploy
+name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "0 */2 * * *"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: xinrea/vguessr-server
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check_changes.outputs.changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: "true"
+          fetch-depth: 0
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          # Get the last commit hash from the last successful workflow run
+          LAST_COMMIT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?status=success&branch=main" \
+            | jq -r '.workflow_runs[0].head_commit.id')
+
+          # Compare with current commit
+          if [[ "$LAST_COMMIT" == "${{ github.sha }}" ]]; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Prepare Docker
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+  deploy-frontend:
+    needs: build
+    if: needs.build.outputs.has_changes == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,7 +73,7 @@ jobs:
         run: |
           PR_TOKEN=${{ secrets.PR_TOKEN }} npm run build
 
-      - name: copy file via ssh password
+      - name: Deploy via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}

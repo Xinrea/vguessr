@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   VTuber,
   GuessResult,
@@ -93,51 +93,54 @@ export function useGame() {
     }
   };
 
-  const searchVtubers = async (query: string) => {
-    if (!query) {
-      setSearchResults([]);
-      return;
-    }
+  const searchVtubers = useCallback(
+    async (query: string) => {
+      if (!query) {
+        setSearchResults([]);
+        return;
+      }
 
-    const queryLower = query.toLowerCase();
+      const queryLower = query.toLowerCase();
 
-    // 使用本地数据进行搜索，排除已经猜测过的 VTuber 和排除的企划
-    const result = vtubers.filter((vtuber) => {
-      // 检查是否已经猜测过
-      if (attempts.some((attempt) => attempt.id === vtuber.id)) {
+      // 使用本地数据进行搜索，排除已经猜测过的 VTuber 和排除的企划
+      const result = vtubers.filter((vtuber) => {
+        // 检查是否已经猜测过
+        if (attempts.some((attempt) => attempt.id === vtuber.id)) {
+          return false;
+        }
+
+        // 检查是否在排除的企划中
+        if (settings.excludedAgencies.includes(vtuber.agency || "")) {
+          return false;
+        }
+
+        // 检查英文名
+        if (vtuber.nameEN.toLowerCase().includes(queryLower)) {
+          return true;
+        }
+
+        // 检查中文名
+        if (vtuber.name.toLowerCase().includes(queryLower)) {
+          return true;
+        }
+
+        // 检查拼音
+        const namePinyin = pinyin(vtuber.name, {
+          style: pinyin.STYLE_NORMAL,
+          heteronym: false,
+        }).join("");
+
+        if (namePinyin.toLowerCase().includes(queryLower)) {
+          return true;
+        }
+
         return false;
-      }
+      });
 
-      // 检查是否在排除的企划中
-      if (settings.excludedAgencies.includes(vtuber.agency || "")) {
-        return false;
-      }
-
-      // 检查英文名
-      if (vtuber.nameEN.toLowerCase().includes(queryLower)) {
-        return true;
-      }
-
-      // 检查中文名
-      if (vtuber.name.toLowerCase().includes(queryLower)) {
-        return true;
-      }
-
-      // 检查拼音
-      const namePinyin = pinyin(vtuber.name, {
-        style: pinyin.STYLE_NORMAL,
-        heteronym: false,
-      }).join("");
-
-      if (namePinyin.toLowerCase().includes(queryLower)) {
-        return true;
-      }
-
-      return false;
-    });
-
-    setSearchResults(result);
-  };
+      setSearchResults(result);
+    },
+    [attempts, settings.excludedAgencies]
+  );
 
   const startNewGame = () => {
     setTargetVtuber(null);
@@ -190,7 +193,7 @@ export function useGame() {
     } else {
       setSearchResults([]);
     }
-  }, [searchQuery]);
+  }, [searchQuery, searchVtubers]);
 
   return {
     targetVtuber,

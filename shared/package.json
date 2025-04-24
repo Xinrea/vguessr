@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && cp src/vtubers.json dist/",
-    "prepare": "npm run build"
+    "build": "tsc && cp src/vtubers.json dist/"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

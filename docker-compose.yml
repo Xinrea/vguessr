@@ -1,0 +1,32 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: vtuber-guessr-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - vtuber-guessr-network
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vtuber-guessr-server
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - vtuber-guessr-network
+
+networks:
+  vtuber-guessr-network:
+    driver: bridge
