@@ -1,6 +1,52 @@
 import { VTuber } from "@vtuber-guessr/shared";
 import { v4 as uuidv4 } from "uuid";
 
+export interface PullRequest {
+  id: number;
+  number: number;
+  title: string;
+  html_url: string;
+  state: string;
+  created_at: string;
+  user: {
+    login: string;
+    avatar_url: string;
+  };
+  merged_at: string | null;
+  reactions?: {
+    "+1": number;
+    "-1": number;
+  };
+}
+
+interface GitHubUser {
+  login: string;
+  avatar_url: string;
+}
+
+interface GitHubPullRequest {
+  merged_at: string | null;
+}
+
+interface GitHubSearchItem {
+  id: number;
+  number: number;
+  title: string;
+  html_url: string;
+  state: string;
+  created_at: string;
+  user: GitHubUser;
+  pull_request?: GitHubPullRequest;
+  reactions?: {
+    "+1": number;
+    "-1": number;
+  };
+}
+
+interface GitHubSearchResponse {
+  items: GitHubSearchItem[];
+}
+
 const GITHUB_API_URL = "https://api.github.com";
 const REPO_OWNER = "Xinrea";
 const REPO_NAME = "vguessr";
@@ -327,4 +373,128 @@ export async function createAddVtuberPullRequest(
       base: baseBranch,
     }),
   });
+}
+
+export async function getPullRequests(token: string): Promise<PullRequest[]> {
+  const [openResponse, closedResponse] = await Promise.all([
+    fetch(
+      `${GITHUB_API_URL}/search/issues?q=repo:${REPO_OWNER}/${REPO_NAME}+type:pr+state:open+Update+OR+Add&sort=created&order=desc`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    ),
+    fetch(
+      `${GITHUB_API_URL}/search/issues?q=repo:${REPO_OWNER}/${REPO_NAME}+type:pr+state:closed+Update+OR+Add&per_page=5&sort=created&order=desc`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    ),
+  ]);
+
+  if (!openResponse.ok || !closedResponse.ok) {
+    const errorData = await (openResponse.ok ? closedResponse : openResponse)
+      .json()
+      .catch(() => ({}));
+    throw new Error(
+      `Failed to fetch pull requests: ${
+        openResponse.ok ? closedResponse.status : openResponse.status
+      } ${
+        openResponse.ok ? closedResponse.statusText : openResponse.statusText
+      }. ${errorData.message || ""}`
+    );
+  }
+
+  const openData = (await openResponse.json()) as GitHubSearchResponse;
+  const closedData = (await closedResponse.json()) as GitHubSearchResponse;
+
+  const openPRs = openData.items.map((item) => ({
+    id: item.id,
+    number: item.number,
+    title: item.title,
+    html_url: item.html_url,
+    state: item.state,
+    created_at: item.created_at,
+    user: {
+      login: item.user.login,
+      avatar_url: item.user.avatar_url,
+    },
+    merged_at: item.pull_request?.merged_at || null,
+    reactions: item.reactions || { "+1": 0, "-1": 0 },
+  }));
+
+  const closedPRs = closedData.items.map((item) => ({
+    id: item.id,
+    number: item.number,
+    title: item.title,
+    html_url: item.html_url,
+    state: item.state,
+    created_at: item.created_at,
+    user: {
+      login: item.user.login,
+      avatar_url: item.user.avatar_url,
+    },
+    merged_at: item.pull_request?.merged_at || null,
+    reactions: item.reactions || { "+1": 0, "-1": 0 },
+  }));
+
+  return [...openPRs, ...closedPRs];
+}
+
+export async function getPullRequestDiff(
+  token: string,
+  prNumber: number
+): Promise<string> {
+  const response = await fetch(
+    `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${prNumber}.diff`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3.diff",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      `Failed to fetch pull request diff: ${response.status} ${
+        response.statusText
+      }. ${errorData.message || ""}`
+    );
+  }
+
+  return response.text();
+}
+
+export async function addReaction(
+  token: string,
+  prNumber: number,
+  content: "+1" | "-1"
+): Promise<void> {
+  const response = await fetch(
+    `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${prNumber}/reactions`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+      body: JSON.stringify({ content }),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      `Failed to add reaction: ${response.status} ${response.statusText}. ${
+        errorData.message || ""
+      }`
+    );
+  }
 }
