@@ -192,7 +192,10 @@ export class GameManager {
 
         // Check if all players are ready
         if (room.players.length == 2 && room.players.every((p) => p.ready)) {
-          console.log("room start with", room.players);
+          console.log(
+            "room start with",
+            room.players.map((p) => p.user.name)
+          );
           this.startGame(room);
         }
       }
@@ -281,6 +284,12 @@ export class GameManager {
   }
 
   private startGame(room: GameRoom) {
+    // Clear any existing interval
+    if (room.chanceReductionInterval) {
+      clearInterval(room.chanceReductionInterval);
+      room.chanceReductionInterval = undefined;
+    }
+
     const defaultChance = 5;
     room.status = "playing";
     room.result = undefined;
@@ -296,7 +305,11 @@ export class GameManager {
     const vtuber = vtubers[randomIndex];
     room.currentVtuber = vtuber;
     console.log("game start with", room.currentVtuber.name);
-    this.matchmakingSystem.updateRoom(room);
+
+    // Clear interval before sending
+    const roomToSend = { ...room };
+    delete roomToSend.chanceReductionInterval;
+    this.matchmakingSystem.updateRoom(roomToSend);
     this.io.to(room.id).emit("game:started");
 
     // Start the automatic chance reduction interval
@@ -304,9 +317,10 @@ export class GameManager {
   }
 
   private startChanceReductionInterval(room: GameRoom) {
-    const interval = setInterval(() => {
+    room.chanceReductionInterval = setInterval(() => {
       if (room.status !== "playing") {
-        clearInterval(interval);
+        clearInterval(room.chanceReductionInterval);
+        room.chanceReductionInterval = undefined;
         return;
       }
 
@@ -332,8 +346,10 @@ export class GameManager {
     room.playersUsedChance = {};
     room.lastChanceReduction = Date.now();
 
-    // Update room state
-    this.matchmakingSystem.updateRoom(room);
+    // Clear interval before sending
+    const roomToSend = { ...room };
+    delete roomToSend.chanceReductionInterval;
+    this.matchmakingSystem.updateRoom(roomToSend);
 
     // Check if game should end
     if (room.players.every((p) => p.chance <= 0)) {
@@ -354,6 +370,11 @@ export class GameManager {
     room.lastChanceReduction = undefined;
     room.playersUsedChance = undefined;
 
+    // Clear interval before sending
+    const roomToSend = { ...room };
+    delete roomToSend.chanceReductionInterval;
+    this.matchmakingSystem.updateRoom(roomToSend);
+
     // Record statistics for all players
     for (const player of room.players) {
       await this.playerStats.incrementGames(player.user.id);
@@ -362,8 +383,7 @@ export class GameManager {
       }
     }
 
-    this.matchmakingSystem.updateRoom(room);
-    this.io.to(room.id).emit("game:finished", room);
+    this.io.to(room.id).emit("game:finished", roomToSend);
   }
 
   private handlePlayerLeave(socket: Socket | undefined, player: User) {
