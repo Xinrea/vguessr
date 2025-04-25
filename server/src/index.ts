@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import cache from "memory-cache";
 import { GameManager } from "./game";
 import {
   createPullRequest,
@@ -32,6 +33,29 @@ PRAutoMergeService.getInstance().start();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Cache middleware
+const cacheMiddleware = (duration: number) => {
+  return (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const key = "__express__" + req.originalUrl || req.url;
+    const cachedBody = cache.get(key);
+    if (cachedBody) {
+      res.send(cachedBody);
+      return;
+    } else {
+      const originalSend = res.send;
+      res.send = function (body: string | object) {
+        cache.put(key, body, duration * 1000);
+        return originalSend.call(this, body);
+      };
+      next();
+    }
+  };
+};
 
 // Routes
 app.get("/health", (req, res) => {
@@ -85,7 +109,7 @@ app.post("/vtuber/add", async (req, res) => {
 });
 
 // Get pull requests
-app.get("/pull-requests", async (req, res) => {
+app.get("/pull-requests", cacheMiddleware(60), async (req, res) => {
   try {
     const token = await getGitHubToken();
     const result = await getGitHubPullRequests(token);
@@ -102,7 +126,7 @@ app.get("/pull-requests", async (req, res) => {
 });
 
 // Get pull request diff
-app.get("/pull-requests/:id/diff", async (req, res) => {
+app.get("/pull-requests/:id/diff", cacheMiddleware(60), async (req, res) => {
   try {
     const { id } = req.params;
     const token = await getGitHubToken();
