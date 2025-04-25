@@ -77,7 +77,7 @@ export interface ServerToClientEvents {
   "room:joined": (room: GameRoom) => void;
   "room:updated": (room: GameRoom) => void;
   "room:disbanded": () => void;
-  "game:started": (room: GameRoom) => void;
+  "game:started": () => void;
   "game:finished": (room: GameRoom) => void;
   "stats:update": (stats: {
     onlinePlayers: number;

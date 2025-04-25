@@ -130,7 +130,7 @@ export class GameManager {
     });
 
     // Matchmaking events
-    socket.on("matchmaking:join", (callback) => {
+    socket.on("matchmaking:join", () => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
         socket.emit("error", "游戏状态异常");
@@ -141,9 +141,6 @@ export class GameManager {
       const room = this.matchmakingSystem.getRoomForPlayer(user.id);
       if (room) {
         console.log(`Player ${user.name} joined room ${room.id}`);
-        // 确保房间内的所有玩家都收到了更新
-        this.io.to(room.id).emit("room:updated", room);
-        callback(room);
       }
 
       this.broadcastStats();
@@ -300,7 +297,7 @@ export class GameManager {
     room.currentVtuber = vtuber;
     console.log("game start with", room.currentVtuber.name);
     this.matchmakingSystem.updateRoom(room);
-    this.io.to(room.id).emit("game:started", room);
+    this.io.to(room.id).emit("game:started");
 
     // Start the automatic chance reduction interval
     this.startChanceReductionInterval(room);

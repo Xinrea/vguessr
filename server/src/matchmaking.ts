@@ -117,8 +117,8 @@ export class MatchmakingSystem {
 
       player1Socket?.join(roomId);
       player2Socket?.join(roomId);
-      player1Socket?.emit("room:created", room);
-      player2Socket?.emit("room:joined", room);
+
+      this.updateRoom(room);
     }
   }
 
@@ -275,7 +275,10 @@ export class MatchmakingSystem {
       room.agencyHint = room.currentVtuber?.agency;
     }
     this.gameState.rooms[room.id] = room;
-    this.io.to(room.id).emit("room:updated", room);
+    this.io.to(room.id).emit("room:updated", {
+      ...room,
+      currentVtuber: undefined,
+    });
   }
 
   public deleteRoom(roomId: string, playerId: string) {
