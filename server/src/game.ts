@@ -130,7 +130,7 @@ export class GameManager {
     socket.on("matchmaking:join", (callback) => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
 
@@ -149,7 +149,7 @@ export class GameManager {
     socket.on("matchmaking:leave", () => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
 
@@ -162,7 +162,7 @@ export class GameManager {
     socket.on("room:join", (roomId: string) => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
       console.log("room:join", user.name, roomId);
@@ -173,7 +173,7 @@ export class GameManager {
     socket.on("room:ready", () => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
 
@@ -201,7 +201,7 @@ export class GameManager {
     socket.on("game:guess", (guess: VTuber) => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
 
@@ -245,7 +245,7 @@ export class GameManager {
     socket.on("room:leave", () => {
       const user = this.getUserBySocketID(socket.id);
       if (!user) {
-        socket.emit("error", "游戏状态异常，请检查是否打开了多个窗口");
+        socket.emit("error", "游戏状态异常");
         return;
       }
 

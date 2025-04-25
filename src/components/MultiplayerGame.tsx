@@ -119,7 +119,7 @@ export function MultiplayerGame({
               </div>
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 {(room.status === "waiting" || room.status === "finished") && (
-                  <button
+                  <motion.button
                     onClick={onReady}
                     disabled={isReady}
                     className={`flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors w-1/2 sm:w-auto ${
@@ -127,10 +127,34 @@ export function MultiplayerGame({
                         ? "bg-gray-100 text-gray-500 cursor-not-allowed"
                         : "bg-blue-50 text-blue-600 hover:bg-blue-100"
                     }`}
+                    whileHover={!isReady ? { scale: 1.05 } : {}}
+                    whileTap={!isReady ? { scale: 0.95 } : {}}
+                    animate={
+                      !isReady
+                        ? {
+                            boxShadow: [
+                              "0 0 0 0 rgba(59, 130, 246, 0.4)",
+                              "0 0 0 6px rgba(59, 130, 246, 0)",
+                              "0 0 0 0 rgba(59, 130, 246, 0.4)",
+                            ],
+                          }
+                        : {}
+                    }
+                    transition={
+                      !isReady
+                        ? {
+                            boxShadow: {
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            },
+                          }
+                        : {}
+                    }
                   >
                     <UserCircleIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{isReady ? "已准备" : "准备"}</span>
-                  </button>
+                  </motion.button>
                 )}
                 <button
                   onClick={onLeave}
@@ -164,9 +188,9 @@ export function MultiplayerGame({
                     </span>
                   </div>
                   <span className="text-xs sm:text-sm font-mono bg-white px-2 py-0.5 sm:py-1 rounded-md border border-gray-200 text-blue-600 font-semibold">
-                    <span className="hidden sm:inline">剩余</span>
+                    <span className="hidden sm:inline">剩余</span>{" "}
                     {room.players.find((p) => p.user.id === currentPlayerId)
-                      ?.chance || 0}
+                      ?.chance || 0}{" "}
                     <span className="hidden sm:inline">次机会</span>
                     <span className="sm:hidden">次</span>
                   </span>
@@ -225,9 +249,9 @@ export function MultiplayerGame({
                   </div>
                   {room.players.find((p) => p.user.id !== currentPlayerId) && (
                     <span className="text-xs sm:text-sm font-mono bg-white px-2 py-0.5 sm:py-1 rounded-md border border-gray-200 text-red-600 font-semibold">
-                      <span className="hidden sm:inline">剩余</span>
+                      <span className="hidden sm:inline">剩余</span>{" "}
                       {room.players.find((p) => p.user.id !== currentPlayerId)
-                        ?.chance || 0}
+                        ?.chance || 0}{" "}
                       <span className="hidden sm:inline">次机会</span>
                       <span className="sm:hidden">次</span>
                     </span>
