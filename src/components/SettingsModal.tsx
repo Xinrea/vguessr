@@ -8,14 +8,18 @@ interface SettingsModalProps {
   onClose: () => void;
   settings: {
     excludedAgencies: string[];
+    soundEnabled: boolean;
   };
-  onUpdateSettings: (settings: { excludedAgencies: string[] }) => void;
+  onUpdateSettings: (settings: {
+    excludedAgencies: string[];
+    soundEnabled: boolean;
+  }) => void;
 }
 
 export default function SettingsModal({
   isOpen,
   onClose,
-  settings,
+  settings = { excludedAgencies: [], soundEnabled: true },
   onUpdateSettings,
 }: SettingsModalProps) {
   // Get unique agencies from vtubers
@@ -30,6 +34,14 @@ export default function SettingsModal({
 
     onUpdateSettings({
       excludedAgencies: newExcludedAgencies,
+      soundEnabled: settings.soundEnabled,
+    });
+  };
+
+  const handleSoundToggle = () => {
+    onUpdateSettings({
+      ...settings,
+      soundEnabled: !settings.soundEnabled,
     });
   };
 
@@ -118,6 +130,27 @@ export default function SettingsModal({
                             </label>
                           </div>
                         ))}
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <h4 className="text-base font-medium text-gray-900 mb-2 sm:mb-3">
+                        音效设置
+                      </h4>
+                      <div className="flex items-center">
+                        <input
+                          id="sound-toggle"
+                          name="sound-toggle"
+                          type="checkbox"
+                          checked={settings.soundEnabled}
+                          onChange={handleSoundToggle}
+                          className="h-4 w-4 sm:h-5 sm:w-5 rounded-md border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500 transition-colors duration-200 ease-in-out"
+                        />
+                        <label
+                          htmlFor="sound-toggle"
+                          className="ml-2 sm:ml-3 text-sm font-medium text-gray-700 hover:text-gray-900 cursor-pointer transition-colors duration-200 ease-in-out"
+                        >
+                          启用音效
+                        </label>
                       </div>
                     </div>
                     <div className="mt-6 border-t border-gray-200 pt-4">

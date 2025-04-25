@@ -63,9 +63,30 @@ export default function Home() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
 
+  const playButtonSound = () => {
+    if (!settings.soundEnabled) return;
+    const audio = new Audio("/sounds/button.mp3");
+    audio.play().catch((error) => console.log("Error playing sound:", error));
+  };
+
   const handleJoinRoom = (roomId: string) => {
+    playButtonSound();
     joinRoom(roomId);
     setIsJoinRoomModalOpen(false);
+  };
+
+  const handleQueueAction = () => {
+    playButtonSound();
+    if (isInQueue) {
+      leaveQueue();
+    } else {
+      joinQueue();
+    }
+  };
+
+  const handleOpenJoinRoomModal = () => {
+    playButtonSound();
+    setIsJoinRoomModalOpen(true);
   };
 
   return (
@@ -103,7 +124,7 @@ export default function Home() {
             {!currentRoom && (
               <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
                 <button
-                  onClick={isInQueue ? leaveQueue : joinQueue}
+                  onClick={handleQueueAction}
                   className={`flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
                     isInQueue
                       ? "bg-red-50 text-red-600 hover:bg-red-100"
@@ -114,7 +135,7 @@ export default function Home() {
                   <span>{isInQueue ? "取消匹配" : "开始匹配"}</span>
                 </button>
                 <button
-                  onClick={() => setIsJoinRoomModalOpen(true)}
+                  onClick={handleOpenJoinRoomModal}
                   className="flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-medium bg-green-50 text-green-600 hover:bg-green-100 transition-colors"
                 >
                   <ArrowRightOnRectangleIcon className="w-5 h-5" />

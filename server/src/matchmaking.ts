@@ -84,7 +84,7 @@ export class MatchmakingSystem {
     }
 
     this.queue.players.push(user);
-    console.log(`Player ${user.id} joined the queue`);
+    console.log(`Player ${user.name} joined the queue`);
 
     // Try to match players
     this.tryMatchPlayers();
@@ -95,7 +95,7 @@ export class MatchmakingSystem {
       const index = this.queue.players.indexOf(user);
       if (index !== -1) {
         this.queue.players.splice(index, 1);
-        console.log(`Player ${user.id} left the queue`);
+        console.log(`Player ${user.name} left the queue`);
       }
     }
   }
@@ -275,7 +275,6 @@ export class MatchmakingSystem {
   }
 
   public playerLeaveRoom(playerId: string) {
-    console.log("playerLeaveRoom", playerId);
     const roomId = this.gameState.players[playerId];
     if (roomId) {
       this.gameState.rooms[roomId].players = this.gameState.rooms[

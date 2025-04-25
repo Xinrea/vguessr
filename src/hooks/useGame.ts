@@ -23,14 +23,15 @@ export function useGame() {
   const [searchQuery, setSearchQuery] = useState("");
   const [settings, setSettings] = useState<{
     excludedAgencies: string[];
+    soundEnabled: boolean;
   }>(() => {
     if (typeof window !== "undefined") {
       const savedSettings = localStorage.getItem("vtuber-guessr-settings");
       return savedSettings
         ? JSON.parse(savedSettings)
-        : { excludedAgencies: [] };
+        : { excludedAgencies: [], soundEnabled: true };
     }
-    return { excludedAgencies: [] };
+    return { excludedAgencies: [], soundEnabled: true };
   });
   const [stats, setStats] = useState<GameStats>({
     totalGames: 0,
@@ -49,7 +50,10 @@ export function useGame() {
     }
   }, []);
 
-  const updateSettings = (newSettings: { excludedAgencies: string[] }) => {
+  const updateSettings = (newSettings: {
+    excludedAgencies: string[];
+    soundEnabled: boolean;
+  }) => {
     setSettings(newSettings);
     localStorage.setItem("vtuber-guessr-settings", JSON.stringify(newSettings));
   };

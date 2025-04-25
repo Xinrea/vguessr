@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GameRoom, GameStats, VTuber } from "@vtuber-guessr/shared";
 import { Manager } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -24,6 +24,18 @@ export function useMultiplayer() {
     losses: 0,
     averageAttempts: 0,
   });
+  const joinSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Request notification permission
+    if (typeof window !== "undefined" && "Notification" in window) {
+      Notification.requestPermission();
+    }
+
+    // Initialize audio
+    joinSoundRef.current = new Audio("/sounds/join.mp3");
+    joinSoundRef.current.volume = 0.5;
+  }, []);
 
   useEffect(() => {
     // Load saved PvP stats from localStorage
@@ -78,6 +90,28 @@ export function useMultiplayer() {
       console.log("room:joined", room);
       setCurrentRoom(room);
       setIsInQueue(false);
+
+      // Play sound when joined
+      if (joinSoundRef.current) {
+        joinSoundRef.current.play().catch((error) => {
+          console.error("Error playing sound:", error);
+        });
+      }
+
+      // Show notification
+      if (
+        typeof window !== "undefined" &&
+        "Notification" in window &&
+        Notification.permission === "granted"
+      ) {
+        const currentUserId = localStorage.getItem(USER_ID_KEY);
+        const opponent = room.players.find((p) => p.user.id !== currentUserId);
+        new Notification("VGuessr 加入房间", {
+          body: opponent ? `对手: ${opponent.user.name}` : "等待对手加入...",
+          icon: "/favicon.ico",
+          tag: "room-joined",
+        });
+      }
     });
 
     newSocket.on("room:updated", (room: GameRoom) => {
@@ -88,6 +122,20 @@ export function useMultiplayer() {
     newSocket.on("game:started", (room: GameRoom) => {
       console.log("game:started", room);
       setCurrentRoom(room);
+
+      // 获取设置
+      const savedSettings = localStorage.getItem("vtuber-guessr-settings");
+      const settings = savedSettings
+        ? JSON.parse(savedSettings)
+        : { soundEnabled: true };
+
+      // 如果音效启用，播放开始音效
+      if (settings.soundEnabled) {
+        const audio = new Audio("/sounds/start.mp3");
+        audio
+          .play()
+          .catch((error) => console.log("Error playing sound:", error));
+      }
     });
 
     newSocket.on("game:finished", (room: GameRoom) => {

@@ -113,7 +113,7 @@ export class GameManager {
 
       this.connectedPlayers.set(socket.id, user);
 
-      console.log("user connected", user);
+      console.log("user connected", user.name);
 
       const timeout = this.disconnectTimeouts.get(data.userId);
       if (timeout) {
@@ -137,7 +137,7 @@ export class GameManager {
       this.matchmakingSystem.handleJoinQueue(user);
       const room = this.matchmakingSystem.getRoomForPlayer(user.id);
       if (room) {
-        console.log(`Player ${socket.id} is in room ${room.id}`);
+        console.log(`Player ${user.name} joined room ${room.id}`);
         // 确保房间内的所有玩家都收到了更新
         this.io.to(room.id).emit("room:updated", room);
         callback(room);
@@ -186,7 +186,7 @@ export class GameManager {
 
       const player = room.players.find((p) => p.user.id === user?.id);
       if (player) {
-        console.log("player is ready", player);
+        console.log("player ready", player.user.name);
         player.ready = true;
         this.matchmakingSystem.updateRoom(room);
 
@@ -220,7 +220,7 @@ export class GameManager {
 
       // Update score if correct
       if (result.isCorrect) {
-        console.log("player guessed correctly", player);
+        console.log("player win", player.user.name);
         // set all players chance to 0
         room.players.forEach((p) => {
           p.chance = 0;
@@ -249,7 +249,6 @@ export class GameManager {
         return;
       }
 
-      console.log("room:leave", socket.id);
       this.handlePlayerLeave(socket, user);
       this.broadcastStats();
     });
@@ -287,7 +286,7 @@ export class GameManager {
     const randomIndex = Math.floor(Math.random() * vtubers.length);
     const vtuber = vtubers[randomIndex];
     room.currentVtuber = vtuber;
-    console.log("start game", room.currentVtuber.name);
+    console.log("game start with", room.currentVtuber.name);
     this.matchmakingSystem.updateRoom(room);
     this.io.to(room.id).emit("game:started", room);
   }
@@ -313,6 +312,8 @@ export class GameManager {
       room.players = room.players.filter((p) => p.user.id !== player.id);
 
       socket?.leave(room.id);
+
+      console.log("player leave", player.name, room.id);
 
       if (room.players.length === 0) {
         // Delete empty room

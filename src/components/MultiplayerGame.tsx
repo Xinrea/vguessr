@@ -32,6 +32,11 @@ export function MultiplayerGame({
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
 
+  const playButtonSound = () => {
+    const audio = new Audio("/sounds/button.mp3");
+    audio.play().catch((error) => console.log("Error playing sound:", error));
+  };
+
   useEffect(() => {
     if (room.result) {
       setIsGameOverModalOpen(true);
@@ -98,6 +103,16 @@ export function MultiplayerGame({
     onRestart();
   };
 
+  const handleReady = () => {
+    playButtonSound();
+    onReady();
+  };
+
+  const handleLeave = () => {
+    playButtonSound();
+    onLeave();
+  };
+
   return (
     <div className="space-y-6">
       <motion.div
@@ -120,7 +135,7 @@ export function MultiplayerGame({
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 {(room.status === "waiting" || room.status === "finished") && (
                   <motion.button
-                    onClick={onReady}
+                    onClick={handleReady}
                     disabled={isReady}
                     className={`flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors w-1/2 sm:w-auto ${
                       isReady
@@ -157,7 +172,7 @@ export function MultiplayerGame({
                   </motion.button>
                 )}
                 <button
-                  onClick={onLeave}
+                  onClick={handleLeave}
                   className="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors w-1/2 sm:w-auto"
                 >
                   <span>退出房间</span>
