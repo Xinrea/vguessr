@@ -225,8 +225,9 @@ export class PlayerStatsStorage extends RedisStorage {
   > {
     const stats = await this.getDailyStats(date);
 
-    // 计算胜率并排序
+    // 计算胜率并排序，只包含至少参与5场游戏的玩家
     return stats
+      .filter((stat) => stat.games >= 5)
       .map((stat) => ({
         ...stat,
         winRate: stat.games > 0 ? (stat.wins / stat.games) * 100 : 0,
