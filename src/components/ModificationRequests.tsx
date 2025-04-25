@@ -17,6 +17,25 @@ import {
 
 const API_BASE_URL = process.env.API_URL || "http://localhost:3001";
 
+// Update border animation
+const borderAnimation = `
+  @keyframes border {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .animate-border {
+    background-size: 300% 300%;
+    animation: border 2s linear infinite;
+  }
+`;
+
 interface PullRequestWithDiff extends PullRequest {
   diff?: string;
   isDiffLoading?: boolean;
@@ -68,6 +87,16 @@ function Leaderboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Add border animation style
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = borderAnimation;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -116,17 +145,28 @@ function Leaderboard() {
           {gamesLeaderboard.map((entry, index) => (
             <div
               key={entry.userId}
-              className={`flex items-center justify-between p-2 rounded-lg ${
+              className={`flex items-center justify-between p-2 rounded-lg relative ${
                 index === 0
                   ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
                   : index === 1
-                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  ? "bg-gradient-to-r from-slate-200 to-slate-100"
                   : index === 2
                   ? "bg-gradient-to-r from-amber-100 to-amber-50"
                   : "bg-gray-50"
               }`}
             >
-              <div className="flex items-center gap-2">
+              <div
+                className={`absolute -inset-[2px] rounded-lg ${
+                  index === 0
+                    ? "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 opacity-40"
+                    : index === 1
+                    ? "bg-gradient-to-r from-slate-400 via-slate-300 to-slate-400 opacity-40"
+                    : index === 2
+                    ? "bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 opacity-40"
+                    : ""
+                } animate-border`}
+              ></div>
+              <div className="relative z-10 flex items-center gap-2">
                 <span
                   className={`text-sm font-medium ${
                     index === 0
@@ -142,7 +182,7 @@ function Leaderboard() {
                 </span>
                 <span className="text-sm text-gray-700">{entry.name}</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="relative z-10 flex items-center gap-1">
                 <TrophyIcon
                   className={`w-4 h-4 ${
                     index === 0
@@ -169,17 +209,28 @@ function Leaderboard() {
           {winsLeaderboard.map((entry, index) => (
             <div
               key={entry.userId}
-              className={`flex items-center justify-between p-2 rounded-lg ${
+              className={`flex items-center justify-between p-2 rounded-lg relative ${
                 index === 0
                   ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
                   : index === 1
-                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  ? "bg-gradient-to-r from-slate-200 to-slate-100"
                   : index === 2
                   ? "bg-gradient-to-r from-amber-100 to-amber-50"
                   : "bg-gray-50"
               }`}
             >
-              <div className="flex items-center gap-2">
+              <div
+                className={`absolute -inset-[2px] rounded-lg ${
+                  index === 0
+                    ? "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 opacity-40"
+                    : index === 1
+                    ? "bg-gradient-to-r from-slate-400 via-slate-300 to-slate-400 opacity-40"
+                    : index === 2
+                    ? "bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 opacity-40"
+                    : ""
+                } animate-border`}
+              ></div>
+              <div className="relative z-10 flex items-center gap-2">
                 <span
                   className={`text-sm font-medium ${
                     index === 0
@@ -195,7 +246,7 @@ function Leaderboard() {
                 </span>
                 <span className="text-sm text-gray-700">{entry.name}</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="relative z-10 flex items-center gap-1">
                 <TrophyIcon
                   className={`w-4 h-4 ${
                     index === 0
@@ -222,17 +273,28 @@ function Leaderboard() {
           {winsLeaderboard.map((entry, index) => (
             <div
               key={entry.userId}
-              className={`flex items-center justify-between p-2 rounded-lg ${
+              className={`flex items-center justify-between p-2 rounded-lg relative ${
                 index === 0
                   ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
                   : index === 1
-                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  ? "bg-gradient-to-r from-slate-200 to-slate-100"
                   : index === 2
                   ? "bg-gradient-to-r from-amber-100 to-amber-50"
                   : "bg-gray-50"
               }`}
             >
-              <div className="flex items-center gap-2">
+              <div
+                className={`absolute -inset-[2px] rounded-lg ${
+                  index === 0
+                    ? "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 opacity-40"
+                    : index === 1
+                    ? "bg-gradient-to-r from-slate-400 via-slate-300 to-slate-400 opacity-40"
+                    : index === 2
+                    ? "bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 opacity-40"
+                    : ""
+                } animate-border`}
+              ></div>
+              <div className="relative z-10 flex items-center gap-2">
                 <span
                   className={`text-sm font-medium ${
                     index === 0
@@ -248,7 +310,7 @@ function Leaderboard() {
                 </span>
                 <span className="text-sm text-gray-700">{entry.name}</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="relative z-10 flex items-center gap-1">
                 <TrophyIcon
                   className={`w-4 h-4 ${
                     index === 0
