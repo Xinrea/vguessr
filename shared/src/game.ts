@@ -33,14 +33,18 @@ export function checkGuess(
   });
 
   // 检查生日
-  const guessBirthDate = [
-    guess.birthDate.split("月")[0],
-    guess.birthDate.split("月")[1].split("日")[0],
-  ];
-  const targetBirthDate = [
-    target.birthDate.split("月")[0],
-    target.birthDate.split("月")[1].split("日")[0],
-  ];
+  const guessBirthDate = guess.birthDate
+    ? [
+        guess.birthDate.split("月")[0] || "0",
+        guess.birthDate.split("月")[1]?.split("日")[0] || "0",
+      ]
+    : ["0", "0"];
+  const targetBirthDate = target.birthDate
+    ? [
+        target.birthDate.split("月")[0] || "0",
+        target.birthDate.split("月")[1]?.split("日")[0] || "0",
+      ]
+    : ["0", "0"];
 
   const guessBirthDateNum =
     parseInt(guessBirthDate[0], 10) * 100 + parseInt(guessBirthDate[1], 10);
