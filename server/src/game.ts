@@ -291,6 +291,7 @@ export class GameManager {
       p.chance = defaultChance;
     });
     room.records = [];
+    room.agencyHint = undefined;
     room.lastChanceReduction = Date.now();
     room.playersUsedChance = {};
 

@@ -36,6 +36,7 @@ export interface GameRoom {
   currentVtuber?: VTuber;
   scores: Record<string, number>;
   records: GuessResult[];
+  agencyHint?: string;
   result?: GameResult;
   lastChanceReduction?: number; // timestamp of last automatic chance reduction
   playersUsedChance?: Record<string, boolean>; // tracks if players used their chance in current interval
