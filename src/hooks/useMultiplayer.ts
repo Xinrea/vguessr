@@ -42,7 +42,7 @@ export function useMultiplayer() {
     }
 
     const manager = new Manager(
-      process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001",
+      process.env.API_URL || "http://localhost:3001",
       {
         query: {
           userId,
