@@ -2754,7 +2754,7 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "2月5日",
-    "debutDate": "2019-11-1",
+    "debutDate": "2019-11-01",
     "height": 0,
     "hairColor": "白发",
     "eyeColor": "红瞳",
@@ -3317,7 +3317,7 @@
     "agency": "にじさんじ",
     "gender": "女",
     "birthDate": "5月25日",
-    "debutDate": "2019年3月22日",
+    "debutDate": "2019-03-22",
     "height": 158,
     "hairColor": "白发",
     "eyeColor": "蓝粉瞳",
@@ -3655,5 +3655,31 @@
       "呆毛"
     ],
     "id": "c37a9a80-2e71-456c-8caf-c5ecbe192ee6"
+  },
+  {
+    "avatar": "",
+    "name": "河黎有片小叶子",
+    "nameEN": "Yezi",
+    "agency": "iStella",
+    "gender": "女",
+    "birthDate": "3月12日",
+    "debutDate": "2022-10-29",
+    "height": 159,
+    "hairColor": "绿色",
+    "eyeColor": "深紫",
+    "seiza": "双鱼座",
+    "description": "千舰坚定了我毕业的决心，代表作：永不失联的爱，夏天的风，在夜里跳舞",
+    "age": 23,
+    "tags": [
+      "星律动",
+      "有前世",
+      "swan",
+      "奶茶",
+      "休眠",
+      "绿色懒狗",
+      "istella",
+      "决心"
+    ],
+    "id": "269890e6-1a02-4f86-8d12-54cefdb6602b"
   }
 ]
