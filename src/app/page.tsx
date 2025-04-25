@@ -313,7 +313,7 @@ export default function Home() {
 
         <GameOverModal
           isOpen={isGameOver}
-          onClose={() => {}}
+          onClose={startNewGame}
           answer={targetVtuber}
           onRestart={startNewGame}
           onUpdate={updateVtuber}

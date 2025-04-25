@@ -155,6 +155,7 @@ export function useGame() {
     // Generate target VTuber if it's the first guess
     let target = targetVtuber;
     if (!target) {
+      startNewGame();
       const vtuber = getRandomVtuber();
       setTargetVtuber(vtuber);
       target = vtuber;
@@ -200,6 +201,7 @@ export function useGame() {
     attempts,
     guessResults,
     isGameOver,
+    setIsGameOver,
     searchResults,
     searchQuery,
     setSearchQuery,
