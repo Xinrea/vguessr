@@ -27,6 +27,8 @@ export interface VTuber {
   tags: string[];
 }
 
+export const CHANCE_REDUCTION_INTERVAL = 25; // seconds
+
 export interface GameRoom {
   id: string;
   players: Player[];
@@ -35,6 +37,8 @@ export interface GameRoom {
   scores: Record<string, number>;
   records: GuessResult[];
   result?: GameResult;
+  lastChanceReduction?: number; // timestamp of last automatic chance reduction
+  playersUsedChance?: Record<string, boolean>; // tracks if players used their chance in current interval
 }
 
 export interface GameResult {

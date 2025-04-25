@@ -6,6 +6,7 @@ import {
   VTuber,
   Player,
   User,
+  CHANCE_REDUCTION_INTERVAL,
 } from "@vtuber-guessr/shared";
 import { MatchmakingSystem } from "./matchmaking";
 import { vtubers } from "@vtuber-guessr/shared";
@@ -218,6 +219,12 @@ export class GameManager {
       const result = checkGuess(user, guess, room.currentVtuber);
       room.records.push(result);
 
+      // Mark that player has used their chance in this interval
+      if (!room.playersUsedChance) {
+        room.playersUsedChance = {};
+      }
+      room.playersUsedChance[user.id] = true;
+
       // Update score if correct
       if (result.isCorrect) {
         console.log("player win", player.user.name);
@@ -282,6 +289,8 @@ export class GameManager {
       p.chance = defaultChance;
     });
     room.records = [];
+    room.lastChanceReduction = Date.now();
+    room.playersUsedChance = {};
 
     const randomIndex = Math.floor(Math.random() * vtubers.length);
     const vtuber = vtubers[randomIndex];
@@ -289,6 +298,47 @@ export class GameManager {
     console.log("game start with", room.currentVtuber.name);
     this.matchmakingSystem.updateRoom(room);
     this.io.to(room.id).emit("game:started", room);
+
+    // Start the automatic chance reduction interval
+    this.startChanceReductionInterval(room);
+  }
+
+  private startChanceReductionInterval(room: GameRoom) {
+    const interval = setInterval(() => {
+      if (room.status !== "playing") {
+        clearInterval(interval);
+        return;
+      }
+
+      const now = Date.now();
+      if (
+        now - (room.lastChanceReduction || 0) >=
+        CHANCE_REDUCTION_INTERVAL * 1000
+      ) {
+        this.reduceChances(room);
+      }
+    }, 1000); // Check every second
+  }
+
+  private reduceChances(room: GameRoom) {
+    room.players.forEach((player) => {
+      // Only reduce chance if player hasn't used it in this interval
+      if (!room.playersUsedChance?.[player.user.id]) {
+        player.chance = Math.max(0, player.chance - 1);
+      }
+    });
+
+    // Reset tracking for next interval
+    room.playersUsedChance = {};
+    room.lastChanceReduction = Date.now();
+
+    // Update room state
+    this.matchmakingSystem.updateRoom(room);
+
+    // Check if game should end
+    if (room.players.every((p) => p.chance <= 0)) {
+      this.endGame(room);
+    }
   }
 
   private endGame(room: GameRoom, winner?: Player) {
@@ -301,6 +351,8 @@ export class GameManager {
       winner,
       answer: room.currentVtuber!,
     };
+    room.lastChanceReduction = undefined;
+    room.playersUsedChance = undefined;
     this.matchmakingSystem.updateRoom(room);
     this.io.to(room.id).emit("game:finished", room);
   }

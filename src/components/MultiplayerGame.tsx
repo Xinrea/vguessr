@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { GameRoom, VTuber, GuessResult } from "@vtuber-guessr/shared";
+import {
+  GameRoom,
+  VTuber,
+  GuessResult,
+  CHANCE_REDUCTION_INTERVAL,
+} from "@vtuber-guessr/shared";
 import { motion } from "framer-motion";
 import {
   MagnifyingGlassIcon,
@@ -31,6 +36,8 @@ export function MultiplayerGame({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(CHANCE_REDUCTION_INTERVAL);
+  const [hasUsedChance, setHasUsedChance] = useState(false);
 
   const playButtonSound = () => {
     const audio = new Audio("/sounds/button.mp3");
@@ -42,6 +49,45 @@ export function MultiplayerGame({
       setIsGameOverModalOpen(true);
     }
   }, [room.result]);
+
+  useEffect(() => {
+    if (room.status !== "playing") {
+      setTimeLeft(CHANCE_REDUCTION_INTERVAL);
+      setHasUsedChance(false);
+      return;
+    }
+
+    const lastReduction = room.lastChanceReduction || Date.now();
+    const elapsed = Date.now() - lastReduction;
+    const remaining = Math.max(
+      0,
+      CHANCE_REDUCTION_INTERVAL - Math.floor(elapsed / 1000)
+    );
+    setTimeLeft(remaining);
+    setHasUsedChance(!!room.playersUsedChance?.[currentPlayerId]);
+
+    const timer = setInterval(() => {
+      const newElapsed = Date.now() - lastReduction;
+      const newRemaining = Math.max(
+        0,
+        CHANCE_REDUCTION_INTERVAL - Math.floor(newElapsed / 1000)
+      );
+      setTimeLeft(newRemaining);
+      setHasUsedChance(!!room.playersUsedChance?.[currentPlayerId]);
+
+      if (newRemaining === 0) {
+        setTimeLeft(CHANCE_REDUCTION_INTERVAL);
+        setHasUsedChance(false);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [
+    room.status,
+    room.lastChanceReduction,
+    room.playersUsedChance,
+    currentPlayerId,
+  ]);
 
   const currentPlayer = room.players.find((p) => p.user.id === currentPlayerId);
   const isReady = currentPlayer?.ready || false;
@@ -274,6 +320,30 @@ export function MultiplayerGame({
                 </div>
               </div>
             </div>
+
+            {/* Timer Progress Bar */}
+            {room.status === "playing" && (
+              <div className="w-full">
+                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                  <span>
+                    {hasUsedChance
+                      ? "本轮机会已使用，你可以选择继续消耗机会"
+                      : "请使用本轮猜测机会，倒计时结束视为放弃"}
+                  </span>
+                  <span>{timeLeft}s</span>
+                </div>
+                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-1000 ease-linear ${
+                      hasUsedChance ? "bg-green-500" : "bg-red-500"
+                    }`}
+                    style={{
+                      width: `${(timeLeft / CHANCE_REDUCTION_INTERVAL) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Search Section */}
             <div className="space-y-2 relative">
