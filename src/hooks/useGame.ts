@@ -81,7 +81,7 @@ export function useGame() {
         id: uuidv4(),
       };
 
-      await createAddVtuberPullRequest(vtuber, process.env.PR_TOKEN || "");
+      await createAddVtuberPullRequest(vtuber);
       return vtuber;
     } catch (error) {
       setAddVtuberError(
