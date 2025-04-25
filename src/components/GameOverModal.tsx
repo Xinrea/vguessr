@@ -28,6 +28,24 @@ export function GameOverModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const validateBirthDate = (date: string): boolean => {
+    const regex = /^\d{1,2}月\d{1,2}日$/;
+    return regex.test(date);
+  };
+
+  const validateDebutDate = (date: string): boolean => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(date)) return false;
+
+    const [year, month, day] = date.split("-").map(Number);
+    const dateObj = new Date(year, month - 1, day);
+    return (
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() === month - 1 &&
+      dateObj.getDate() === day
+    );
+  };
+
   if (!answer) return null;
 
   const handleStartEditing = () => {
@@ -38,6 +56,16 @@ export function GameOverModal({
 
   const handleSave = async () => {
     if (!editedVtuber || !answer) return;
+
+    if (!validateBirthDate(editedVtuber.birthDate)) {
+      setError("生日格式不正确，请使用 X月Y日 格式");
+      return;
+    }
+
+    if (!validateDebutDate(editedVtuber.debutDate)) {
+      setError("出道时间格式不正确，请使用 YYYY-MM-DD 格式");
+      return;
+    }
 
     // Check if there are any changes
     const hasChanges = Object.keys(editedVtuber).some(

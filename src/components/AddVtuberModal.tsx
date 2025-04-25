@@ -37,9 +37,37 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
     tags: "",
   });
 
+  const validateBirthDate = (date: string): boolean => {
+    const regex = /^\d{1,2}月\d{1,2}日$/;
+    return regex.test(date);
+  };
+
+  const validateDebutDate = (date: string): boolean => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(date)) return false;
+
+    const [year, month, day] = date.split("-").map(Number);
+    const dateObj = new Date(year, month - 1, day);
+    return (
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() === month - 1 &&
+      dateObj.getDate() === day
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!validateBirthDate(formData.birthDate)) {
+      setError("生日格式不正确，请使用 X月Y日 格式");
+      return;
+    }
+
+    if (!validateDebutDate(formData.debutDate)) {
+      setError("出道时间格式不正确，请使用 YYYY-MM-DD 格式");
+      return;
+    }
 
     // 检查是否有重复的 VTuber
     const isDuplicate = existingVtubers.some(
