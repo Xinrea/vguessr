@@ -2164,7 +2164,8 @@
       "清楚",
       "老板娘",
       "活动中",
-      "link"
+      "link",
+      "四禧丸子"
     ],
     "id": "9d439a7e-8cbf-43b1-afb4-c3dd638d4a94"
   },
@@ -3716,7 +3717,7 @@
     "avatar": "",
     "name": "李豆沙",
     "nameEN": "Shadow Lee",
-    "agency": " P-SP",
+    "agency": "P-SP",
     "gender": "女",
     "birthDate": "8月7日",
     "debutDate": "2021-04-04",
@@ -3822,5 +3823,30 @@
       "画师"
     ],
     "id": "8c0bfe15-3a6a-4874-966b-e27c2c23efa0"
+  },
+  {
+    "avatar": "",
+    "name": "安晚",
+    "nameEN": "aWa",
+    "agency": "P-SP",
+    "gender": "女",
+    "birthDate": "8月6日",
+    "debutDate": "2021-04-02",
+    "height": 250,
+    "hairColor": "白色",
+    "eyeColor": "红色",
+    "seiza": "白羊座",
+    "description": "",
+    "age": 16,
+    "tags": [
+      "大小姐",
+      "心理学",
+      "温柔",
+      "巨乳",
+      "活动中",
+      "偶像",
+      "杂谈势"
+    ],
+    "id": "3a5fc45c-4bde-4ee8-bc18-3712e3c32a80"
   }
 ]

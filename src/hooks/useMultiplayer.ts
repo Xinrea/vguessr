@@ -79,13 +79,6 @@ export function useMultiplayer() {
       console.log("reconnected login");
     });
 
-    // Set up event listeners
-    newSocket.on("room:created", (room: GameRoom) => {
-      console.log("room:created", room);
-      setCurrentRoom(room);
-      setIsInQueue(false);
-    });
-
     newSocket.on("room:joined", (room: GameRoom) => {
       console.log("room:joined", room);
       setCurrentRoom(room);
@@ -119,10 +112,7 @@ export function useMultiplayer() {
       setCurrentRoom(room);
     });
 
-    newSocket.on("game:started", (room: GameRoom) => {
-      console.log("game:started", room);
-      setCurrentRoom(room);
-
+    newSocket.on("game:started", () => {
       // 获取设置
       const savedSettings = localStorage.getItem("vtuber-guessr-settings");
       const settings = savedSettings

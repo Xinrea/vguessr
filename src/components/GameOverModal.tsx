@@ -178,15 +178,6 @@ export function GameOverModal({
                     : "ring-2 ring-red-400 ring-offset-2"
                 }`}
               >
-                <div className="absolute top-4 right-4">
-                  <button
-                    type="button"
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
-                    onClick={onClose}
-                  >
-                    <XMarkIcon className="h-6 w-6" />
-                  </button>
-                </div>
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center"

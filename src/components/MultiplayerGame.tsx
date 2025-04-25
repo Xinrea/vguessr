@@ -188,6 +188,24 @@ export function MultiplayerGame({
                   {room.id}
                 </span>
               </div>
+              {room.agencyHint && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center space-x-3 justify-center sm:justify-start w-full sm:w-auto"
+                >
+                  <span className="text-sm sm:text-base font-semibold text-green-600">
+                    提示
+                  </span>
+                  <span className="text-sm sm:text-base font-semibold bg-green-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border-2 border-green-200 text-green-700 shadow-sm">
+                    {room.agencyHint}
+                  </span>
+                  <span className="text-sm sm:text-base font-semibold text-green-600">
+                    团体
+                  </span>
+                </motion.div>
+              )}
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 {(room.status === "waiting" || room.status === "finished") && (
                   <motion.button

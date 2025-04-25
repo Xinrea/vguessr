@@ -117,8 +117,8 @@ export class MatchmakingSystem {
 
       player1Socket?.join(roomId);
       player2Socket?.join(roomId);
-      player1Socket?.emit("room:created", room);
-      player2Socket?.emit("room:joined", room);
+
+      this.updateRoom(room);
     }
   }
 
@@ -265,8 +265,20 @@ export class MatchmakingSystem {
   }
 
   public updateRoom(room: GameRoom) {
+    if (
+      room.records.length >= 4 &&
+      !room.agencyHint &&
+      room.records.every(
+        (r) => !r.differences.find((d) => d.attribute === "团体")?.isMatch
+      )
+    ) {
+      room.agencyHint = room.currentVtuber?.agency;
+    }
     this.gameState.rooms[room.id] = room;
-    this.io.to(room.id).emit("room:updated", room);
+    this.io.to(room.id).emit("room:updated", {
+      ...room,
+      currentVtuber: undefined,
+    });
   }
 
   public deleteRoom(roomId: string, playerId: string) {

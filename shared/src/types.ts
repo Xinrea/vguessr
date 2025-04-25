@@ -36,9 +36,11 @@ export interface GameRoom {
   currentVtuber?: VTuber;
   scores: Record<string, number>;
   records: GuessResult[];
+  agencyHint?: string;
   result?: GameResult;
   lastChanceReduction?: number; // timestamp of last automatic chance reduction
   playersUsedChance?: Record<string, boolean>; // tracks if players used their chance in current interval
+  chanceReductionInterval?: NodeJS.Timeout; // tracks the interval for automatic chance reduction
 }
 
 export interface GameResult {
@@ -76,7 +78,7 @@ export interface ServerToClientEvents {
   "room:joined": (room: GameRoom) => void;
   "room:updated": (room: GameRoom) => void;
   "room:disbanded": () => void;
-  "game:started": (room: GameRoom) => void;
+  "game:started": () => void;
   "game:finished": (room: GameRoom) => void;
   "stats:update": (stats: {
     onlinePlayers: number;
