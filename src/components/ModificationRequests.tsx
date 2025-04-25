@@ -59,11 +59,7 @@ export function ModificationRequests() {
     setIsLoading(true);
     setError(null);
     try {
-      const token = process.env.PR_TOKEN || "";
-      if (!token) {
-        throw new Error("GitHub token not found. Please login first.");
-      }
-      const prs = await getPullRequests(token);
+      const prs = await getPullRequests();
       setPullRequests(prs);
     } catch (err) {
       setError(
@@ -91,11 +87,7 @@ export function ModificationRequests() {
     );
 
     try {
-      const token = process.env.PR_TOKEN || "";
-      if (!token) {
-        throw new Error("GitHub token not found. Please login first.");
-      }
-      const diff = await getPullRequestDiff(token, pr.number);
+      const diff = await getPullRequestDiff(pr.number);
       setPullRequests((prs) =>
         prs.map((p) =>
           p.id === pr.id ? { ...p, diff, isDiffLoading: false } : p
@@ -142,7 +134,7 @@ export function ModificationRequests() {
         className="w-full flex items-center justify-between text-left cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <span className="text-base sm:text-lg font-bold">最近修改请求</span>
+          <span className="text-base sm:text-lg font-bold">审阅修改请求</span>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -166,10 +158,17 @@ export function ModificationRequests() {
         <div className="mt-4">
           <div className="mb-4 p-3 bg-gray-100 rounded-lg text-sm text-gray-700">
             <p>
-              PS：这里显示的是最近提交的修改请求，你可以点击标题前往 GitHub
-              进行点赞/踩或评论，如果有熟悉的 VTuber 的改动请积极参与审查；
-              已合并的改动并不意味着已经发布，PVP
-              服务器和网页会每两小时更新一次。
+              这里显示的是最近提交的修改请求，你可以点击标题前往 GitHub
+              进行点赞/踩或评论留下建议。
+            </p>
+            <p>
+              · 当赞的数量达到 3 以上且至少是踩的 2
+              倍时，将会自动合并；如果踩的数量达到
+              5，则会自动关闭拒绝；如果有熟悉的 VTuber 的改动请积极参与审查
+            </p>
+            <p>
+              · 已合并的改动并不意味着已经发布，PVP
+              服务器和网页会每两小时更新一次
             </p>
           </div>
           {isLoading ? (
@@ -209,14 +208,14 @@ export function ModificationRequests() {
                             {formatDate(pr.created_at)}
                           </span>
                           <span>•</span>
-                          <span className="flex items-center gap-1">
+                          <button className="flex items-center gap-1">
                             <HandThumbUpIcon className="w-3.5 h-3.5" />
                             {pr.reactions?.["+1"] || 0}
-                          </span>
-                          <span className="flex items-center gap-1">
+                          </button>
+                          <button className="flex items-center gap-1">
                             <HandThumbDownIcon className="w-3.5 h-3.5" />
                             {pr.reactions?.["-1"] || 0}
-                          </span>
+                          </button>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
