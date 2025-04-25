@@ -10,12 +10,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@octokit/rest": "^21.1.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/memory-cache": "^0.2.6",
     "@vtuber-guessr/shared": "file:../shared",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "ioredis": "^5.6.1",
-    "socket.io": "^4.7.4"
+    "jsonwebtoken": "^9.0.2",
+    "memory-cache": "^0.2.0",
+    "socket.io": "^4.7.4",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
