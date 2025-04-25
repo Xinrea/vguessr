@@ -81,12 +81,22 @@ export function MultiplayerGame({
       }
     }, 1000);
 
+    // Clear search input and results when attempts are exhausted
+    const currentPlayer = room.players.find(
+      (p) => p.user.id === currentPlayerId
+    );
+    if (currentPlayer && currentPlayer.chance <= 0) {
+      setSearchQuery("");
+      setSearchResults([]);
+    }
+
     return () => clearInterval(timer);
   }, [
     room.status,
     room.lastChanceReduction,
     room.playersUsedChance,
     currentPlayerId,
+    room.players,
   ]);
 
   const currentPlayer = room.players.find((p) => p.user.id === currentPlayerId);
