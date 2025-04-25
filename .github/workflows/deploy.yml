@@ -77,8 +77,7 @@ jobs:
 
       - name: Build
         env:
-          PR_TOKEN: ${{ secrets.PR_TOKEN }}
-          NEXT_PUBLIC_SOCKET_URL: ${{ secrets.NEXT_PUBLIC_SOCKET_URL }}
+          API_URL: ${{ secrets.API_URL }}
         run: npm run build
 
       - name: Deploy via SSH

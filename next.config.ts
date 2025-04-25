@@ -8,10 +8,7 @@ const nextConfig: NextConfig = {
     config.plugins = config.plugins || [];
     config.plugins.push(
       new webpack.DefinePlugin({
-        "process.env.PR_TOKEN": JSON.stringify(process.env.PR_TOKEN),
-        "process.env.NEXT_PUBLIC_SOCKET_URL": JSON.stringify(
-          process.env.NEXT_PUBLIC_SOCKET_URL
-        ),
+        "process.env.API_URL": JSON.stringify(process.env.API_URL),
       })
     );
     return config;
