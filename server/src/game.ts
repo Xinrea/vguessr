@@ -11,12 +11,13 @@ import {
 import { MatchmakingSystem } from "./matchmaking";
 import { vtubers } from "@vtuber-guessr/shared";
 import { checkGuess } from "@vtuber-guessr/shared";
-import { PlayerNameStorage } from "./storage";
+import { PlayerNameStorage, PlayerStatsStorage } from "./storage";
 
 export class GameManager {
   private matchmakingSystem: MatchmakingSystem;
   private io: Server<ClientToServerEvents, ServerToClientEvents>;
   private playerNames: PlayerNameStorage;
+  private playerStats: PlayerStatsStorage;
   private connectedPlayers: Map<string, User>;
   private static uniqueTags: string[];
   private disconnectTimeouts: Map<string, NodeJS.Timeout>;
@@ -25,6 +26,7 @@ export class GameManager {
     this.io = io;
     this.matchmakingSystem = new MatchmakingSystem(io);
     this.playerNames = new PlayerNameStorage();
+    this.playerStats = new PlayerStatsStorage();
     this.connectedPlayers = new Map();
     this.disconnectTimeouts = new Map();
     // 初始化 uniqueTags
@@ -341,7 +343,7 @@ export class GameManager {
     }
   }
 
-  private endGame(room: GameRoom, winner?: Player) {
+  private async endGame(room: GameRoom, winner?: Player) {
     room.status = "finished";
     // reset ready status
     room.players.forEach((p) => {
@@ -353,6 +355,15 @@ export class GameManager {
     };
     room.lastChanceReduction = undefined;
     room.playersUsedChance = undefined;
+
+    // Record statistics for all players
+    for (const player of room.players) {
+      await this.playerStats.incrementGames(player.user.id);
+      if (winner && winner.user.id === player.user.id) {
+        await this.playerStats.incrementWins(player.user.id);
+      }
+    }
+
     this.matchmakingSystem.updateRoom(room);
     this.io.to(room.id).emit("game:finished", room);
   }

@@ -22,7 +22,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { VTuber, vtubers } from "@vtuber-guessr/shared";
-import { ModificationRequests } from "@/components/ModificationRequests";
+import {
+  Leaderboard,
+  ModificationRequests,
+} from "@/components/ModificationRequests";
 
 export default function Home() {
   const {
@@ -122,7 +125,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <Stats {...stats} pvpStats={pvpStats} />
             {!currentRoom && (
-              <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+              <div className="flex flex-col items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={handleQueueAction}
                   className={`flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
@@ -329,6 +332,7 @@ export default function Home() {
             </>
           )}
 
+          <Leaderboard />
           <ModificationRequests />
         </div>
 

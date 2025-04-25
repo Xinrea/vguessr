@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -7,6 +7,7 @@ import {
   PlusIcon,
   HandThumbUpIcon,
   HandThumbDownIcon,
+  TrophyIcon,
 } from "@heroicons/react/24/outline";
 import {
   getPullRequests,
@@ -14,11 +15,23 @@ import {
   PullRequest,
 } from "@/services/github";
 
+const API_BASE_URL = process.env.API_URL || "http://localhost:3001";
+
 interface PullRequestWithDiff extends PullRequest {
   diff?: string;
   isDiffLoading?: boolean;
   diffError?: string;
 }
+
+interface LeaderboardEntry {
+  userId: string;
+  name: string;
+  games?: number;
+  wins?: number;
+  winRate?: number;
+}
+
+type TabType = "games" | "wins" | "winRate";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -43,43 +56,322 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export function ModificationRequests() {
+function Leaderboard() {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>("games");
+  const [gamesLeaderboard, setGamesLeaderboard] = useState<LeaderboardEntry[]>(
+    []
+  );
+  const [winsLeaderboard, setWinsLeaderboard] = useState<LeaderboardEntry[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      if (activeTab === "games") {
+        const response = await fetch(`${API_BASE_URL}/leaderboard/games`);
+        const data = await response.json();
+        setGamesLeaderboard(data);
+      } else if (activeTab === "wins") {
+        const response = await fetch(`${API_BASE_URL}/leaderboard/wins`);
+        const data = await response.json();
+        setWinsLeaderboard(data);
+      } else if (activeTab === "winRate") {
+        const response = await fetch(`${API_BASE_URL}/leaderboard/win-rate`);
+        const data = await response.json();
+        setWinsLeaderboard(data);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch data");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (isExpanded) {
+      fetchData();
+    }
+  }, [isExpanded, activeTab, fetchData]);
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <div className="text-sm text-gray-500">加载中...</div>;
+    }
+
+    if (error) {
+      return <div className="text-sm text-red-500">{error}</div>;
+    }
+
+    if (activeTab === "games") {
+      if (gamesLeaderboard.length === 0) {
+        return <div className="text-sm text-gray-500">暂无数据</div>;
+      }
+      return (
+        <div className="space-y-2">
+          {gamesLeaderboard.map((entry, index) => (
+            <div
+              key={entry.userId}
+              className={`flex items-center justify-between p-2 rounded-lg ${
+                index === 0
+                  ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
+                  : index === 1
+                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  : index === 2
+                  ? "bg-gradient-to-r from-amber-100 to-amber-50"
+                  : "bg-gray-50"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-sm font-medium ${
+                    index === 0
+                      ? "text-yellow-600"
+                      : index === 1
+                      ? "text-gray-600"
+                      : index === 2
+                      ? "text-amber-600"
+                      : "text-gray-900"
+                  }`}
+                >
+                  {index + 1}.
+                </span>
+                <span className="text-sm text-gray-700">{entry.name}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <TrophyIcon
+                  className={`w-4 h-4 ${
+                    index === 0
+                      ? "text-yellow-500"
+                      : index === 1
+                      ? "text-gray-400"
+                      : index === 2
+                      ? "text-amber-500"
+                      : "text-gray-400"
+                  }`}
+                />
+                <span className="text-sm font-medium">{entry.games}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    } else if (activeTab === "wins") {
+      if (winsLeaderboard.length === 0) {
+        return <div className="text-sm text-gray-500">暂无数据</div>;
+      }
+      return (
+        <div className="space-y-2">
+          {winsLeaderboard.map((entry, index) => (
+            <div
+              key={entry.userId}
+              className={`flex items-center justify-between p-2 rounded-lg ${
+                index === 0
+                  ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
+                  : index === 1
+                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  : index === 2
+                  ? "bg-gradient-to-r from-amber-100 to-amber-50"
+                  : "bg-gray-50"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-sm font-medium ${
+                    index === 0
+                      ? "text-yellow-600"
+                      : index === 1
+                      ? "text-gray-600"
+                      : index === 2
+                      ? "text-amber-600"
+                      : "text-gray-900"
+                  }`}
+                >
+                  {index + 1}.
+                </span>
+                <span className="text-sm text-gray-700">{entry.name}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <TrophyIcon
+                  className={`w-4 h-4 ${
+                    index === 0
+                      ? "text-yellow-500"
+                      : index === 1
+                      ? "text-gray-400"
+                      : index === 2
+                      ? "text-amber-500"
+                      : "text-gray-400"
+                  }`}
+                />
+                <span className="text-sm font-medium">{entry.wins}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    } else if (activeTab === "winRate") {
+      if (winsLeaderboard.length === 0) {
+        return <div className="text-sm text-gray-500">暂无数据</div>;
+      }
+      return (
+        <div className="space-y-2">
+          {winsLeaderboard.map((entry, index) => (
+            <div
+              key={entry.userId}
+              className={`flex items-center justify-between p-2 rounded-lg ${
+                index === 0
+                  ? "bg-gradient-to-r from-yellow-100 to-yellow-50"
+                  : index === 1
+                  ? "bg-gradient-to-r from-gray-100 to-gray-50"
+                  : index === 2
+                  ? "bg-gradient-to-r from-amber-100 to-amber-50"
+                  : "bg-gray-50"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className={`text-sm font-medium ${
+                    index === 0
+                      ? "text-yellow-600"
+                      : index === 1
+                      ? "text-gray-600"
+                      : index === 2
+                      ? "text-amber-600"
+                      : "text-gray-900"
+                  }`}
+                >
+                  {index + 1}.
+                </span>
+                <span className="text-sm text-gray-700">{entry.name}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <TrophyIcon
+                  className={`w-4 h-4 ${
+                    index === 0
+                      ? "text-yellow-500"
+                      : index === 1
+                      ? "text-gray-400"
+                      : index === 2
+                      ? "text-amber-500"
+                      : "text-gray-400"
+                  }`}
+                />
+                <span className="text-sm font-medium">
+                  {entry.winRate ? entry.winRate.toFixed(1) + "%" : "0%"}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-xl p-4 shadow-sm mb-3">
+      <div
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full flex items-center justify-between text-left cursor-pointer"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-base sm:text-lg font-bold">本日排行榜</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              fetchData();
+            }}
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+            title="刷新"
+          >
+            <ArrowPathIcon className="w-5 h-5 text-gray-500" />
+          </button>
+          {isExpanded ? (
+            <ChevronUpIcon className="w-5 h-5 text-gray-500" />
+          ) : (
+            <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+          )}
+        </div>
+      </div>
+      {isExpanded && (
+        <div className="mt-4">
+          <div className="flex border-b border-gray-200 mb-4">
+            <button
+              onClick={() => setActiveTab("games")}
+              className={`flex-1 py-2 text-sm font-medium ${
+                activeTab === "games"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              场数榜
+            </button>
+            <button
+              onClick={() => setActiveTab("wins")}
+              className={`flex-1 py-2 text-sm font-medium ${
+                activeTab === "wins"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              胜场榜
+            </button>
+            <button
+              onClick={() => setActiveTab("winRate")}
+              className={`flex-1 py-2 text-sm font-medium ${
+                activeTab === "winRate"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              胜率榜
+            </button>
+          </div>
+          {renderContent()}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ModificationRequests() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [pullRequests, setPullRequests] = useState<PullRequestWithDiff[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isExpanded) {
-      fetchPullRequests();
-    }
-  }, [isExpanded]);
-
-  const fetchPullRequests = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
       const prs = await getPullRequests();
       setPullRequests(prs);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to fetch pull requests"
-      );
+      setError(err instanceof Error ? err.message : "Failed to fetch data");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isExpanded) {
+      fetchData();
+    }
+  }, [isExpanded, fetchData]);
 
   const toggleDiff = async (pr: PullRequestWithDiff) => {
     if (pr.diff !== undefined) {
-      // If diff is already loaded, just toggle it
       setPullRequests((prs) =>
         prs.map((p) => (p.id === pr.id ? { ...p, diff: undefined } : p))
       );
       return;
     }
 
-    // Start loading diff
     setPullRequests((prs) =>
       prs.map((p) =>
         p.id === pr.id ? { ...p, isDiffLoading: true, diffError: undefined } : p
@@ -127,20 +419,117 @@ export function ModificationRequests() {
     });
   };
 
+  const renderContent = () => {
+    if (isLoading) {
+      return <div className="text-sm text-gray-500">加载中...</div>;
+    }
+
+    if (error) {
+      return <div className="text-sm text-red-500">{error}</div>;
+    }
+
+    if (pullRequests.length === 0) {
+      return <div className="text-sm text-gray-500">暂无修改请求</div>;
+    }
+
+    return (
+      <div className="space-y-3">
+        {pullRequests.map((pr) => (
+          <div key={pr.id} className="space-y-2">
+            <div className="flex flex-col gap-2 p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    {pr.title.startsWith("Update") ? (
+                      <PencilIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                    ) : (
+                      <PlusIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                    )}
+                    <a
+                      href={pr.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-gray-900 hover:text-blue-600 truncate"
+                    >
+                      {pr.title}
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-500">
+                    <span
+                      title={new Date(pr.created_at).toLocaleString("zh-CN")}
+                    >
+                      {formatDate(pr.created_at)}
+                    </span>
+                    <span>•</span>
+                    <button className="flex items-center gap-1">
+                      <HandThumbUpIcon className="w-3.5 h-3.5" />
+                      {pr.reactions?.["+1"] || 0}
+                    </button>
+                    <button className="flex items-center gap-1">
+                      <HandThumbDownIcon className="w-3.5 h-3.5" />
+                      {pr.reactions?.["-1"] || 0}
+                    </button>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleDiff(pr);
+                    }}
+                    className="text-xs text-gray-500 hover:text-blue-600 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors"
+                  >
+                    {pr.diff ? "隐藏改动" : "显示改动"}
+                  </button>
+                  <span
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      pr.state === "open"
+                        ? "bg-green-100 text-green-800"
+                        : !!pr.merged_at
+                        ? "bg-purple-100 text-purple-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {pr.state === "open"
+                      ? "开放中"
+                      : !!pr.merged_at
+                      ? "已合并"
+                      : "已拒绝"}
+                  </span>
+                </div>
+              </div>
+              {pr.isDiffLoading && (
+                <div className="text-sm text-gray-500 pl-3">加载改动中...</div>
+              )}
+              {pr.diffError && (
+                <div className="text-sm text-red-500 pl-3">{pr.diffError}</div>
+              )}
+              {pr.diff && (
+                <div className="bg-gray-50 rounded-lg p-3 overflow-x-auto border border-gray-200">
+                  <pre className="text-xs">{formatDiff(pr.diff)}</pre>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
+    <div className="bg-white rounded-xl p-4 shadow-sm mb-3">
       <div
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between text-left cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <span className="text-base sm:text-lg font-bold">审阅修改请求</span>
+          <span className="text-base sm:text-lg font-bold">修改请求</span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={(e) => {
               e.stopPropagation();
-              fetchPullRequests();
+              fetchData();
             }}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors"
             title="刷新"
@@ -171,102 +560,11 @@ export function ModificationRequests() {
               服务器和网页会每两小时更新一次
             </p>
           </div>
-          {isLoading ? (
-            <div className="text-sm text-gray-500">加载中...</div>
-          ) : error ? (
-            <div className="text-sm text-red-500">{error}</div>
-          ) : pullRequests.length === 0 ? (
-            <div className="text-sm text-gray-500">暂无修改请求</div>
-          ) : (
-            <div className="space-y-3">
-              {pullRequests.map((pr) => (
-                <div key={pr.id} className="space-y-2">
-                  <div className="flex flex-col gap-2 p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          {pr.title.startsWith("Update") ? (
-                            <PencilIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                          ) : (
-                            <PlusIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                          )}
-                          <a
-                            href={pr.html_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-gray-900 hover:text-blue-600 truncate"
-                          >
-                            {pr.title}
-                          </a>
-                        </div>
-                        <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-500">
-                          <span
-                            title={new Date(pr.created_at).toLocaleString(
-                              "zh-CN"
-                            )}
-                          >
-                            {formatDate(pr.created_at)}
-                          </span>
-                          <span>•</span>
-                          <button className="flex items-center gap-1">
-                            <HandThumbUpIcon className="w-3.5 h-3.5" />
-                            {pr.reactions?.["+1"] || 0}
-                          </button>
-                          <button className="flex items-center gap-1">
-                            <HandThumbDownIcon className="w-3.5 h-3.5" />
-                            {pr.reactions?.["-1"] || 0}
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleDiff(pr);
-                          }}
-                          className="text-xs text-gray-500 hover:text-blue-600 px-2 py-1 rounded-md hover:bg-gray-100 transition-colors"
-                        >
-                          {pr.diff ? "隐藏改动" : "显示改动"}
-                        </button>
-                        <span
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            pr.state === "open"
-                              ? "bg-green-100 text-green-800"
-                              : !!pr.merged_at
-                              ? "bg-purple-100 text-purple-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
-                        >
-                          {pr.state === "open"
-                            ? "开放中"
-                            : !!pr.merged_at
-                            ? "已合并"
-                            : "已拒绝"}
-                        </span>
-                      </div>
-                    </div>
-                    {pr.isDiffLoading && (
-                      <div className="text-sm text-gray-500 pl-3">
-                        加载改动中...
-                      </div>
-                    )}
-                    {pr.diffError && (
-                      <div className="text-sm text-red-500 pl-3">
-                        {pr.diffError}
-                      </div>
-                    )}
-                    {pr.diff && (
-                      <div className="bg-gray-50 rounded-lg p-3 overflow-x-auto border border-gray-200">
-                        <pre className="text-xs">{formatDiff(pr.diff)}</pre>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          {renderContent()}
         </div>
       )}
     </div>
   );
 }
+
+export { Leaderboard, ModificationRequests };

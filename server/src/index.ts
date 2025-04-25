@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import cache from "memory-cache";
 import { GameManager } from "./game";
+import { PlayerStatsStorage } from "./storage";
 import {
   createPullRequest,
   createAddVtuberPullRequest,
@@ -57,9 +58,55 @@ const cacheMiddleware = (duration: number) => {
   };
 };
 
+// Initialize services
+const playerStats = new PlayerStatsStorage();
+
 // Routes
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+// Leaderboard routes
+app.get("/leaderboard/games", cacheMiddleware(60), async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const leaderboard = await playerStats.getDailyGamesLeaderboard(
+      undefined,
+      limit ? parseInt(limit as string) : 10
+    );
+    res.json(leaderboard);
+  } catch (error) {
+    console.error("Error fetching games leaderboard:", error);
+    res.status(500).json({ error: "Failed to fetch games leaderboard" });
+  }
+});
+
+app.get("/leaderboard/wins", cacheMiddleware(60), async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const leaderboard = await playerStats.getDailyWinsLeaderboard(
+      undefined,
+      limit ? parseInt(limit as string) : 10
+    );
+    res.json(leaderboard);
+  } catch (error) {
+    console.error("Error fetching wins leaderboard:", error);
+    res.status(500).json({ error: "Failed to fetch wins leaderboard" });
+  }
+});
+
+app.get("/leaderboard/win-rate", cacheMiddleware(60), async (req, res) => {
+  try {
+    const { limit } = req.query;
+    const leaderboard = await playerStats.getDailyWinRateLeaderboard(
+      undefined,
+      limit ? parseInt(limit as string) : 10
+    );
+    res.json(leaderboard);
+  } catch (error) {
+    console.error("Error fetching win rate leaderboard:", error);
+    res.status(500).json({ error: "Failed to fetch win rate leaderboard" });
+  }
 });
 
 // VTuber update endpoint
