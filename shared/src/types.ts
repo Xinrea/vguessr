@@ -40,7 +40,6 @@ export interface GameRoom {
   result?: GameResult;
   lastChanceReduction?: number; // timestamp of last automatic chance reduction
   playersUsedChance?: Record<string, boolean>; // tracks if players used their chance in current interval
-  chanceReductionInterval?: NodeJS.Timeout; // tracks the interval for automatic chance reduction
 }
 
 export interface GameResult {

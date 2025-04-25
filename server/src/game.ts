@@ -1,6 +1,5 @@
 import { Server, Socket } from "socket.io";
 import {
-  GameRoom,
   ServerToClientEvents,
   ClientToServerEvents,
   VTuber,
@@ -12,6 +11,7 @@ import { MatchmakingSystem } from "./matchmaking";
 import { vtubers } from "@vtuber-guessr/shared";
 import { checkGuess } from "@vtuber-guessr/shared";
 import { PlayerNameStorage, PlayerStatsStorage } from "./storage";
+import { GameRoom } from "./types";
 
 export class GameManager {
   private matchmakingSystem: MatchmakingSystem;
