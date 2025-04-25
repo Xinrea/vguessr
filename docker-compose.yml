@@ -18,12 +18,17 @@ services:
     container_name: vtuber-guessr-server
     ports:
       - "3001:3001"
+    volumes:
+      - ./vguessrbot.private-key.pem:/app/vguessrbot.private-key.pem
     restart: unless-stopped
     depends_on:
       - redis
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - GITHUB_APP_ID=Iv23lirUYcuNmtihKqiE
+      - GITHUB_APP_INSTALLATION_ID=65252930
+      - GITHUB_APP_PRIVATE_KEY_PATH=/app/vguessrbot.private-key.pem
     networks:
       - vtuber-guessr-network
 

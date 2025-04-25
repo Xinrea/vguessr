@@ -55,16 +55,9 @@ export function GameOverModal({
     setError(null);
 
     try {
-      // 1. 更新本地数据
       onUpdate(editedVtuber);
 
-      // 2. 创建 GitHub PR
-      const token = process.env.PR_TOKEN;
-      if (!token) {
-        throw new Error("GitHub token not found. Please login first.");
-      }
-
-      await createPullRequest(editedVtuber, token);
+      await createPullRequest(editedVtuber);
       setIsEditing(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create PR");
