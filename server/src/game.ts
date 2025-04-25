@@ -138,10 +138,6 @@ export class GameManager {
       }
 
       this.matchmakingSystem.handleJoinQueue(user);
-      const room = this.matchmakingSystem.getRoomForPlayer(user.id);
-      if (room) {
-        console.log(`Player ${user.name} joined room ${room.id}`);
-      }
 
       this.broadcastStats();
     });
@@ -370,10 +366,14 @@ export class GameManager {
     room.lastChanceReduction = undefined;
     room.playersUsedChance = undefined;
 
-    // Clear interval before sending
-    const roomToSend = { ...room };
-    delete roomToSend.chanceReductionInterval;
-    this.matchmakingSystem.updateRoom(roomToSend);
+    // Clear interval
+    if (room.chanceReductionInterval) {
+      clearInterval(room.chanceReductionInterval);
+      room.chanceReductionInterval = undefined;
+      console.log("room interval cleared", room.id);
+    }
+
+    this.matchmakingSystem.updateRoom(room);
 
     // Record statistics for all players
     for (const player of room.players) {
@@ -383,7 +383,7 @@ export class GameManager {
       }
     }
 
-    this.io.to(room.id).emit("game:finished", roomToSend);
+    this.io.to(room.id).emit("game:finished", room);
   }
 
   private handlePlayerLeave(socket: Socket | undefined, player: User) {

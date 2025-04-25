@@ -73,10 +73,8 @@ export interface GuessResult {
 
 // Socket.IO event types
 export interface ServerToClientEvents {
-  "room:created": (room: GameRoom) => void;
   "room:joined": (room: GameRoom) => void;
   "room:updated": (room: GameRoom) => void;
-  "room:disbanded": () => void;
   "game:started": () => void;
   "game:finished": (room: GameRoom) => void;
   "stats:update": (stats: {
@@ -85,7 +83,6 @@ export interface ServerToClientEvents {
     roomCount: number;
   }) => void;
   error: (message: string) => void;
-  "room:join:result": (room: GameRoom | null) => void;
 }
 
 export interface ClientToServerEvents {

@@ -83,28 +83,6 @@ export function useMultiplayer() {
       console.log("room:joined", room);
       setCurrentRoom(room);
       setIsInQueue(false);
-
-      // Play sound when joined
-      if (joinSoundRef.current) {
-        joinSoundRef.current.play().catch((error) => {
-          console.error("Error playing sound:", error);
-        });
-      }
-
-      // Show notification
-      if (
-        typeof window !== "undefined" &&
-        "Notification" in window &&
-        Notification.permission === "granted"
-      ) {
-        const currentUserId = localStorage.getItem(USER_ID_KEY);
-        const opponent = room.players.find((p) => p.user.id !== currentUserId);
-        new Notification("VGuessr 加入房间", {
-          body: opponent ? `对手: ${opponent.user.name}` : "等待对手加入...",
-          icon: "/favicon.ico",
-          tag: "room-joined",
-        });
-      }
     });
 
     newSocket.on("room:updated", (room: GameRoom) => {
@@ -113,6 +91,7 @@ export function useMultiplayer() {
     });
 
     newSocket.on("game:started", () => {
+      console.log("game:started");
       // 获取设置
       const savedSettings = localStorage.getItem("vtuber-guessr-settings");
       const settings = savedSettings
@@ -184,10 +163,7 @@ export function useMultiplayer() {
 
   const joinQueue = () => {
     if (socket && !isInQueue) {
-      socket.emit("matchmaking:join", (room: GameRoom) => {
-        setCurrentRoom(room);
-        setIsInQueue(false);
-      });
+      socket.emit("matchmaking:join");
       setIsInQueue(true);
     }
   };

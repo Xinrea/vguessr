@@ -118,7 +118,9 @@ export class MatchmakingSystem {
       player1Socket?.join(roomId);
       player2Socket?.join(roomId);
 
-      this.updateRoom(room);
+      console.log("Matched players", player1.name, player2.name, roomId);
+
+      this.io.to(roomId).emit("room:joined", room);
     }
   }
 
@@ -223,7 +225,6 @@ export class MatchmakingSystem {
       this.gameState.rooms[roomId] = room;
       this.gameState.players[user.id] = roomId;
       socket?.join(roomId);
-      socket?.emit("room:created", room);
       socket?.emit("room:joined", room);
       return;
     }
@@ -252,6 +253,7 @@ export class MatchmakingSystem {
     this.gameState.players[user.id] = roomId;
     this.updateRoom(room);
     socket?.join(roomId);
+    socket?.emit("room:joined", room);
     this.io.to(roomId).emit("room:updated", room);
   }
 
