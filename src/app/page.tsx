@@ -341,7 +341,10 @@ export default function Home() {
         />
 
         <div className="mt-8 text-center text-sm text-gray-500">
-          <div className="flex items-center justify-center gap-2">
+          <span className="text-xs text-gray-400">
+            偶数整点左右可能会进行服务器自动更新，掉线提示异常属正常现象
+          </span>
+          <div className="flex items-center justify-center gap-2 mt-2">
             <CodeBracketIcon className="w-4 h-4" />
             <a
               href="https://github.com/Xinrea/vguessr"
