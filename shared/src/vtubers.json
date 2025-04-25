@@ -3772,5 +3772,26 @@
       "肥猫"
     ],
     "id": "af5bd35c-3378-4d55-a3eb-64e0c665cb1f"
+  },
+  {
+    "avatar": "",
+    "name": "珈乐",
+    "nameEN": "Carol",
+    "agency": "A-SOUL",
+    "gender": "女",
+    "birthDate": "11月2日",
+    "debutDate": "2020-12-15",
+    "height": 160,
+    "hairColor": "紫色",
+    "eyeColor": "黑色",
+    "seiza": "天蝎座",
+    "description": "",
+    "age": 19,
+    "tags": [
+      "已毕业",
+      "酷盖",
+      "歌势"
+    ],
+    "id": "78436c29-60ad-43e7-95d7-69baaead9d54"
   }
 ]
