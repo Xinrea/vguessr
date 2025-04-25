@@ -7,6 +7,7 @@ import {
   createPullRequestComment,
   getPullRequestComments,
   REPO_OWNER,
+  getPullRequestChecks,
 } from "./github";
 
 export class PRAutoMergeService {
@@ -103,6 +104,27 @@ export class PRAutoMergeService {
         console.log(
           `Checking PR #${pr.number} with ${thumbsUp} thumbs up and ${thumbsDown} thumbs down`
         );
+
+        // 检查 GitHub Actions 状态
+        const checksResult = await getPullRequestChecks(token, pr.number);
+        if (!checksResult.success || !checksResult.data) {
+          console.error(
+            `Failed to get PR #${pr.number} checks:`,
+            checksResult.error
+          );
+          continue;
+        }
+
+        const hasFailedChecks = checksResult.data.some(
+          (check: { name: string; conclusion: string }) =>
+            check.conclusion === "failure"
+        );
+        if (hasFailedChecks) {
+          console.log(
+            `PR #${pr.number} has failed checks, skipping auto-merge`
+          );
+          continue;
+        }
 
         // 获取 PR 详情以获取分支名和合并状态
         const detailsResult = await getPullRequestDetails(token, pr.number);

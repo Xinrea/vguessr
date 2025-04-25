@@ -1,0 +1,62 @@
+name: Check VTubers JSON
+
+on:
+  pull_request:
+    paths:
+      - "shared/src/vtubers.json"
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check JSON format and fields
+        run: |
+          if [ -f "shared/src/vtubers.json" ]; then
+            # 检查 JSON 格式
+            jq . shared/src/vtubers.json > /dev/null
+            if [ $? -ne 0 ]; then
+              echo "JSON is invalid"
+              exit 1
+            fi
+
+            # 检查字段类型
+            if ! jq -e '.[] | (.id | type == "string") and (.avatar | type == "string") and (.name | type == "string") and (.nameEN | type == "string") and (.agency | type == "string") and (.debutDate | type == "string") and (.birthDate | type == "string") and (.seiza | type == "string") and (.gender | type == "string") and (.age | type == "number") and (.hairColor | type == "string") and (.eyeColor | type == "string") and (.height | type == "number") and (.tags | type == "array")' shared/src/vtubers.json > /dev/null; then
+              echo "Error: Some fields have incorrect types"
+              exit 1
+            fi
+
+            # 检查 debutDate 格式为 YYYY-MM-DD
+            if ! jq -e '.[].debutDate | test("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")' shared/src/vtubers.json > /dev/null; then
+              echo "Error: Some debut dates are not in YYYY-MM-DD format"
+              exit 1
+            fi
+
+            # 检查 birthDate 格式为 X月Y日
+            if ! jq -e '.[].birthDate | test("^[0-9]{1,2}月[0-9]{1,2}日$")' shared/src/vtubers.json > /dev/null; then
+              echo "Error: Some birth dates are not in X月Y日 format"
+              exit 1
+            fi
+
+            # 检查 id 是否重复
+            DUPLICATE_IDS=$(jq -r 'group_by(.id) | .[] | select(length > 1) | .[0].id' shared/src/vtubers.json)
+            if [ ! -z "$DUPLICATE_IDS" ]; then
+              echo "Error: Duplicate IDs found: $DUPLICATE_IDS"
+              exit 1
+            fi
+
+            # 检查 name 是否重复
+            DUPLICATE_NAMES=$(jq -r 'group_by(.name) | .[] | select(length > 1) | .[0].name' shared/src/vtubers.json)
+            if [ ! -z "$DUPLICATE_NAMES" ]; then
+              echo "Error: Duplicate names found: $DUPLICATE_NAMES"
+              exit 1
+            fi
+
+            echo "All checks passed successfully"
+          else
+            echo "vtubers.json not found"
+            exit 1
+          fi

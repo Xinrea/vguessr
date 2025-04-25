@@ -1,5 +1,6 @@
 import { VTuber } from "@vtuber-guessr/shared";
 import { v4 as uuidv4 } from "uuid";
+import { Result } from "../../src/types";
 
 export interface PullRequest {
   id: number;
@@ -729,4 +730,49 @@ export async function getPullRequestComments(
 
   const data = await response.json();
   return { success: true, data };
+}
+
+interface CheckRun {
+  name: string;
+  conclusion: string;
+}
+
+export async function getPullRequestChecks(
+  token: string,
+  prNumber: number
+): Promise<Result<CheckRun[]>> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits/${prNumber}/check-runs`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `Failed to get PR checks: ${response.statusText}`,
+      };
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      data: data.check_runs.map(
+        (run: { name: string; conclusion: string }) => ({
+          name: run.name,
+          conclusion: run.conclusion,
+        })
+      ),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Error getting PR checks: ${error}`,
+    };
+  }
 }
