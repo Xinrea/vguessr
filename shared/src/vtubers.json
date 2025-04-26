@@ -4063,5 +4063,23 @@
     ],
     "id": "605819d4-27d3-4f0f-92e9-207403680fb9",
     "status": "active"
+  },
+  {
+    "avatar": "",
+    "name": "艾因",
+    "nameEN": "eine",
+    "agency": "VirtuaReal",
+    "gender": "女",
+    "birthDate": "2月2日",
+    "debutDate": "2019-05-05",
+    "height": 160,
+    "hairColor": "亚麻发",
+    "eyeColor": "棕瞳",
+    "seiza": " 水瓶座",
+    "description": "",
+    "age": 19,
+    "tags": [],
+    "status": "active",
+    "id": "83b15729-11f8-4a51-baab-2beb13aa3b12"
   }
 ]
