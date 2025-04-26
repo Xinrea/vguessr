@@ -417,9 +417,10 @@ export class GameManager {
         this.matchmakingSystem.deleteRoom(room.id, player.id);
       } else {
         // Notify remaining players
-        // Reset score
+        // Reset score and ready status
         room.players.forEach((p) => {
           room.scores[p.user.id] = 0;
+          p.ready = false;
         });
         // reset status
         room.status = "waiting";
