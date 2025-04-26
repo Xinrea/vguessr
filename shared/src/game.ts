@@ -110,16 +110,16 @@ export function checkGuess(
 
   // 检查状态
   // active: 活动中
-  // inactive: 已毕业
-  // retired: 已退休
+  // inactive: 休息中
+  // retired: 已毕业
   differences.push({
     attribute: "状态",
     value:
       guess.status === "active"
         ? "活动中"
         : guess.status === "inactive"
-        ? "已毕业"
-        : "已退休",
+        ? "休息中"
+        : "已毕业",
     isMatch: guess.status === target.status,
   });
 

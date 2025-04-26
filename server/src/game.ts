@@ -427,6 +427,8 @@ export class GameManager {
         room.records = [];
         room.lastChanceReduction = undefined;
         room.playersUsedChance = undefined;
+        room.agencyHint = undefined;
+        room.result = undefined;
         this.matchmakingSystem.playerLeaveRoom(player.id);
         this.matchmakingSystem.updateRoom(room);
       }

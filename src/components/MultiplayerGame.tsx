@@ -38,6 +38,43 @@ export function MultiplayerGame({
   const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(CHANCE_REDUCTION_INTERVAL);
   const [hasUsedChance, setHasUsedChance] = useState(false);
+  const [selectedAgency, setSelectedAgency] = useState("");
+
+  const preprocessRecords = (records: GuessResult[]) => {
+    // 按时间倒序排序
+    const sortedRecords = [...records].reverse();
+
+    // 为每个记录添加玩家信息和设置 marker
+    return sortedRecords.map((record) => ({
+      ...record,
+      marker: record.user?.id === currentPlayerId ? 1 : 2,
+    }));
+  };
+
+  const processedRecords = preprocessRecords(room.records);
+
+  // Check if agency has been correctly guessed
+  const hasCorrectAgencyGuess = processedRecords.some((record) =>
+    record.differences.some((diff) => diff.attribute === "团体" && diff.isMatch)
+  );
+
+  // Set correct agency when agency hint is available or when agency is correctly guessed
+  useEffect(() => {
+    if (room.agencyHint) {
+      setSelectedAgency(room.agencyHint);
+    } else if (hasCorrectAgencyGuess) {
+      const correctAgency = processedRecords
+        .find((record) =>
+          record.differences.some(
+            (diff) => diff.attribute === "团体" && diff.isMatch
+          )
+        )
+        ?.differences.find((diff) => diff.attribute === "团体")?.value;
+      if (correctAgency && typeof correctAgency === "string") {
+        setSelectedAgency(correctAgency);
+      }
+    }
+  }, [room.agencyHint, hasCorrectAgencyGuess, processedRecords]);
 
   const playButtonSound = () => {
     const audio = new Audio("/sounds/button.mp3");
@@ -102,19 +139,6 @@ export function MultiplayerGame({
   const currentPlayer = room.players.find((p) => p.user.id === currentPlayerId);
   const isReady = currentPlayer?.ready || false;
 
-  const preprocessRecords = (records: GuessResult[]) => {
-    // 按时间倒序排序
-    const sortedRecords = [...records].reverse();
-
-    // 为每个记录添加玩家信息和设置 marker
-    return sortedRecords.map((record) => ({
-      ...record,
-      marker: record.user?.id === currentPlayerId ? 1 : 2,
-    }));
-  };
-
-  const processedRecords = preprocessRecords(room.records);
-
   const searchVtubers = (query: string) => {
     if (!query) {
       setSearchResults([]);
@@ -124,6 +148,11 @@ export function MultiplayerGame({
     const queryLower = query.toLowerCase();
 
     const result = vtubers.filter((vtuber) => {
+      // Filter by agency if selected
+      if (selectedAgency && vtuber.agency !== selectedAgency) {
+        return false;
+      }
+
       // 检查英文名
       if (vtuber.nameEN.toLowerCase().includes(queryLower)) {
         return true;
@@ -378,37 +407,65 @@ export function MultiplayerGame({
               <label className="block text-sm font-medium text-gray-700">
                 搜索 VTuber
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  type="text"
-                  value={searchQuery}
+              <div className="flex gap-2">
+                <select
+                  value={selectedAgency}
                   onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    searchVtubers(e.target.value);
+                    setSelectedAgency(e.target.value);
+                    if (searchQuery) {
+                      searchVtubers(searchQuery);
+                    }
                   }}
-                  placeholder="输入 VTuber 的名字..."
-                  className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
                   disabled={
                     room.status === "waiting" ||
                     (room.players.find((p) => p.user.id === currentPlayerId)
-                      ?.chance || 0) === 0
+                      ?.chance || 0) === 0 ||
+                    hasCorrectAgencyGuess ||
+                    !!room.agencyHint
                   }
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowDown" && searchResults.length > 0) {
-                      e.preventDefault();
-                      const firstItem = document.querySelector(
-                        ".search-result-item"
-                      ) as HTMLElement;
-                      firstItem?.focus();
-                    } else if (e.key === "Escape") {
-                      e.preventDefault();
-                      setSearchResults([]);
+                  className="w-40 px-3 py-2.5 pr-8 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 appearance-none bg-white bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236B7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22M6%208l4%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5em_1.5em] bg-[center_right_0.5rem] bg-no-repeat disabled:bg-gray-100 disabled:cursor-not-allowed"
+                >
+                  <option value="">所有团体</option>
+                  {Array.from(new Set(vtubers.map((v) => v.agency))).map(
+                    (agency) => (
+                      <option key={agency} value={agency}>
+                        {agency}
+                      </option>
+                    )
+                  )}
+                </select>
+                <div className="relative flex-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      searchVtubers(e.target.value);
+                    }}
+                    placeholder="输入 VTuber 的名字..."
+                    className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    disabled={
+                      room.status === "waiting" ||
+                      (room.players.find((p) => p.user.id === currentPlayerId)
+                        ?.chance || 0) === 0
                     }
-                  }}
-                />
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowDown" && searchResults.length > 0) {
+                        e.preventDefault();
+                        const firstItem = document.querySelector(
+                          ".search-result-item"
+                        ) as HTMLElement;
+                        firstItem?.focus();
+                      } else if (e.key === "Escape") {
+                        e.preventDefault();
+                        setSearchResults([]);
+                      }
+                    }}
+                  />
+                </div>
               </div>
 
               {searchResults.length > 0 && (
