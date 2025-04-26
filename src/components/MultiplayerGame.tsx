@@ -15,6 +15,7 @@ import { vtubers } from "@vtuber-guessr/shared";
 import pinyin from "pinyin";
 import GuessResultComponent from "./GuessResult";
 import { GameOverModal } from "./GameOverModal";
+import { VTuberInfoModal } from "./VTuberInfoModal";
 
 interface MultiplayerGameProps {
   room: GameRoom;
@@ -39,6 +40,7 @@ export function MultiplayerGame({
   const [timeLeft, setTimeLeft] = useState(CHANCE_REDUCTION_INTERVAL);
   const [hasUsedChance, setHasUsedChance] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState("");
+  const [editTarget, setEditTarget] = useState<VTuber | null>(null);
   const preprocessRecords = (records: GuessResult[]) => {
     // 按时间倒序排序
     const sortedRecords = [...records].reverse();
@@ -540,6 +542,9 @@ export function MultiplayerGame({
               <table className="w-full hidden md:table">
                 <thead>
                   <tr className="border-b border-gray-200">
+                    <th className="py-1.5 px-1.5 text-left text-xs font-medium text-gray-700 border-r border-gray-100 last:border-r-0">
+                      编辑
+                    </th>
                     {processedRecords[0]?.differences
                       .filter(
                         (diff: { attribute: string }) =>
@@ -565,6 +570,9 @@ export function MultiplayerGame({
                       result={result}
                       isMobile={false}
                       vtuber={vtubers.find((v) => v.id === result.id)}
+                      onEdit={(vtuber) => {
+                        setEditTarget(vtuber);
+                      }}
                     />
                   ))}
                 </tbody>
@@ -584,6 +592,9 @@ export function MultiplayerGame({
                     result={result}
                     isMobile={true}
                     vtuber={vtubers.find((v) => v.id === result.id)}
+                    onEdit={(vtuber) => {
+                      setEditTarget(vtuber);
+                    }}
                   />
                 ))}
               </div>
@@ -603,6 +614,14 @@ export function MultiplayerGame({
           answer={room.result?.answer || null}
           onRestart={handleRestart}
           isCorrect={room.result?.winner?.user.id === currentPlayerId}
+        />
+      )}
+
+      {editTarget && (
+        <VTuberInfoModal
+          isOpen={true}
+          onClose={() => setEditTarget(null)}
+          vtuber={editTarget}
         />
       )}
     </div>
