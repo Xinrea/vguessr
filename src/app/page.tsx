@@ -38,6 +38,8 @@ export default function Home() {
     searchQuery,
     setSearchResults,
     setSearchQuery,
+    selectedAgency,
+    setSelectedAgency,
     submitGuess,
     startNewGame,
     updateVtuber,
@@ -202,107 +204,139 @@ export default function Home() {
                       提示：目标 VTuber 的团体是 {groupHint}
                     </div>
                   )}
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="输入 VTuber 的名字..."
-                      className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                      onKeyDown={(e) => {
-                        if (e.key === "ArrowDown" && searchResults.length > 0) {
-                          e.preventDefault();
-                          const firstItem = document.querySelector(
-                            ".search-result-item"
-                          ) as HTMLElement;
-                          firstItem?.focus();
-                        } else if (e.key === "Escape") {
-                          e.preventDefault();
-                          setSearchResults([]);
+                  <div className="flex gap-2">
+                    <select
+                      value={selectedAgency}
+                      onChange={(e) => {
+                        setSelectedAgency(e.target.value);
+                        if (searchQuery) {
+                          setSearchQuery(searchQuery);
                         }
                       }}
-                    />
-                    {!isGameOver && attempts.length > 0 && (
-                      <button
-                        onClick={() => {
-                          playButtonSound();
-                          setIsGameOver(true);
-                          const newStats = {
-                            totalGames: stats.totalGames + 1,
-                            wins: stats.wins,
-                            losses: stats.losses + 1,
-                            averageAttempts: stats.averageAttempts,
-                          };
-                          setStats(newStats);
-                          if (typeof window !== "undefined") {
-                            localStorage.setItem(
-                              "vtuber-guessr-stats",
-                              JSON.stringify(newStats)
-                            );
+                      disabled={
+                        !!groupHint ||
+                        guessResults.some((result) =>
+                          result.differences.some(
+                            (diff) => diff.attribute === "团体" && diff.isMatch
+                          )
+                        )
+                      }
+                      className="w-40 px-3 py-2.5 pr-8 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 appearance-none bg-white bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236B7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22M6%208l4%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5em_1.5em] bg-[center_right_0.5rem] bg-no-repeat disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    >
+                      <option value="">所有团体</option>
+                      {Array.from(
+                        new Set(vtubers.map((v) => v.agency).filter(Boolean))
+                      ).map((agency) => (
+                        <option key={agency} value={agency}>
+                          {agency}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="relative flex-1">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="输入 VTuber 的名字..."
+                        className="w-full pl-10 pr-4 py-2.5 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        onKeyDown={(e) => {
+                          if (
+                            e.key === "ArrowDown" &&
+                            searchResults.length > 0
+                          ) {
+                            e.preventDefault();
+                            const firstItem = document.querySelector(
+                              ".search-result-item"
+                            ) as HTMLElement;
+                            firstItem?.focus();
+                          } else if (e.key === "Escape") {
+                            e.preventDefault();
+                            setSearchResults([]);
                           }
                         }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
-                      >
-                        🏳️ 投降
-                      </button>
-                    )}
-                  </div>
-
-                  {searchResults.length > 0 && (
-                    <div className="absolute left-0 right-0 mt-0.5 z-10 mx-6">
-                      <div className="bg-white rounded-lg shadow-lg max-h-[40vh] overflow-y-auto border border-gray-200">
-                        {searchResults.map((vtuber, index) => (
-                          <button
-                            key={vtuber.id}
-                            onClick={() => submitGuess(vtuber)}
-                            className="w-full p-2 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-gray-50 search-result-item"
-                            onKeyDown={(e) => {
-                              if (e.key === "ArrowDown") {
-                                e.preventDefault();
-                                const next = searchResults[index + 1];
-                                if (next) {
-                                  const nextElement = (e.target as HTMLElement)
-                                    .nextElementSibling as HTMLElement;
-                                  nextElement?.focus();
-                                }
-                              } else if (e.key === "ArrowUp") {
-                                e.preventDefault();
-                                const prev = searchResults[index - 1];
-                                if (prev) {
-                                  const prevElement = (e.target as HTMLElement)
-                                    .previousElementSibling as HTMLElement;
-                                  prevElement?.focus();
-                                } else {
-                                  // 如果到达第一个选项，焦点回到输入框
-                                  const input = document.querySelector(
-                                    'input[type="text"]'
-                                  ) as HTMLElement;
-                                  input?.focus();
-                                }
-                              } else if (e.key === "Enter") {
-                                e.preventDefault();
-                                submitGuess(vtuber);
-                              } else if (e.key === "Escape") {
-                                e.preventDefault();
-                                setSearchResults([]);
-                              }
-                            }}
-                          >
-                            <div className="font-medium text-sm">
-                              {vtuber.name}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {vtuber.agency}
-                            </div>
-                          </button>
-                        ))}
-                      </div>
+                      />
+                      {!isGameOver && attempts.length > 0 && (
+                        <button
+                          onClick={() => {
+                            playButtonSound();
+                            setIsGameOver(true);
+                            const newStats = {
+                              totalGames: stats.totalGames + 1,
+                              wins: stats.wins,
+                              losses: stats.losses + 1,
+                              averageAttempts: stats.averageAttempts,
+                            };
+                            setStats(newStats);
+                            if (typeof window !== "undefined") {
+                              localStorage.setItem(
+                                "vtuber-guessr-stats",
+                                JSON.stringify(newStats)
+                              );
+                            }
+                          }}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
+                        >
+                          🏳️ 投降
+                        </button>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
+
+                {searchResults.length > 0 && (
+                  <div className="absolute left-0 right-0 mt-0.5 z-10 mx-6">
+                    <div className="bg-white rounded-lg shadow-lg max-h-[40vh] overflow-y-auto border border-gray-200">
+                      {searchResults.map((vtuber, index) => (
+                        <button
+                          key={vtuber.id}
+                          onClick={() => submitGuess(vtuber)}
+                          className="w-full p-2 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-gray-50 search-result-item"
+                          onKeyDown={(e) => {
+                            if (e.key === "ArrowDown") {
+                              e.preventDefault();
+                              const next = searchResults[index + 1];
+                              if (next) {
+                                const nextElement = (e.target as HTMLElement)
+                                  .nextElementSibling as HTMLElement;
+                                nextElement?.focus();
+                              }
+                            } else if (e.key === "ArrowUp") {
+                              e.preventDefault();
+                              const prev = searchResults[index - 1];
+                              if (prev) {
+                                const prevElement = (e.target as HTMLElement)
+                                  .previousElementSibling as HTMLElement;
+                                prevElement?.focus();
+                              } else {
+                                // 如果到达第一个选项，焦点回到输入框
+                                const input = document.querySelector(
+                                  'input[type="text"]'
+                                ) as HTMLElement;
+                                input?.focus();
+                              }
+                            } else if (e.key === "Enter") {
+                              e.preventDefault();
+                              submitGuess(vtuber);
+                            } else if (e.key === "Escape") {
+                              e.preventDefault();
+                              setSearchResults([]);
+                            }
+                          }}
+                        >
+                          <div className="font-medium text-sm">
+                            {vtuber.name}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {vtuber.agency}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </motion.div>
 
               <motion.div

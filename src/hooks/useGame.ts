@@ -21,6 +21,7 @@ export function useGame() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState<VTuber[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedAgency, setSelectedAgency] = useState<string>("");
   const [settings, setSettings] = useState<{
     excludedAgencies: string[];
     soundEnabled: boolean;
@@ -119,6 +120,11 @@ export function useGame() {
           return false;
         }
 
+        // 检查是否匹配选中的团体
+        if (selectedAgency && vtuber.agency !== selectedAgency) {
+          return false;
+        }
+
         // 检查英文名
         if (vtuber.nameEN.toLowerCase().includes(queryLower)) {
           return true;
@@ -144,7 +150,7 @@ export function useGame() {
 
       setSearchResults(result);
     },
-    [attempts, settings.excludedAgencies]
+    [attempts, settings.excludedAgencies, selectedAgency]
   );
 
   const startNewGame = () => {
@@ -154,6 +160,7 @@ export function useGame() {
     setIsGameOver(false);
     setSearchResults([]);
     setSearchQuery("");
+    setSelectedAgency("");
     setGroupHint(null); // Clear hint when starting new game
   };
 
@@ -176,11 +183,22 @@ export function useGame() {
     // Check if we should provide a group hint after 4 attempts
     if (attempts.length + 1 === 3 && !result.isCorrect) {
       setGroupHint(target.agency || "无");
+      setSelectedAgency(target.agency || ""); // Lock the agency dropdown to the hint
+    }
+
+    // Lock agency dropdown if correct agency is guessed
+    if (
+      result.differences.some(
+        (diff) => diff.attribute === "团体" && diff.isMatch
+      )
+    ) {
+      setSelectedAgency(target.agency || "");
     }
 
     if (result.isCorrect || attempts.length + 1 >= MAX_ATTEMPTS) {
       setIsGameOver(true);
       setGroupHint(null); // Clear hint when game is over
+      setSelectedAgency(""); // Reset the agency filter when game is over
 
       // Update stats
       const newStats = {
@@ -218,6 +236,8 @@ export function useGame() {
     searchQuery,
     setSearchResults,
     setSearchQuery,
+    selectedAgency,
+    setSelectedAgency,
     submitGuess,
     startNewGame,
     updateVtuber,
