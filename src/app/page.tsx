@@ -42,7 +42,6 @@ export default function Home() {
     setSelectedAgency,
     submitGuess,
     startNewGame,
-    updateVtuber,
     addVtuber,
     stats,
     settings,
@@ -414,7 +413,6 @@ export default function Home() {
           onClose={startNewGame}
           answer={targetVtuber}
           onRestart={startNewGame}
-          onUpdate={updateVtuber}
           isCorrect={guessResults.length > 0 && guessResults[0].isCorrect}
         />
 

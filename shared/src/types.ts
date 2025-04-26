@@ -61,6 +61,7 @@ export interface GuessResult {
   // 1: self, 2: opponent
   marker: number;
   isCorrect: boolean;
+  id: string;
   name: string;
   nameMatch: boolean[];
   differences: {

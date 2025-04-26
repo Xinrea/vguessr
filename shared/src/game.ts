@@ -159,6 +159,7 @@ export function checkGuess(
     user: user,
     marker: 0,
     isCorrect: guess.id === target.id,
+    id: guess.id,
     name: guess.name,
     nameMatch,
     differences,

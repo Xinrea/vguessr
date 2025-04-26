@@ -601,7 +601,6 @@ export function MultiplayerGame({
           onClose={handleModalClose}
           answer={room.result?.answer || null}
           onRestart={handleRestart}
-          onUpdate={() => {}}
           isCorrect={room.result?.winner?.user.id === currentPlayerId}
         />
       )}
