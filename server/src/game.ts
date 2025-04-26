@@ -318,14 +318,26 @@ export class GameManager {
     const room = this.matchmakingSystem.getRoomById(roomId);
     if (!room) return;
 
+    // Clear any existing interval before starting a new one
+    if (room.chanceReductionInterval) {
+      clearInterval(room.chanceReductionInterval);
+      room.chanceReductionInterval = undefined;
+      console.log("room interval cleared before starting new one", room.id);
+    }
+
     room.chanceReductionInterval = setInterval(() => {
       const room = this.matchmakingSystem.getRoomById(roomId);
       if (!room) return;
 
       if (room.status !== "playing") {
-        clearInterval(room.chanceReductionInterval);
-        room.chanceReductionInterval = undefined;
-        console.log("room interval cleared", room.id);
+        if (room.chanceReductionInterval) {
+          clearInterval(room.chanceReductionInterval);
+          room.chanceReductionInterval = undefined;
+          console.log(
+            "room interval cleared due to non-playing status",
+            room.id
+          );
+        }
         return;
       }
 
@@ -375,11 +387,11 @@ export class GameManager {
     room.lastChanceReduction = undefined;
     room.playersUsedChance = undefined;
 
-    // Clear interval
+    // Clear interval only if it exists
     if (room.chanceReductionInterval) {
       clearInterval(room.chanceReductionInterval);
       room.chanceReductionInterval = undefined;
-      console.log("room interval cleared", room.id);
+      console.log("room interval cleared in endGame", room.id);
     }
 
     this.matchmakingSystem.updateRoom(room);
