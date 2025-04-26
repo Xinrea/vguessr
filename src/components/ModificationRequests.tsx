@@ -340,7 +340,9 @@ function Leaderboard() {
         className="w-full flex items-center justify-between text-left cursor-pointer"
       >
         <div className="flex items-center gap-2">
-          <span className="text-base sm:text-lg font-bold">本日排行榜</span>
+          <span className="text-base sm:text-lg font-bold">
+            本日 PVP 排行榜
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <button

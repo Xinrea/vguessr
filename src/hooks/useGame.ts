@@ -41,6 +41,7 @@ export function useGame() {
   });
   const [isAddingVtuber, setIsAddingVtuber] = useState(false);
   const [addVtuberError, setAddVtuberError] = useState<string | null>(null);
+  const [groupHint, setGroupHint] = useState<string | null>(null);
 
   useEffect(() => {
     // 只在客户端加载统计数据
@@ -153,6 +154,7 @@ export function useGame() {
     setIsGameOver(false);
     setSearchResults([]);
     setSearchQuery("");
+    setGroupHint(null); // Clear hint when starting new game
   };
 
   const submitGuess = (guess: VTuber) => {
@@ -171,8 +173,14 @@ export function useGame() {
     setSearchQuery("");
     setSearchResults([]);
 
+    // Check if we should provide a group hint after 4 attempts
+    if (attempts.length + 1 === 3 && !result.isCorrect) {
+      setGroupHint(target.agency || "无");
+    }
+
     if (result.isCorrect || attempts.length + 1 >= MAX_ATTEMPTS) {
       setIsGameOver(true);
+      setGroupHint(null); // Clear hint when game is over
 
       // Update stats
       const newStats = {
@@ -217,7 +225,9 @@ export function useGame() {
     isAddingVtuber,
     addVtuberError,
     stats,
+    setStats,
     settings,
     updateSettings,
+    groupHint,
   };
 }

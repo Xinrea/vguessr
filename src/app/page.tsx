@@ -33,6 +33,7 @@ export default function Home() {
     attempts,
     guessResults,
     isGameOver,
+    setIsGameOver,
     searchResults,
     searchQuery,
     setSearchResults,
@@ -44,6 +45,8 @@ export default function Home() {
     stats,
     settings,
     updateSettings,
+    groupHint,
+    setStats,
   } = useGame();
 
   const {
@@ -187,13 +190,18 @@ export default function Home() {
                         <span>申请添加新 VTuber 信息</span>
                       </button>
                       <div className="flex items-center gap-1.5 text-sm ml-auto sm:ml-0">
-                        <span className="text-gray-500">剩余次数</span>
+                        <span className="text-gray-500">剩余猜测次数</span>
                         <span className="font-medium text-blue-600">
                           {6 - attempts.length}
                         </span>
                       </div>
                     </div>
                   </div>
+                  {groupHint && (
+                    <div className="mt-2 p-2 bg-blue-50 text-blue-700 rounded-md text-sm">
+                      提示：目标 VTuber 的团体是 {groupHint}
+                    </div>
+                  )}
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
@@ -217,6 +225,30 @@ export default function Home() {
                         }
                       }}
                     />
+                    {!isGameOver && attempts.length > 0 && (
+                      <button
+                        onClick={() => {
+                          playButtonSound();
+                          setIsGameOver(true);
+                          const newStats = {
+                            totalGames: stats.totalGames + 1,
+                            wins: stats.wins,
+                            losses: stats.losses + 1,
+                            averageAttempts: stats.averageAttempts,
+                          };
+                          setStats(newStats);
+                          if (typeof window !== "undefined") {
+                            localStorage.setItem(
+                              "vtuber-guessr-stats",
+                              JSON.stringify(newStats)
+                            );
+                          }
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
+                      >
+                        🏳️ 投降
+                      </button>
+                    )}
                   </div>
 
                   {searchResults.length > 0 && (
