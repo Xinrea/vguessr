@@ -4094,5 +4094,30 @@
     ],
     "status": "active",
     "id": "8b88e062-c590-4caf-852c-a7788aafdf16"
+  },
+  {
+    "avatar": "",
+    "name": "向晚",
+    "nameEN": "Ava",
+    "agency": "A-SOUL",
+    "gender": "女",
+    "birthDate": "6月12日",
+    "debutDate": "2020-11-26",
+    "height": 165,
+    "hairColor": "紫发",
+    "eyeColor": "蓝瞳",
+    "seiza": "双子座",
+    "description": "",
+    "age": 18,
+    "tags": [
+      "双马尾",
+      "双螺旋",
+      "白丝",
+      "小恶魔",
+      "元气",
+      "傲娇"
+    ],
+    "status": "retired",
+    "id": "e9bc4f3b-0ba6-4c33-81f6-d24d20108634"
   }
 ]
