@@ -3853,13 +3853,13 @@
     "avatar": "",
     "name": "露蒂丝",
     "nameEN": "Rutice",
-    "agency": "psplive",
+    "agency": "P-SP",
     "gender": "女",
     "birthDate": "7月17日",
     "debutDate": "2020-08-07",
     "height": 0,
-    "hairColor": "紫色",
-    "eyeColor": "紫色到黄色渐变",
+    "hairColor": "紫发",
+    "eyeColor": "紫瞳",
     "seiza": "巨蟹座",
     "description": "良心诊所的虚拟医生！",
     "age": 19,
@@ -3868,7 +3868,8 @@
       "虚拟医生",
       "良心",
       "歌势",
-      "鸽子"
+      "鸽子",
+      "活动中"
     ],
     "id": "277c2f1d-cdaa-42ae-a729-65f951511364"
   }
