@@ -2,8 +2,11 @@ import { useState } from "react";
 import {
   XMarkIcon,
   ExclamationTriangleIcon,
+  ChevronUpDownIcon,
+  CheckIcon,
 } from "@heroicons/react/24/outline";
-import { VTuber } from "@vtuber-guessr/shared";
+import { VTuber, vtubers } from "@vtuber-guessr/shared";
+import { Combobox } from "@headlessui/react";
 
 interface AddVtuberModalProps {
   isOpen: boolean;
@@ -36,6 +39,13 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
     age: 0,
     tags: "",
   });
+
+  // Get unique values from vtubers data
+  const agencies = Array.from(new Set(vtubers.map((v) => v.agency))).sort();
+  const hairColors = Array.from(
+    new Set(vtubers.map((v) => v.hairColor))
+  ).sort();
+  const eyeColors = Array.from(new Set(vtubers.map((v) => v.eyeColor))).sort();
 
   const validateBirthDate = (date: string): boolean => {
     const regex = /^\d{1,2}月\d{1,2}日$/;
@@ -155,14 +165,78 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
             <label className="block text-sm font-medium text-gray-700 mb-0.5">
               所属公司/团体
             </label>
-            <input
-              type="text"
+            <Combobox
               value={formData.agency}
-              onChange={(e) =>
-                setFormData({ ...formData, agency: e.target.value })
+              onChange={(value) =>
+                setFormData({ ...formData, agency: value || "" })
               }
-              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-            />
+            >
+              {({ open }) => (
+                <div className="relative">
+                  <Combobox.Input
+                    className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      setFormData({ ...formData, agency: value });
+                    }}
+                  />
+                  <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronUpDownIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </Combobox.Button>
+                  {open && (
+                    <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {agencies
+                        .filter((agency) =>
+                          agency
+                            .toLowerCase()
+                            .includes(formData.agency.toLowerCase())
+                        )
+                        .map((agency) => (
+                          <Combobox.Option
+                            key={agency}
+                            value={agency}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-blue-600 text-white"
+                                  : "text-gray-900"
+                              }`
+                            }
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
+                                >
+                                  {agency}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-blue-600"
+                                    }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))}
+                    </Combobox.Options>
+                  )}
+                </div>
+              )}
+            </Combobox>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
@@ -258,30 +332,156 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 发色
               </label>
-              <input
-                type="text"
+              <Combobox
                 value={formData.hairColor}
-                onChange={(e) =>
-                  setFormData({ ...formData, hairColor: e.target.value })
+                onChange={(value) =>
+                  setFormData({ ...formData, hairColor: value || "" })
                 }
-                className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                required
-              />
+              >
+                {({ open }) => (
+                  <div className="relative">
+                    <Combobox.Input
+                      className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      required
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setFormData({ ...formData, hairColor: value });
+                      }}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                    {open && (
+                      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {hairColors
+                          .filter((color) =>
+                            color
+                              .toLowerCase()
+                              .includes(formData.hairColor.toLowerCase())
+                          )
+                          .map((color) => (
+                            <Combobox.Option
+                              key={color}
+                              value={color}
+                              className={({ active }) =>
+                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                  active
+                                    ? "bg-blue-600 text-white"
+                                    : "text-gray-900"
+                                }`
+                              }
+                            >
+                              {({ selected, active }) => (
+                                <>
+                                  <span
+                                    className={`block truncate ${
+                                      selected ? "font-medium" : "font-normal"
+                                    }`}
+                                  >
+                                    {color}
+                                  </span>
+                                  {selected ? (
+                                    <span
+                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                        active ? "text-white" : "text-blue-600"
+                                      }`}
+                                    >
+                                      <CheckIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                      />
+                                    </span>
+                                  ) : null}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))}
+                      </Combobox.Options>
+                    )}
+                  </div>
+                )}
+              </Combobox>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 瞳色
               </label>
-              <input
-                type="text"
+              <Combobox
                 value={formData.eyeColor}
-                onChange={(e) =>
-                  setFormData({ ...formData, eyeColor: e.target.value })
+                onChange={(value) =>
+                  setFormData({ ...formData, eyeColor: value || "" })
                 }
-                className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                required
-              />
+              >
+                {({ open }) => (
+                  <div className="relative">
+                    <Combobox.Input
+                      className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      required
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setFormData({ ...formData, eyeColor: value });
+                      }}
+                    />
+                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                    {open && (
+                      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {eyeColors
+                          .filter((color) =>
+                            color
+                              .toLowerCase()
+                              .includes(formData.eyeColor.toLowerCase())
+                          )
+                          .map((color) => (
+                            <Combobox.Option
+                              key={color}
+                              value={color}
+                              className={({ active }) =>
+                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                  active
+                                    ? "bg-blue-600 text-white"
+                                    : "text-gray-900"
+                                }`
+                              }
+                            >
+                              {({ selected, active }) => (
+                                <>
+                                  <span
+                                    className={`block truncate ${
+                                      selected ? "font-medium" : "font-normal"
+                                    }`}
+                                  >
+                                    {color}
+                                  </span>
+                                  {selected ? (
+                                    <span
+                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                        active ? "text-white" : "text-blue-600"
+                                      }`}
+                                    >
+                                      <CheckIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                      />
+                                    </span>
+                                  ) : null}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))}
+                      </Combobox.Options>
+                    )}
+                  </div>
+                )}
+              </Combobox>
             </div>
           </div>
 
