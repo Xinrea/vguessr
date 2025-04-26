@@ -35,6 +35,7 @@ export default function Home() {
     isGameOver,
     searchResults,
     searchQuery,
+    setSearchResults,
     setSearchQuery,
     submitGuess,
     startNewGame,
@@ -210,6 +211,9 @@ export default function Home() {
                             ".search-result-item"
                           ) as HTMLElement;
                           firstItem?.focus();
+                        } else if (e.key === "Escape") {
+                          e.preventDefault();
+                          setSearchResults([]);
                         }
                       }}
                     />
@@ -249,6 +253,9 @@ export default function Home() {
                               } else if (e.key === "Enter") {
                                 e.preventDefault();
                                 submitGuess(vtuber);
+                              } else if (e.key === "Escape") {
+                                e.preventDefault();
+                                setSearchResults([]);
                               }
                             }}
                           >

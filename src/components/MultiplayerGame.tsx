@@ -403,6 +403,9 @@ export function MultiplayerGame({
                         ".search-result-item"
                       ) as HTMLElement;
                       firstItem?.focus();
+                    } else if (e.key === "Escape") {
+                      e.preventDefault();
+                      setSearchResults([]);
                     }
                   }}
                 />
@@ -447,6 +450,9 @@ export function MultiplayerGame({
                             e.preventDefault();
                             onGuess(vtuber);
                             setSearchQuery("");
+                            setSearchResults([]);
+                          } else if (e.key === "Escape") {
+                            e.preventDefault();
                             setSearchResults([]);
                           }
                         }}

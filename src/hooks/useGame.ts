@@ -208,6 +208,7 @@ export function useGame() {
     setIsGameOver,
     searchResults,
     searchQuery,
+    setSearchResults,
     setSearchQuery,
     submitGuess,
     startNewGame,
