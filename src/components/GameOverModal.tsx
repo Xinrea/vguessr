@@ -121,6 +121,11 @@ export function GameOverModal({
     setError(null);
   };
 
+  const handleClose = () => {
+    handleCancel(); // Reset editing state and clear data
+    onClose(); // Call the original onClose handler
+  };
+
   const handleAddTag = (tag?: string) => {
     const tagToAdd = tag || newTag.trim();
     if (tagToAdd && editedVtuber) {
@@ -143,7 +148,7 @@ export function GameOverModal({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {}}>
+      <Dialog as="div" className="relative z-10" onClose={handleClose}>
         {isOpen && isCorrect && <ConfettiEffect />}
         <Transition.Child
           as={Fragment}
@@ -183,7 +188,7 @@ export function GameOverModal({
                   <button
                     type="button"
                     className="text-gray-400 hover:text-gray-500 focus:outline-none"
-                    onClick={onClose}
+                    onClick={handleClose}
                   >
                     <XMarkIcon className="h-6 w-6" />
                   </button>
