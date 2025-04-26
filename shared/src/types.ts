@@ -33,7 +33,6 @@ export interface GameRoom {
   id: string;
   players: Player[];
   status: "waiting" | "playing" | "finished";
-  currentVtuber?: VTuber;
   scores: Record<string, number>;
   records: GuessResult[];
   agencyHint?: string;

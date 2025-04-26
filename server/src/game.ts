@@ -11,8 +11,7 @@ import { MatchmakingSystem } from "./matchmaking";
 import { vtubers } from "@vtuber-guessr/shared";
 import { checkGuess } from "@vtuber-guessr/shared";
 import { PlayerNameStorage, PlayerStatsStorage } from "./storage";
-import { GameRoom } from "./types";
-
+import { ServerRoom, ToGameRoom } from "./types";
 export class GameManager {
   private matchmakingSystem: MatchmakingSystem;
   private io: Server<ClientToServerEvents, ServerToClientEvents>;
@@ -217,6 +216,8 @@ export class GameManager {
       const result = checkGuess(user, guess, room.currentVtuber);
       room.records.push(result);
 
+      console.log("game:guess", user.name, guess.name);
+
       // Mark that player has used their chance in this interval
       if (!room.playersUsedChance) {
         room.playersUsedChance = {};
@@ -279,11 +280,12 @@ export class GameManager {
     });
   }
 
-  private startGame(room: GameRoom) {
+  private startGame(room: ServerRoom) {
     // Clear any existing interval
     if (room.chanceReductionInterval) {
       clearInterval(room.chanceReductionInterval);
       room.chanceReductionInterval = undefined;
+      console.log("room interval cleared", room.id);
     }
 
     const defaultChance = 5;
@@ -309,14 +311,21 @@ export class GameManager {
     this.io.to(room.id).emit("game:started");
 
     // Start the automatic chance reduction interval
-    this.startChanceReductionInterval(room);
+    this.startChanceReductionInterval(room.id);
   }
 
-  private startChanceReductionInterval(room: GameRoom) {
+  private startChanceReductionInterval(roomId: string) {
+    const room = this.matchmakingSystem.getRoomById(roomId);
+    if (!room) return;
+
     room.chanceReductionInterval = setInterval(() => {
+      const room = this.matchmakingSystem.getRoomById(roomId);
+      if (!room) return;
+
       if (room.status !== "playing") {
         clearInterval(room.chanceReductionInterval);
         room.chanceReductionInterval = undefined;
+        console.log("room interval cleared", room.id);
         return;
       }
 
@@ -330,7 +339,7 @@ export class GameManager {
     }, 1000); // Check every second
   }
 
-  private reduceChances(room: GameRoom) {
+  private reduceChances(room: ServerRoom) {
     room.players.forEach((player) => {
       // Only reduce chance if player hasn't used it in this interval
       if (!room.playersUsedChance?.[player.user.id]) {
@@ -353,7 +362,7 @@ export class GameManager {
     }
   }
 
-  private async endGame(room: GameRoom, winner?: Player) {
+  private async endGame(room: ServerRoom, winner?: Player) {
     room.status = "finished";
     // reset ready status
     room.players.forEach((p) => {
@@ -383,12 +392,19 @@ export class GameManager {
       }
     }
 
-    this.io.to(room.id).emit("game:finished", room);
+    this.io.to(room.id).emit("game:finished", ToGameRoom(room));
   }
 
   private handlePlayerLeave(socket: Socket | undefined, player: User) {
     const room = this.matchmakingSystem.getRoomForPlayer(player.id);
     if (room) {
+      // Clear the chance reduction interval if it exists
+      if (room.chanceReductionInterval) {
+        clearInterval(room.chanceReductionInterval);
+        room.chanceReductionInterval = undefined;
+        console.log("room interval cleared", room.id);
+      }
+
       // Remove player from room
       room.players = room.players.filter((p) => p.user.id !== player.id);
 
@@ -408,6 +424,8 @@ export class GameManager {
         // reset status
         room.status = "waiting";
         room.records = [];
+        room.lastChanceReduction = undefined;
+        room.playersUsedChance = undefined;
         this.matchmakingSystem.playerLeaveRoom(player.id);
         this.matchmakingSystem.updateRoom(room);
       }

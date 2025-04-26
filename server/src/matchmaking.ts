@@ -1,13 +1,13 @@
 import { Server, Socket } from "socket.io";
 import {
   GameState,
-  GameRoom,
   Player,
   MatchmakingQueue,
   ServerToClientEvents,
   ClientToServerEvents,
   User,
 } from "@vtuber-guessr/shared";
+import { ServerRoom, ToGameRoom } from "./types";
 
 export class MatchmakingSystem {
   private gameState: GameState;
@@ -120,7 +120,7 @@ export class MatchmakingSystem {
 
       console.log("Matched players", player1.name, player2.name, roomId);
 
-      this.io.to(roomId).emit("room:joined", room);
+      this.io.to(roomId).emit("room:joined", ToGameRoom(room));
     }
   }
 
@@ -168,7 +168,7 @@ export class MatchmakingSystem {
       ready: false,
     };
 
-    const room: GameRoom = {
+    const room: ServerRoom = {
       id: roomId,
       players: [player1, player2],
       status: "waiting",
@@ -225,7 +225,7 @@ export class MatchmakingSystem {
       this.gameState.rooms[roomId] = room;
       this.gameState.players[user.id] = roomId;
       socket?.join(roomId);
-      socket?.emit("room:joined", room);
+      socket?.emit("room:joined", ToGameRoom(room));
       return;
     }
 
@@ -253,20 +253,20 @@ export class MatchmakingSystem {
     this.gameState.players[user.id] = roomId;
     this.updateRoom(room);
     socket?.join(roomId);
-    socket?.emit("room:joined", room);
-    this.io.to(roomId).emit("room:updated", room);
+    socket?.emit("room:joined", ToGameRoom(room));
+    this.io.to(roomId).emit("room:updated", ToGameRoom(room));
   }
 
-  public getRoomForPlayer(playerId: string): GameRoom | null {
+  public getRoomForPlayer(playerId: string): ServerRoom | null {
     const roomId = this.gameState.players[playerId];
     return roomId ? this.gameState.rooms[roomId] : null;
   }
 
-  public getRoomById(roomId: string): GameRoom | null {
+  public getRoomById(roomId: string): ServerRoom | null {
     return this.gameState.rooms[roomId] || null;
   }
 
-  public updateRoom(room: GameRoom) {
+  public updateRoom(room: ServerRoom) {
     if (
       room.records.length >= 4 &&
       !room.agencyHint &&
@@ -277,10 +277,7 @@ export class MatchmakingSystem {
       room.agencyHint = room.currentVtuber?.agency;
     }
     this.gameState.rooms[room.id] = room;
-    this.io.to(room.id).emit("room:updated", {
-      ...room,
-      currentVtuber: undefined,
-    });
+    this.io.to(room.id).emit("room:updated", ToGameRoom(room));
   }
 
   public deleteRoom(roomId: string, playerId: string) {
