@@ -3872,5 +3872,25 @@
       "活动中"
     ],
     "id": "277c2f1d-cdaa-42ae-a729-65f951511364"
+  },
+  {
+    "avatar": "",
+    "name": "测试",
+    "nameEN": "test",
+    "agency": "VirtuaReal",
+    "gender": "不明",
+    "birthDate": "1月1日",
+    "debutDate": "2025-04-26",
+    "height": 0,
+    "hairColor": "不明",
+    "eyeColor": "不明",
+    "seiza": "test",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "大头",
+      "这框真帅吧"
+    ],
+    "id": "b263c061-07ed-46d2-a15d-fd146fa8a406"
   }
 ]
