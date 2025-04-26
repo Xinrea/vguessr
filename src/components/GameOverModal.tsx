@@ -359,6 +359,43 @@ export function GameOverModal({
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-0.5">
+                        状态
+                      </label>
+                      {isEditing ? (
+                        <select
+                          value={editedVtuber?.status}
+                          onChange={(e) =>
+                            setEditedVtuber({
+                              ...editedVtuber!,
+                              status: e.target.value as
+                                | "active"
+                                | "inactive"
+                                | "retired",
+                            })
+                          }
+                          className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                        >
+                          <option value="active">活动中</option>
+                          <option value="inactive">休息中</option>
+                          <option value="retired">已毕业</option>
+                        </select>
+                      ) : (
+                        <span className="text-sm text-gray-900 font-normal">
+                          {answer.status === "active"
+                            ? "活动中"
+                            : answer.status === "inactive"
+                            ? "休息中"
+                            : answer.status === "retired"
+                            ? "已毕业"
+                            : "-"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-0.5">
                         年龄
                       </label>
                       {isEditing ? (

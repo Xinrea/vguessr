@@ -94,6 +94,35 @@ export function checkGuess(
     hint: heightHint,
   });
 
+  // 检查年龄
+  const ageMatch = guess.age === target.age;
+  const ageHint = !ageMatch
+    ? target.age > guess.age
+      ? "higher"
+      : "lower"
+    : "equal";
+  differences.push({
+    attribute: "年龄",
+    value: guess.age,
+    isMatch: ageMatch,
+    hint: ageHint,
+  });
+
+  // 检查状态
+  // active: 活动中
+  // inactive: 已毕业
+  // retired: 已退休
+  differences.push({
+    attribute: "状态",
+    value:
+      guess.status === "active"
+        ? "活动中"
+        : guess.status === "inactive"
+        ? "已毕业"
+        : "已退休",
+    isMatch: guess.status === target.status,
+  });
+
   // 检查发色
   differences.push({
     attribute: "发色",

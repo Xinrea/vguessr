@@ -6,4 +6,5 @@ export const vtubers: VTuber[] = vtubersData.map((vtuber) => ({
   avatar: vtuber.avatar || "",
   height: Number(vtuber.height),
   age: Number(vtuber.age),
+  status: vtuber.status as "active" | "inactive" | "retired",
 }));

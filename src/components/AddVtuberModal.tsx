@@ -44,6 +44,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
     description: "",
     age: 0,
     tags: [] as string[],
+    status: "active" as "active" | "inactive" | "retired",
   });
 
   const [tagInput, setTagInput] = useState("");
@@ -153,6 +154,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
         description: "",
         age: 0,
         tags: [],
+        status: "active" as "active" | "inactive" | "retired",
       });
       setTagInput("");
       onClose();
@@ -314,6 +316,29 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
+                状态
+              </label>
+              <select
+                value={formData.status}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    status: e.target.value as "active" | "inactive" | "retired",
+                  })
+                }
+                className="w-full px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                required
+              >
+                <option value="active">活动中</option>
+                <option value="inactive">休息中</option>
+                <option value="retired">已毕业</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 年龄
               </label>
               <input
@@ -326,9 +351,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                 required
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 生日
@@ -344,7 +367,9 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                 required
               />
             </div>
+          </div>
 
+          <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 出道时间
@@ -360,9 +385,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                 required
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 身高
@@ -378,7 +401,9 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                 required
               />
             </div>
+          </div>
 
+          <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 星座
@@ -393,9 +418,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                 required
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-0.5">
                 发色

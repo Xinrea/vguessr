@@ -25,6 +25,7 @@ export interface VTuber {
   eyeColor: string;
   height: number;
   tags: string[];
+  status: "active" | "inactive" | "retired";
 }
 
 export const CHANCE_REDUCTION_INTERVAL = 25; // seconds
