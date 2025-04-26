@@ -30,7 +30,7 @@ export function GameOverModal({
             isOpen={isOpen}
             onClose={onClose}
             vtuber={answer}
-            title="游戏结束！"
+            title={isCorrect ? "游戏结束，你猜对了" : "遗憾，游戏结束"}
             actionButton={{
               text: "再来一局",
               onClick: onRestart,

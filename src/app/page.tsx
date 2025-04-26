@@ -26,6 +26,7 @@ import {
   Leaderboard,
   ModificationRequests,
 } from "@/components/ModificationRequests";
+import { VTuberInfoModal } from "@/components/VTuberInfoModal";
 
 export default function Home() {
   const {
@@ -70,6 +71,7 @@ export default function Home() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<VTuber | null>(null);
 
   const playButtonSound = () => {
     if (!settings.soundEnabled) return;
@@ -352,6 +354,9 @@ export default function Home() {
                     <table className="w-full hidden md:table">
                       <thead>
                         <tr className="border-b border-gray-200">
+                          <th className="py-1.5 px-1.5 text-left text-xs font-medium text-gray-700 border-r border-gray-100 last:border-r-0">
+                            编辑
+                          </th>
                           {guessResults[0]?.differences
                             .filter((diff) => diff.attribute !== "标签")
                             .map((diff, index) => (
@@ -373,6 +378,10 @@ export default function Home() {
                             key={index}
                             result={result}
                             isMobile={false}
+                            vtuber={vtubers.find((v) => v.id === result.id)}
+                            onEdit={(vtuber) => {
+                              setEditTarget(vtuber);
+                            }}
                           />
                         ))}
                       </tbody>
@@ -391,6 +400,10 @@ export default function Home() {
                           key={index}
                           result={result}
                           isMobile={true}
+                          vtuber={vtubers.find((v) => v.id === result.id)}
+                          onEdit={(vtuber) => {
+                            setEditTarget(vtuber);
+                          }}
                         />
                       ))}
                     </div>
@@ -435,6 +448,14 @@ export default function Home() {
           onClose={() => setIsJoinRoomModalOpen(false)}
           onJoin={handleJoinRoom}
         />
+
+        {editTarget && (
+          <VTuberInfoModal
+            isOpen={true}
+            onClose={() => setEditTarget(null)}
+            vtuber={editTarget}
+          />
+        )}
 
         <div className="mt-8 text-center text-sm text-gray-500">
           <span className="text-xs text-gray-400">

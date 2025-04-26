@@ -1,19 +1,24 @@
 import React from "react";
-import { GuessResult as GuessResultType } from "@vtuber-guessr/shared";
+import { GuessResult as GuessResultType, VTuber } from "@vtuber-guessr/shared";
 import {
   ArrowUpIcon,
   ArrowDownIcon,
   MinusIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
 
 interface GuessResultProps {
+  vtuber: VTuber | undefined;
   result: GuessResultType;
   isMobile?: boolean;
+  onEdit?: (vtuber: VTuber) => void;
 }
 
 const GuessResult: React.FC<GuessResultProps> = ({
+  vtuber,
   result,
   isMobile = false,
+  onEdit,
 }) => {
   // Separate tags from other attributes
   const tags = result.differences
@@ -65,6 +70,19 @@ const GuessResult: React.FC<GuessResultProps> = ({
       <div
         className={`p-2 border-b border-gray-100 last:border-b-0 ${getBGStyle()}`}
       >
+        <div className="mb-1.5">
+          <button
+            className="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+            onClick={() => {
+              if (vtuber) {
+                onEdit?.(vtuber);
+              }
+            }}
+          >
+            <PencilIcon className="w-3.5 h-3.5 text-gray-500" />
+            <span className="text-xs text-gray-500">编辑</span>
+          </button>
+        </div>
         <div className="grid grid-cols-2 gap-1.5 mb-1.5">
           {otherAttributes.map((attr, index) => (
             <div key={index}>
@@ -107,6 +125,20 @@ const GuessResult: React.FC<GuessResultProps> = ({
 
   return (
     <tr className={`border-b border-gray-100 last:border-b-0 ${getBGStyle()}`}>
+      <td className="py-1 px-1.5 border-r border-gray-100 last:border-r-0">
+        <div className="mb-1.5">
+          <button
+            className="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+            onClick={() => {
+              if (vtuber) {
+                onEdit?.(vtuber);
+              }
+            }}
+          >
+            <PencilIcon className="w-3.5 h-3.5 text-gray-500" />
+          </button>
+        </div>
+      </td>
       {otherAttributes.map((attr, index) => (
         <td
           key={index}

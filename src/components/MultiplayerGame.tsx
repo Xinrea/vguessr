@@ -39,7 +39,6 @@ export function MultiplayerGame({
   const [timeLeft, setTimeLeft] = useState(CHANCE_REDUCTION_INTERVAL);
   const [hasUsedChance, setHasUsedChance] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState("");
-
   const preprocessRecords = (records: GuessResult[]) => {
     // 按时间倒序排序
     const sortedRecords = [...records].reverse();
@@ -565,6 +564,7 @@ export function MultiplayerGame({
                       key={index}
                       result={result}
                       isMobile={false}
+                      vtuber={vtubers.find((v) => v.id === result.id)}
                     />
                   ))}
                 </tbody>
@@ -583,6 +583,7 @@ export function MultiplayerGame({
                     key={index}
                     result={result}
                     isMobile={true}
+                    vtuber={vtubers.find((v) => v.id === result.id)}
                   />
                 ))}
               </div>
