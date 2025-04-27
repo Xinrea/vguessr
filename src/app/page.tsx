@@ -27,6 +27,7 @@ import {
   ModificationRequests,
 } from "@/components/ModificationRequests";
 import { VTuberInfoModal } from "@/components/VTuberInfoModal";
+import InstructionsModal from "@/components/InstructionsModal";
 
 export default function Home() {
   const {
@@ -72,6 +73,7 @@ export default function Home() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<VTuber | null>(null);
+  const [isInstructionsModalOpen, setIsInstructionsModalOpen] = useState(false);
 
   const playButtonSound = () => {
     if (!settings.soundEnabled) return;
@@ -174,6 +176,15 @@ export default function Home() {
             />
           ) : (
             <>
+              <div className="text-sm text-gray-500 text-center sm:text-left">
+                第一次游玩此类游戏？{" "}
+                <button
+                  onClick={() => setIsInstructionsModalOpen(true)}
+                  className="text-blue-600 hover:text-blue-700 hover:underline"
+                >
+                  点击查看玩法说明
+                </button>
+              </div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -222,7 +233,7 @@ export default function Home() {
                           )
                         )
                       }
-                      className="w-40 px-3 py-2.5 pr-8 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 appearance-none bg-white bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236B7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22M6%208l4%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5em_1.5em] bg-[center_right_0.5rem] bg-no-repeat disabled:bg-gray-100 disabled:cursor-not-allowed"
+                      className="w-28 sm:w-40 px-3 py-2.5 pr-8 text-base rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 appearance-none bg-white bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236B7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22M6%208l4%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5em_1.5em] bg-[center_right_0.5rem] bg-no-repeat disabled:bg-gray-100 disabled:cursor-not-allowed"
                     >
                       <option value="">所有团体</option>
                       {Array.from(
@@ -456,6 +467,11 @@ export default function Home() {
             vtuber={editTarget}
           />
         )}
+
+        <InstructionsModal
+          isOpen={isInstructionsModalOpen}
+          onClose={() => setIsInstructionsModalOpen(false)}
+        />
 
         <div className="mt-8 text-center text-sm text-gray-500">
           <span className="text-xs text-gray-400">
