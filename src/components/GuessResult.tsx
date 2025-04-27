@@ -92,8 +92,8 @@ const GuessResult: React.FC<GuessResultProps> = ({
               <div
                 className={`px-1.5 py-0.5 rounded-full text-xs whitespace-nowrap flex items-center ${
                   attr.isMatch
-                    ? "bg-green-50 text-green-700 border border-green-200"
-                    : "bg-red-50 text-red-700 border border-red-200"
+                    ? "bg-green-50 text-green-700 border-2 border-green-400 rounded-md animate-pulse-subtle"
+                    : "bg-red-50 text-red-700 border border-red-200 rounded-full"
                 }`}
               >
                 {attr.value}
@@ -110,8 +110,8 @@ const GuessResult: React.FC<GuessResultProps> = ({
                 key={index}
                 className={`px-1.5 py-0.5 rounded-full text-xs ${
                   tag.isMatch
-                    ? "bg-green-50 text-green-700 border border-green-200"
-                    : "bg-red-50 text-red-700 border border-red-200"
+                    ? "bg-green-50 text-green-700 border-2 border-green-400 rounded-md animate-pulse-subtle"
+                    : "bg-red-50 text-red-700 border border-red-200 rounded-full"
                 }`}
               >
                 {tag.value}
@@ -147,8 +147,8 @@ const GuessResult: React.FC<GuessResultProps> = ({
           <div
             className={`px-1.5 py-0.5 rounded-full text-xs whitespace-nowrap flex items-center ${
               attr.isMatch
-                ? "bg-green-50 text-green-700 border border-green-200"
-                : "bg-red-50 text-red-700 border border-red-200"
+                ? "bg-green-50 text-green-700 border-2 border-green-400 rounded-md animate-pulse-subtle"
+                : "bg-red-50 text-red-700 border border-red-200 rounded-full"
             }`}
           >
             {attr.value}
@@ -156,15 +156,15 @@ const GuessResult: React.FC<GuessResultProps> = ({
           </div>
         </td>
       ))}
-      <td className="py-1 pl-2 pr-1.5 align-top w-1/4">
-        <div className="flex gap-0.5 overflow-x-auto whitespace-nowrap">
+      <td className="py-1 pl-2 pr-1.5 align-middle w-1/4">
+        <div className="flex gap-0.5 overflow-x-auto whitespace-nowrap items-center h-full">
           {tags.map((tag, index) => (
             <span
               key={index}
               className={`px-1.5 py-0.5 rounded-full text-xs flex-shrink-0 ${
                 tag.isMatch
-                  ? "bg-green-50 text-green-700 border border-green-200"
-                  : "bg-red-50 text-red-700 border border-red-200"
+                  ? "bg-green-50 text-green-700 border-2 border-green-400 rounded-md animate-pulse-subtle"
+                  : "bg-red-50 text-red-700 border border-red-200 rounded-full"
               }`}
             >
               {tag.value}
