@@ -245,49 +245,51 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                     aria-hidden="true"
                   />
                 </ComboboxButton>
-                <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {agencies
-                    .filter((agency) =>
-                      agency
-                        .toLowerCase()
-                        .includes(formData.agency.toLowerCase())
-                    )
-                    .map((agency) => (
-                      <ComboboxOption
-                        key={agency}
-                        value={agency}
-                        className={({ focus }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            focus ? "bg-blue-600 text-white" : "text-gray-900"
-                          }`
-                        }
-                      >
-                        {({ selected, focus }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
-                            >
-                              {agency}
-                            </span>
-                            {selected ? (
+                {formData.agency && (
+                  <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {agencies
+                      .filter((agency) =>
+                        agency
+                          .toLowerCase()
+                          .includes(formData.agency.toLowerCase())
+                      )
+                      .map((agency) => (
+                        <ComboboxOption
+                          key={agency}
+                          value={agency}
+                          className={({ focus }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              focus ? "bg-blue-600 text-white" : "text-gray-900"
+                            }`
+                          }
+                        >
+                          {({ selected, focus }) => (
+                            <>
                               <span
-                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                  focus ? "text-white" : "text-blue-600"
+                                className={`block truncate ${
+                                  selected ? "font-medium" : "font-normal"
                                 }`}
                               >
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                {agency}
                               </span>
-                            ) : null}
-                          </>
-                        )}
-                      </ComboboxOption>
-                    ))}
-                </ComboboxOptions>
+                              {selected ? (
+                                <span
+                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                    focus ? "text-white" : "text-blue-600"
+                                  }`}
+                                >
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </ComboboxOption>
+                      ))}
+                  </ComboboxOptions>
+                )}
               </div>
             </Combobox>
           </div>
@@ -444,49 +446,53 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                       aria-hidden="true"
                     />
                   </ComboboxButton>
-                  <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {hairColors
-                      .filter((color) =>
-                        color
-                          .toLowerCase()
-                          .includes(formData.hairColor.toLowerCase())
-                      )
-                      .map((color) => (
-                        <ComboboxOption
-                          key={color}
-                          value={color}
-                          className={({ focus }) =>
-                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              focus ? "bg-blue-600 text-white" : "text-gray-900"
-                            }`
-                          }
-                        >
-                          {({ selected, focus }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
-                                {color}
-                              </span>
-                              {selected ? (
+                  {formData.hairColor && (
+                    <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {hairColors
+                        .filter((color) =>
+                          color
+                            .toLowerCase()
+                            .includes(formData.hairColor.toLowerCase())
+                        )
+                        .map((color) => (
+                          <ComboboxOption
+                            key={color}
+                            value={color}
+                            className={({ focus }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                focus
+                                  ? "bg-blue-600 text-white"
+                                  : "text-gray-900"
+                              }`
+                            }
+                          >
+                            {({ selected, focus }) => (
+                              <>
                                 <span
-                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    focus ? "text-white" : "text-blue-600"
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
                                   }`}
                                 >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
+                                  {color}
                                 </span>
-                              ) : null}
-                            </>
-                          )}
-                        </ComboboxOption>
-                      ))}
-                  </ComboboxOptions>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      focus ? "text-white" : "text-blue-600"
+                                    }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </ComboboxOption>
+                        ))}
+                    </ComboboxOptions>
+                  )}
                 </div>
               </Combobox>
             </div>
@@ -516,49 +522,53 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                       aria-hidden="true"
                     />
                   </ComboboxButton>
-                  <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {eyeColors
-                      .filter((color) =>
-                        color
-                          .toLowerCase()
-                          .includes(formData.eyeColor.toLowerCase())
-                      )
-                      .map((color) => (
-                        <ComboboxOption
-                          key={color}
-                          value={color}
-                          className={({ focus }) =>
-                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                              focus ? "bg-blue-600 text-white" : "text-gray-900"
-                            }`
-                          }
-                        >
-                          {({ selected, focus }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? "font-medium" : "font-normal"
-                                }`}
-                              >
-                                {color}
-                              </span>
-                              {selected ? (
+                  {formData.eyeColor && (
+                    <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {eyeColors
+                        .filter((color) =>
+                          color
+                            .toLowerCase()
+                            .includes(formData.eyeColor.toLowerCase())
+                        )
+                        .map((color) => (
+                          <ComboboxOption
+                            key={color}
+                            value={color}
+                            className={({ focus }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                focus
+                                  ? "bg-blue-600 text-white"
+                                  : "text-gray-900"
+                              }`
+                            }
+                          >
+                            {({ selected, focus }) => (
+                              <>
                                 <span
-                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                    focus ? "text-white" : "text-blue-600"
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
                                   }`}
                                 >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
+                                  {color}
                                 </span>
-                              ) : null}
-                            </>
-                          )}
-                        </ComboboxOption>
-                      ))}
-                  </ComboboxOptions>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      focus ? "text-white" : "text-blue-600"
+                                    }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </ComboboxOption>
+                        ))}
+                    </ComboboxOptions>
+                  )}
                 </div>
               </Combobox>
             </div>
@@ -620,6 +630,7 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                     if (e.key === "Enter" && tagInput.trim()) {
                       e.preventDefault();
                       handleAddTag(tagInput.trim());
+                      setTagInput("");
                     }
                   }}
                 />
@@ -629,50 +640,52 @@ const AddVtuberModal: React.FC<AddVtuberModalProps> = ({
                     aria-hidden="true"
                   />
                 </ComboboxButton>
-                <ComboboxOptions className="absolute z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bottom-full mb-1">
-                  {filteredTags.length === 0 ? (
-                    <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                      没有找到匹配的标签
-                    </div>
-                  ) : (
-                    filteredTags.map((tag) => (
-                      <ComboboxOption
-                        key={tag}
-                        value={tag}
-                        className={({ focus }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            focus ? "bg-blue-600 text-white" : "text-gray-900"
-                          }`
-                        }
-                        onClick={() => handleAddTag(tag)}
-                      >
-                        {({ selected, focus }) => (
-                          <>
-                            <span
-                              className={`block truncate ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
-                            >
-                              {tag}
-                            </span>
-                            {selected ? (
+                {tagInput && (
+                  <ComboboxOptions className="absolute z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bottom-full mb-1">
+                    {filteredTags.length === 0 ? (
+                      <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                        没有找到匹配的标签
+                      </div>
+                    ) : (
+                      filteredTags.map((tag) => (
+                        <ComboboxOption
+                          key={tag}
+                          value={tag}
+                          className={({ focus }) =>
+                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              focus ? "bg-blue-600 text-white" : "text-gray-900"
+                            }`
+                          }
+                          onClick={() => handleAddTag(tag)}
+                        >
+                          {({ selected, focus }) => (
+                            <>
                               <span
-                                className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                  focus ? "text-white" : "text-blue-600"
+                                className={`block truncate ${
+                                  selected ? "font-medium" : "font-normal"
                                 }`}
                               >
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                {tag}
                               </span>
-                            ) : null}
-                          </>
-                        )}
-                      </ComboboxOption>
-                    ))
-                  )}
-                </ComboboxOptions>
+                              {selected ? (
+                                <span
+                                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                    focus ? "text-white" : "text-blue-600"
+                                  }`}
+                                >
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </>
+                          )}
+                        </ComboboxOption>
+                      ))
+                    )}
+                  </ComboboxOptions>
+                )}
               </div>
             </Combobox>
           </div>
