@@ -4168,8 +4168,12 @@
     "eyeColor": "红瞳",
     "seiza": "摩羯座",
     "description": "",
-    "age": 0,
-    "tags": [],
+    "age": 34,
+    "tags": [
+      "歌势",
+      "锐评",
+      "批话"
+    ],
     "status": "active",
     "id": "b66f62e5-b94b-4a9f-9694-62d19d79b8f4"
   }
