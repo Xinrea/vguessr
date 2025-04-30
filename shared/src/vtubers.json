@@ -4197,5 +4197,29 @@
     ],
     "status": "retired",
     "id": "5a647cad-3184-48a0-a0dd-a5b8625ffea9"
+  },
+  {
+    "avatar": "",
+    "name": "森中花咲",
+    "nameEN": "Morinaka Kazaki",
+    "agency": "にじさんじ",
+    "gender": "女",
+    "birthDate": "5月23日",
+    "debutDate": "2018-03-15",
+    "height": 135,
+    "hairColor": "绿发",
+    "eyeColor": "绿瞳",
+    "seiza": "双子座",
+    "description": "10岁大的来自小学4年级的普通女生，也许……但是凭借彩虹社的科学技术发明出了一种能够改变身体和年龄的药物，使她成为了可以变为大人姿态的超级小学生！？\n会变成15或22岁的形态来困扰别人。\n喜欢熊和时尚的元气女生。\n对穿搭和化妆感兴趣。",
+    "age": 10,
+    "tags": [
+      "小学生",
+      "萝莉",
+      "高额头",
+      "睡衣",
+      "妈妈"
+    ],
+    "status": "active",
+    "id": "e9d4f200-7f01-41d0-b3b2-26a0ce15ac1a"
   }
 ]
