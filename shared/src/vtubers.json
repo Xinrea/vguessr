@@ -4197,5 +4197,28 @@
     ],
     "status": "retired",
     "id": "5a647cad-3184-48a0-a0dd-a5b8625ffea9"
+  },
+  {
+    "avatar": "",
+    "name": "夕阳莉莉",
+    "nameEN": "Yuhi Riri",
+    "agency": "にじさんじ",
+    "gender": "女",
+    "birthDate": "1月21日",
+    "debutDate": "2018-03-15",
+    "height": 162,
+    "hairColor": "粉发",
+    "eyeColor": "绿瞳",
+    "seiza": "水瓶座",
+    "description": "16岁的高中一年级生，是未来的女孩子。\n喜欢恶作剧，经常做各种各样的事情。\n正在以现代的电波为基础，作为恶作剧的一环进行直播中。",
+    "age": 16,
+    "tags": [
+      "温柔",
+      "大姐姐",
+      "帅气",
+      "未来人"
+    ],
+    "status": "active",
+    "id": "cb73040e-d1ef-4ebf-829f-76e0c257a700"
   }
 ]
