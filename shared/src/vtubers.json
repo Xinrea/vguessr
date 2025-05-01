@@ -4200,6 +4200,29 @@
   },
   {
     "avatar": "",
+    "name": "家长麦",
+    "nameEN": "Ienaga Mugi",
+    "agency": "にじさんじ",
+    "gender": "女",
+    "birthDate": "11月7日",
+    "debutDate": "2018-03-15",
+    "height": 157,
+    "hairColor": "金发",
+    "eyeColor": "金瞳",
+    "seiza": "天蝎座",
+    "description": "21岁的大学1年生.\n非常喜欢吃东西，但是厨艺糟糕透顶。\n有很多爱好，例如参观美术馆、读书、写小说等。\n视力并不良好，经常会把垃圾袋看成是猫咪。因为想要交朋友所以开始了直播活动。",
+    "age": 21,
+    "tags": [
+      "耳机",
+      "长发",
+      "成长系",
+      "睡衣"
+    ],
+    "status": "active",
+    "id": "bc96ec59-4f8e-437f-b10e-cf6fa471b28a"
+  },
+  {
+    "avatar": "",
     "name": "宇志海莓",
     "nameEN": "Ushimi Ichigo",
     "agency": "にじさんじ",
