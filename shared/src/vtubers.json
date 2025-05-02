@@ -4159,6 +4159,26 @@
   },
   {
     "avatar": "",
+    "name": "兔眠可可",
+    "nameEN": "coco",
+    "agency": "幻想社",
+    "gender": "女",
+    "birthDate": "5月1日",
+    "debutDate": "2022-06-01",
+    "height": 167,
+    "hairColor": "黑发",
+    "eyeColor": "黑瞳",
+    "seiza": "金牛座",
+    "description": "传奇二次元 顶级搞笑女 无敌热水器",
+    "age": 39,
+    "tags": [
+      "热水器"
+    ],
+    "status": "inactive",
+    "id": "98d6c99a-cb2a-4088-8795-d7d465316abc"
+  },
+  {
+    "avatar": "",
     "name": "内德维德",
     "nameEN": "ClessS",
     "agency": "个人",
