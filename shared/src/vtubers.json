@@ -5040,7 +5040,11 @@
     "seiza": "双鱼座",
     "description": "",
     "age": 18,
-    "tags": [],
+    "tags": [
+      "游戏",
+      "学习",
+      "杂谈"
+    ],
     "status": "active",
     "id": "bbe83b4f-f438-4163-8870-0bceab6ae530"
   },
