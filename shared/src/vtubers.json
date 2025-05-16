@@ -4862,6 +4862,23 @@
   },
   {
     "avatar": "",
+    "name": "伊索尔Sol",
+    "nameEN": "Sol",
+    "agency": "P-SP",
+    "gender": "女",
+    "birthDate": "6月24日",
+    "debutDate": "2022-12-10",
+    "height": 19800,
+    "hairColor": "白金色",
+    "eyeColor": "朱红瞳",
+    "seiza": "巨蟹座",
+    "description": "努力打工的恶龙美少女。\n\n因为从天而降砸烂东西导致负债累累不得不打工还债所以工作经历丰富的恶龙少女。\n\n落地时摔伤了龙角和尾巴，而翅膀由于没有展开而幸免，之后换上了机械龙角和机械尾巴。",
+    "age": 20000,
+    "tags": [],
+    "status": "active",
+    "id": "493424e9-d97b-4eec-baf6-838a249f4a20"
+  },
+  {
     "name": "兔田佩克拉",
     "nameEN": "Usada Pekora",
     "agency": "hololive",
