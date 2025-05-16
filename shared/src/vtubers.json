@@ -4595,6 +4595,28 @@
   },
   {
     "avatar": "",
+    "name": "薇Steria",
+    "nameEN": "Weisteria",
+    "agency": "Croven教团",
+    "gender": "女",
+    "birthDate": "11月17日",
+    "debutDate": "2021-05-15",
+    "height": 0,
+    "hairColor": "粉发",
+    "eyeColor": "紫瞳",
+    "seiza": "天蝎座",
+    "description": "来自大森林的，喜欢观察人类的森林书记官，梦想成为文豪偶像！",
+    "age": 22,
+    "tags": [
+      "歌势",
+      "御姐",
+      "长发"
+    ],
+    "status": "active",
+    "id": "312eed8b-3818-4b0f-8d81-8b210ea5588e"
+  },
+  {
+    "avatar": "",
     "name": "折原露露",
     "nameEN": "orihara lulu",
     "agency": "个人",
