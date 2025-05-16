@@ -5074,5 +5074,27 @@
     ],
     "status": "active",
     "id": "89a8a4e2-544c-49d2-9c67-90dc6b1318c7"
+  },
+  {
+    "avatar": "",
+    "name": "爱吃辣的白狸",
+    "nameEN": "baili",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "3月2日",
+    "debutDate": "2019-11-23",
+    "height": 163,
+    "hairColor": "白发",
+    "eyeColor": "朱红瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "狐狸",
+      "兽娘",
+      "杂谈势"
+    ],
+    "status": "inactive",
+    "id": "b7e4ea25-df2c-471f-a0ce-0c7be0bd69f2"
   }
 ]
