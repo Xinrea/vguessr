@@ -1859,10 +1859,10 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "8月9日",
-    "debutDate": "2025-03-01",
+    "debutDate": "2025-02-27",
     "height": 166,
     "hairColor": "紫发",
-    "eyeColor": "蓝紫瞳",
+    "eyeColor": "渐变瞳",
     "seiza": "狮子座",
     "description": "",
     "age": 0,
@@ -1875,7 +1875,8 @@
       "贫乳",
       "眼镜",
       "挑染",
-      "百舰"
+      "百舰",
+      "千舰"
     ],
     "id": "f0906781-dabb-4e0b-ac82-f2d2b9030c0c",
     "status": "active"
@@ -4999,5 +5000,29 @@
     ],
     "status": "active",
     "id": "84a89c8c-98c8-483e-b380-9ed66a0fb7bb"
+  },
+  {
+    "avatar": "",
+    "name": "盲盲",
+    "nameEN": "memo",
+    "agency": "P-SP",
+    "gender": "不明",
+    "birthDate": "5月2日",
+    "debutDate": "2022-09-15",
+    "height": 159,
+    "hairColor": "蓝色",
+    "eyeColor": "蓝色",
+    "seiza": "金牛座",
+    "description": "psplive所属全能六边形战士形态夹心酱✨用52赫兹的声音歌唱生命",
+    "age": 120,
+    "tags": [
+      "章鱼",
+      "邪神",
+      "病弱",
+      "轮椅",
+      "菠萝披萨"
+    ],
+    "status": "active",
+    "id": "787e5b91-7cd3-4f58-9be4-30d06590c279"
   }
 ]
