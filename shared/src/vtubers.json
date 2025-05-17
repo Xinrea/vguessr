@@ -5153,5 +5153,29 @@
     ],
     "status": "active",
     "id": "3689342d-9a86-4758-957e-61422d0ea0a7"
+  },
+  {
+    "avatar": "",
+    "name": "阿绿",
+    "nameEN": "Midori",
+    "agency": "ChaosLive",
+    "gender": "女",
+    "birthDate": "8月13日",
+    "debutDate": "2022-03-16",
+    "height": 153,
+    "hairColor": "白发",
+    "eyeColor": "绿瞳",
+    "seiza": "狮子座",
+    "description": "353岁的黑猫饲主，居住在森林里的女巫小姐，现代科技苦手。声音澄澈而治愈的中音歌势。",
+    "age": 353,
+    "tags": [
+      "歌势",
+      "百舰",
+      "多语",
+      "冰山美人",
+      "善良"
+    ],
+    "status": "active",
+    "id": "6f4311fd-b7cc-4da1-97d0-3d51ced42300"
   }
 ]
