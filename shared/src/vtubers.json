@@ -5104,5 +5104,29 @@
     ],
     "status": "active",
     "id": "89a8a4e2-544c-49d2-9c67-90dc6b1318c7"
+  },
+  {
+    "avatar": "",
+    "name": "雪糕cheese",
+    "nameEN": "cheese",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "3月3日",
+    "debutDate": "2023-03-03",
+    "height": 0,
+    "hairColor": "奶白色",
+    "eyeColor": "金色",
+    "seiza": "双鱼",
+    "description": "自称是一名围棋启蒙老师，因为老板柯洁的邀请，而成为虚拟主播教B站的观众下围棋。除此之外，有任何问题或恋爱烦恼也可以来倾诉。\n\n原型是雪豹，叫声是嘎嘎。",
+    "age": 18,
+    "tags": [
+      "游戏",
+      "游戏力高",
+      "唐",
+      "神话姐",
+      "霸王龙"
+    ],
+    "status": "active",
+    "id": "3689342d-9a86-4758-957e-61422d0ea0a7"
   }
 ]
