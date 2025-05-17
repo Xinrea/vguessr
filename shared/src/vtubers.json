@@ -5153,5 +5153,31 @@
     ],
     "status": "active",
     "id": "3689342d-9a86-4758-957e-61422d0ea0a7"
+  },
+  {
+    "avatar": "",
+    "name": "友利",
+    "nameEN": "Mori",
+    "agency": "个人",
+    "gender": "男",
+    "birthDate": "2月16日",
+    "debutDate": "2021-07-17",
+    "height": 0,
+    "hairColor": "白发",
+    "eyeColor": "异色瞳",
+    "seiza": "水瓶座",
+    "description": "",
+    "age": 4,
+    "tags": [
+      "足球",
+      "鹿角",
+      "十万粉",
+      "鹿圣",
+      "鹿嗨",
+      "汉语",
+      "圆号"
+    ],
+    "status": "active",
+    "id": "8c8c1aee-9f81-4518-8754-1e18cd26487c"
   }
 ]
