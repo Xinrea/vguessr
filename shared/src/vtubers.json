@@ -5153,5 +5153,28 @@
     ],
     "status": "active",
     "id": "3689342d-9a86-4758-957e-61422d0ea0a7"
+  },
+  {
+    "avatar": "",
+    "name": "dodo",
+    "nameEN": "dodo",
+    "agency": "TWINKLE.STAR",
+    "gender": "女",
+    "birthDate": "3月12日",
+    "debutDate": "2022-01-15",
+    "height": 168,
+    "hairColor": "粉发",
+    "eyeColor": "紫瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 18,
+    "tags": [
+      "呆毛",
+      "发夹",
+      "夹子",
+      "游戏"
+    ],
+    "status": "inactive",
+    "id": "01bff277-5ca1-4adc-b021-8ec044d5b1dd"
   }
 ]
