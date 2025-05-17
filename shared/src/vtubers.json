@@ -320,7 +320,7 @@
     "birthDate": "4月1日",
     "description": "",
     "seiza": "白羊",
-    "gender": "不明",
+    "gender": "男",
     "age": 0,
     "hairColor": "蓝黑发",
     "eyeColor": "朱红瞳",
@@ -596,7 +596,8 @@
       "猫耳",
       "傲娇",
       "帽子",
-      "挑染"
+      "挑染",
+      "诱受"
     ],
     "status": "active"
   },
@@ -1012,7 +1013,8 @@
       "功夫",
       "准星",
       "歌势",
-      "link"
+      "link",
+      "百舰"
     ],
     "status": "active"
   },
@@ -1202,7 +1204,6 @@
       "虚无萌音",
       "拉跨",
       "臭脚",
-      "动物发饰",
       "魅魔",
       "低胸装",
       "百合",
@@ -1447,9 +1448,9 @@
     "seiza": "狮子座",
     "gender": "女",
     "age": 17,
-    "hairColor": "银白发",
+    "hairColor": "白发",
     "eyeColor": "紫瞳",
-    "height": "163",
+    "height": 163,
     "tags": [
       "治愈",
       "魔法师",
@@ -1859,10 +1860,10 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "8月9日",
-    "debutDate": "2025-03-01",
+    "debutDate": "2025-02-27",
     "height": 166,
     "hairColor": "紫发",
-    "eyeColor": "蓝紫瞳",
+    "eyeColor": "渐变瞳",
     "seiza": "狮子座",
     "description": "",
     "age": 0,
@@ -1875,7 +1876,8 @@
       "贫乳",
       "眼镜",
       "挑染",
-      "百舰"
+      "百舰",
+      "千舰"
     ],
     "id": "f0906781-dabb-4e0b-ac82-f2d2b9030c0c",
     "status": "active"
@@ -2397,7 +2399,7 @@
     "agency": "にじさんじ",
     "gender": "女",
     "birthDate": "3月30日",
-    "debutDate": "2022-02-09",
+    "debutDate": "2018-02-09",
     "height": 167,
     "hairColor": "银发",
     "eyeColor": "紫瞳",
@@ -3566,7 +3568,7 @@
       "沙雕"
     ],
     "id": "d227de13-51b2-4a5b-8b17-4518e4449eda",
-    "status": "active"
+    "status": "retired"
   },
   {
     "avatar": "",
@@ -3595,7 +3597,7 @@
       "甜美"
     ],
     "id": "64a5e4ce-c8fe-4cc2-9d3c-9cc850dd4ba8",
-    "status": "active"
+    "status": "retired"
   },
   {
     "avatar": "",
@@ -3625,7 +3627,7 @@
       "直男"
     ],
     "id": "cbd8c9bb-d295-473d-ad38-ddf9f81e30dd",
-    "status": "active"
+    "status": "retired"
   },
   {
     "avatar": "",
@@ -3652,7 +3654,7 @@
       "老司机"
     ],
     "id": "8c9bdce7-00ee-4f06-848d-a88f15d98bdc",
-    "status": "active"
+    "status": "retired"
   },
   {
     "avatar": "",
@@ -3737,7 +3739,9 @@
       "有前世",
       "麻花辫",
       "呆毛",
-      "挑染"
+      "挑染",
+      "百舰",
+      "千舰"
     ],
     "id": "c37a9a80-2e71-456c-8caf-c5ecbe192ee6",
     "status": "active"
@@ -3758,7 +3762,6 @@
     "age": 23,
     "tags": [
       "星律动",
-      "有前世",
       "swan",
       "奶茶",
       "休眠",
@@ -4048,7 +4051,8 @@
       "御姐",
       "单马尾",
       "傲娇",
-      "战神"
+      "战神",
+      "完美女人"
     ],
     "status": "active",
     "id": "0e160936-12fc-47b9-b3d1-1af850cfbfe0"
@@ -4191,12 +4195,14 @@
     "hairColor": "红发",
     "eyeColor": "红瞳",
     "seiza": "摩羯座",
-    "description": "",
+    "description": "ClessS是一名活跃在5sing和Bilibili的唱见，个人直播形象是一个红头发的火柴人，来自中东的雇佣兵王",
     "age": 34,
     "tags": [
       "歌势",
       "锐评",
-      "批话"
+      "批话",
+      "红毛鸡蛋",
+      "日翻"
     ],
     "status": "active",
     "id": "b66f62e5-b94b-4a9f-9694-62d19d79b8f4"
@@ -4922,17 +4928,17 @@
   {
     "avatar": "",
     "name": "量子猫EH",
-    "nameEN": "127",
+    "nameEN": "T85-EH",
     "agency": "汐莉",
     "gender": "不明",
     "birthDate": "5月19日",
-    "debutDate": "2020-07-20",
-    "height": 165,
+    "debutDate": "2021-07-23",
+    "height": 168,
     "hairColor": "白色",
     "eyeColor": "红色",
-    "seiza": "未知",
+    "seiza": "金牛",
     "description": "兴趣使然",
-    "age": 0,
+    "age": 5,
     "tags": [
       "聚能环",
       "神人",
@@ -4950,7 +4956,7 @@
     "name": "说说",
     "nameEN": "Crystal",
     "agency": "雪域Provealms",
-    "gender": "不明",
+    "gender": "女",
     "birthDate": "7月21日",
     "debutDate": "2020-05-15",
     "height": 0,
@@ -4968,7 +4974,8 @@
       "挑染",
       "旗袍",
       "憨憨",
-      "歌势"
+      "歌势",
+      "不问天"
     ],
     "status": "active",
     "id": "f03ac213-f52c-4972-9138-6cb3064f8b71"
@@ -4997,5 +5004,105 @@
     ],
     "status": "active",
     "id": "d0ce90b4-7d9c-4351-b823-cfc4f07506b3"
+  },
+  {
+    "avatar": "",
+    "name": "戌亥床",
+    "nameEN": "Inui toko",
+    "agency": "にじさんじ",
+    "gender": "女",
+    "birthDate": "9月9日",
+    "debutDate": "2019-03-22",
+    "height": 162,
+    "hairColor": "棕发",
+    "eyeColor": "异色瞳",
+    "seiza": "处女座",
+    "description": "在冷清的和风茶店打工的女孩子。因为店长的喜好而穿着女仆服装。　　\n\n　　在脚下若隐若现的尾巴是真的假的，只有摸过的人才能知道。　　",
+    "age": 999,
+    "tags": [
+      "女仆装",
+      "和风",
+      "傲沉",
+      "双马尾",
+      "歌势",
+      "兽耳",
+      "犬耳",
+      "尾巴"
+    ],
+    "status": "active",
+    "id": "84a89c8c-98c8-483e-b380-9ed66a0fb7bb"
+  },
+  {
+    "avatar": "",
+    "name": "盲盲",
+    "nameEN": "memo",
+    "agency": "P-SP",
+    "gender": "不明",
+    "birthDate": "5月2日",
+    "debutDate": "2022-09-15",
+    "height": 159,
+    "hairColor": "蓝色",
+    "eyeColor": "蓝色",
+    "seiza": "金牛座",
+    "description": "psplive所属全能六边形战士形态夹心酱✨用52赫兹的声音歌唱生命",
+    "age": 120,
+    "tags": [
+      "章鱼",
+      "邪神",
+      "病弱",
+      "轮椅",
+      "菠萝披萨"
+    ],
+    "status": "active",
+    "id": "787e5b91-7cd3-4f58-9be4-30d06590c279"
+  },
+  {
+    "avatar": "",
+    "name": "雫るる",
+    "nameEN": "shizukululu",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "3月8日",
+    "debutDate": "2019-07-17",
+    "height": 158,
+    "hairColor": "白发",
+    "eyeColor": "宝石蓝瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 18,
+    "tags": [
+      "游戏",
+      "学习",
+      "杂谈"
+    ],
+    "status": "active",
+    "id": "bbe83b4f-f438-4163-8870-0bceab6ae530"
+  },
+  {
+    "avatar": "",
+    "name": "神楽めあ",
+    "nameEN": "kagura mea",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "8月2日",
+    "debutDate": "2018-06-28",
+    "height": 157,
+    "hairColor": "白色",
+    "eyeColor": "异色瞳",
+    "seiza": "狮子座",
+    "description": "",
+    "age": 38,
+    "tags": [
+      "白毛",
+      "女仆",
+      "军服",
+      "混沌",
+      "游戏",
+      "歌势",
+      "地雷",
+      "双马尾"
+    ],
+    "status": "active",
+    "id": "89a8a4e2-544c-49d2-9c67-90dc6b1318c7"
   }
 ]
