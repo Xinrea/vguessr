@@ -5166,6 +5166,27 @@
   },
   {
     "avatar": "",
+    "name": "露娜",
+    "nameEN": "luna",
+    "agency": "TWINKLE.STAR",
+    "gender": "女",
+    "birthDate": "2月29日",
+    "debutDate": "2022-10-13",
+    "height": 164,
+    "hairColor": "紫发",
+    "eyeColor": "红瞳",
+    "seiza": "双鱼座",
+    "description": "",
+    "age": 18,
+    "tags": [
+      "歌势",
+      "唐"
+    ],
+    "status": "active",
+    "id": "bff6a8c5-3478-44ab-94bd-428cadcc5869"
+  },
+  {
+    "avatar": "",
     "name": "永恒娘",
     "nameEN": "tiny",
     "agency": "TWINKLE.STAR",
