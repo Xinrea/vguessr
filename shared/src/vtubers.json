@@ -5909,6 +5909,30 @@
   },
   {
     "avatar": "",
+    "name": "菇菇宝贝",
+    "nameEN": "GoodNight",
+    "agency": "汐莉",
+    "gender": "女",
+    "birthDate": "12月01日",
+    "debutDate": "2024-07-06",
+    "height": 175,
+    "hairColor": "紫发",
+    "eyeColor": "紫瞳",
+    "seiza": "射手座",
+    "description": "一位天使被贬人间被迫打工",
+    "age": 20,
+    "tags": [
+      "双马尾",
+      "御姐",
+      "可爱",
+      "歌势",
+      "天选打工人"
+    ],
+    "status": "active",
+    "id": "19e14d76-45ff-46b6-839f-de0067eae8e5"
+  },
+  {
+    "avatar": "",
     "name": "露珀塔",
     "nameEN": "Ruperter",
     "agency": "萌鸽文化",
