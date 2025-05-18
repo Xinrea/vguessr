@@ -5704,5 +5704,30 @@
     ],
     "status": "inactive",
     "id": "01bff277-5ca1-4adc-b021-8ec044d5b1dd"
+  },
+  {
+    "avatar": "",
+    "name": "无前",
+    "nameEN": "Namae",
+    "agency": "P-SP",
+    "gender": "男",
+    "birthDate": "3月9日",
+    "debutDate": "2021-04-08",
+    "height": 0,
+    "hairColor": "棕发",
+    "eyeColor": "棕瞳",
+    "seiza": "双鱼座",
+    "description": "一只有着大尾巴尖耳朵的松鼠人类（自称）。白色衬衫外穿有一件米色连帽衫。胸前有工牌。平常直播时都会有大尾巴在场，少数情况下会消失所以大尾巴才是本体。",
+    "age": 0,
+    "tags": [
+      "眼镜",
+      "挑染",
+      "尾巴",
+      "二叔",
+      "游戏",
+      "杂谈势"
+    ],
+    "status": "active",
+    "id": "d7b869be-68f8-4d70-b4e0-0c677d304de7"
   }
 ]
