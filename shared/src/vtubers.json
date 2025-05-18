@@ -3955,7 +3955,7 @@
     "debutDate": "2020-08-07",
     "height": 0,
     "hairColor": "紫发",
-    "eyeColor": "黄紫渐变瞳",
+    "eyeColor": "紫瞳",
     "seiza": "巨蟹座",
     "description": "良心诊所的虚拟医生！",
     "age": 19,
@@ -3964,7 +3964,8 @@
       "虚拟医生",
       "良心",
       "歌势",
-      "鸽子"
+      "鸽子",
+      "机甲"
     ],
     "id": "277c2f1d-cdaa-42ae-a729-65f951511364",
     "status": "active"
