@@ -5739,5 +5739,23 @@
     ],
     "status": "active",
     "id": "2369b46c-b4f0-4b3b-b60b-d86511a7eb2e"
+  },
+  {
+    "avatar": "",
+    "name": "露珀塔",
+    "nameEN": "Ruperter",
+    "agency": "萌鸽文化",
+    "gender": "女",
+    "birthDate": "1月17日",
+    "debutDate": "2021-05-07",
+    "height": 0,
+    "hairColor": "银发",
+    "eyeColor": "朱红瞳",
+    "seiza": "摩羯座",
+    "description": "吸血鬼",
+    "age": 200,
+    "tags": [],
+    "status": "active",
+    "id": "63a975c6-e4a9-4a18-b450-d99337de418d"
   }
 ]
