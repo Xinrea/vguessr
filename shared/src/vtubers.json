@@ -5166,6 +5166,33 @@
   },
   {
     "avatar": "",
+    "name": "银杏Kyou",
+    "nameEN": "Kyou",
+    "agency": "ChaosLive",
+    "gender": "女",
+    "birthDate": "5月6日",
+    "debutDate": "2022-03-27",
+    "height": 178,
+    "hairColor": "蓝发",
+    "eyeColor": "蓝瞳",
+    "seiza": "金牛座",
+    "description": "",
+    "age": 527,
+    "tags": [
+      "歌势",
+      "汉语",
+      "韩语",
+      "军官",
+      "神父",
+      "男装",
+      "百舰",
+      "十万粉"
+    ],
+    "status": "active",
+    "id": "1cfd4ed3-e163-40fb-925e-3cf7556437b3"
+  },
+  {
+    "avatar": "",
     "name": "小桃",
     "nameEN": "Momo",
     "agency": "虚研社",
