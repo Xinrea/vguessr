@@ -5166,6 +5166,29 @@
   },
   {
     "avatar": "",
+    "name": "永恒娘",
+    "nameEN": "tiny",
+    "agency": "TWINKLE.STAR",
+    "gender": "女",
+    "birthDate": "6月26日",
+    "debutDate": "2021-12-26",
+    "height": 155,
+    "hairColor": "白发",
+    "eyeColor": "蓝瞳",
+    "seiza": "巨蟹座",
+    "description": "",
+    "age": 2003,
+    "tags": [
+      "钢板",
+      "下头",
+      "游戏",
+      "歌势"
+    ],
+    "status": "active",
+    "id": "f9d494e9-a565-46ab-89f8-71e8083a46a9"
+  },
+  {
+    "avatar": "",
     "name": "友利",
     "nameEN": "Mori",
     "agency": "个人",
