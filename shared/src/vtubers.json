@@ -1283,7 +1283,8 @@
       "摇铃",
       "外星人",
       "企鹅",
-      "京爷"
+      "京爷",
+      "下头"
     ],
     "status": "active"
   },
@@ -1456,7 +1457,16 @@
       "魔法师",
       "尖耳朵",
       "巨乳",
-      "压抑"
+      "压抑",
+      "囚鸟",
+      "柿子",
+      "挪威的森林",
+      "自用",
+      "蛋挞",
+      "健身环",
+      "加绒小皮鞋",
+      "进错",
+      "媚骨天成"
     ],
     "status": "active"
   },
@@ -1606,7 +1616,7 @@
     "age": 18,
     "hairColor": "金发",
     "eyeColor": "蓝瞳",
-    "height": 158,
+    "height": 144,
     "tags": [
       "巨乳",
       "金发碧眼",
@@ -2494,7 +2504,7 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "5月15日",
-    "debutDate": "2019-10-28",
+    "debutDate": "2019-11-09",
     "height": 158,
     "hairColor": "银发",
     "eyeColor": "蓝瞳",
@@ -2823,7 +2833,7 @@
     "agency": "VirtuaReal",
     "gender": "女",
     "birthDate": "2月5日",
-    "debutDate": "2019-11-01",
+    "debutDate": "2019-10-13",
     "height": 0,
     "hairColor": "白发",
     "eyeColor": "红瞳",
@@ -3912,8 +3922,8 @@
   },
   {
     "avatar": "",
-    "name": "安晚",
-    "nameEN": "aWa",
+    "name": "安晚awa",
+    "nameEN": "Antoinuit",
     "agency": "P-SP",
     "gender": "女",
     "birthDate": "8月6日",
@@ -3921,8 +3931,8 @@
     "height": 250,
     "hairColor": "白发",
     "eyeColor": "红瞳",
-    "seiza": "白羊座",
-    "description": "",
+    "seiza": "狮子座",
+    "description": "做爱抖露被开除后, 为了赚取学费走上街头进行算命，终于如愿成为一名心理学专业大学生!",
     "age": 16,
     "tags": [
       "大小姐",
@@ -3954,7 +3964,8 @@
       "虚拟医生",
       "良心",
       "歌势",
-      "鸽子"
+      "鸽子",
+      "机甲"
     ],
     "id": "277c2f1d-cdaa-42ae-a729-65f951511364",
     "status": "active"
@@ -4686,7 +4697,6 @@
     "description": "樱花大小姐",
     "age": 99999,
     "tags": [
-      "病娇",
       "大小姐",
       "千舰",
       "水母头",
@@ -5044,7 +5054,7 @@
     "hairColor": "蓝色",
     "eyeColor": "蓝色",
     "seiza": "金牛座",
-    "description": "psplive所属全能六边形战士形态夹心酱✨用52赫兹的声音歌唱生命",
+    "description": "psplive所属全能六边形战士形态夹心酱✨用52赫兹的声音歌唱生命，讨厌菠萝披萨",
     "age": 120,
     "tags": [
       "章鱼",
@@ -5183,5 +5193,119 @@
     ],
     "status": "active",
     "id": "018b88fc-5cfd-4328-b7a3-c7d3c42026d1"
+  },
+  {
+    "avatar": "",
+    "name": "浅野天琪",
+    "nameEN": "Asano Tanch",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "8月17日",
+    "debutDate": "2019-07-09",
+    "height": 0,
+    "hairColor": "银发",
+    "eyeColor": "绿瞳",
+    "seiza": "狮子座",
+    "description": "浅野天琪（Asano Tanch）是中国耳机品牌TANCHJIM（天使吉米）的官方看板娘和活跃于B站的一位女性虚拟主播。平时直播内容为唱歌与聊天，歌单内容二次元含量巨大，且其中不少经典中日语歌，被戏称为“同龄人”。\n因其某个形态为圆头圆脑的小圆形象，被某红发大主播冠以“圆圆”称呼，遂被众人接受，爱称其为圆圆。与桃几OvO组成桃圆cp。\n圆圆致敬的表情包为诸多主播所效仿，已成经典【致敬】。",
+    "age": 0,
+    "tags": [
+      "看板娘",
+      "双麻花辫",
+      "呆毛",
+      "发饰",
+      "耳机",
+      "项圈",
+      "领带",
+      "腿环",
+      "萌音",
+      "同龄人",
+      "歌势"
+    ],
+    "status": "active",
+    "id": "8d726989-4126-4841-8593-6ae9b59268ab"
+  },
+  {
+    "avatar": "",
+    "name": "咩栗",
+    "nameEN": "merry",
+    "agency": "萌鸽文化",
+    "gender": "女",
+    "birthDate": "2月22日",
+    "debutDate": "2020-09-02",
+    "height": 0,
+    "hairColor": "白发",
+    "eyeColor": "蓝瞳",
+    "seiza": "双鱼座",
+    "description": "电击小羊，羊名立万⚡欢迎关注全力疾走系电击绵羊咩栗！ ⚡想要进步！想被更多人喜欢！ ⚡愿望是与你比肩前行><",
+    "age": 38,
+    "tags": [
+      "我被踢出群啦",
+      "钢板",
+      "千舰",
+      "百舰",
+      "中文系",
+      "兽耳",
+      "双角",
+      "萝莉",
+      "绵羊"
+    ],
+    "status": "active",
+    "id": "bfef8e2f-e3f9-47ad-838a-f14f8bf43f00"
+  },
+  {
+    "avatar": "",
+    "name": "小希",
+    "nameEN": "Nozomi",
+    "agency": "虚研社",
+    "gender": "女",
+    "birthDate": "7月22日",
+    "debutDate": "2017-08-12",
+    "height": 162,
+    "hairColor": "粉发",
+    "eyeColor": "绿瞳",
+    "seiza": "巨蟹座",
+    "description": "虚拟次元计划的第一位AI，研发代号χ。性格元气、乐观、吐槽役，梦想是当超人气偶像。\n外形为16岁的粉发绿瞳少女，身高是162厘米，体重是0。头上安装有一对散热器。",
+    "age": 16,
+    "tags": [
+      "蝴蝶结",
+      "呆毛",
+      "老祖",
+      "土妹子",
+      "沙雕",
+      "人工智障",
+      "散热器",
+      "长直",
+      "长发",
+      "腿环"
+    ],
+    "status": "active",
+    "id": "7a49a023-ca28-4fed-82fb-83a3c1cc2d89"
+  },
+  {
+    "avatar": "",
+    "name": "咚咚咚咚冬月末",
+    "nameEN": "Getsumastu",
+    "agency": "个人",
+    "gender": "男",
+    "birthDate": "12月21日",
+    "debutDate": "2024-12-11",
+    "height": 166,
+    "hairColor": "白色",
+    "eyeColor": "棕红瞳",
+    "seiza": "射手座",
+    "description": "抽象男v",
+    "age": 16,
+    "tags": [
+      "直男",
+      "帅哥",
+      "帅气",
+      "这框真帅吧",
+      "游戏力高",
+      "杂谈势",
+      "绘画",
+      "熊耳"
+    ],
+    "status": "active",
+    "id": "5d4eb326-8d3a-464c-b44f-c9e76a245586"
   }
 ]
