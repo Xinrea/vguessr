@@ -5978,5 +5978,23 @@
     ],
     "status": "active",
     "id": "07ebe1b1-87f9-4bd1-a16a-df49d0479fc1"
+  },
+  {
+    "avatar": "",
+    "name": "柚恩",
+    "nameEN": "UN",
+    "agency": "EOE",
+    "gender": "女",
+    "birthDate": "5月10日",
+    "debutDate": "2022-07-21",
+    "height": 163,
+    "hairColor": "白色",
+    "eyeColor": "粉瞳",
+    "seiza": "金牛座",
+    "description": "",
+    "age": 18,
+    "tags": [],
+    "status": "active",
+    "id": "6b1ed8c5-4e7e-49c2-8d50-56b07f727090"
   }
 ]
