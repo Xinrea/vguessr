@@ -6725,5 +6725,37 @@
     ],
     "status": "active",
     "id": "5edd5bb9-df5b-4720-82f7-5c5145efc337"
+  },
+  {
+    "avatar": "",
+    "name": "姬森璐娜",
+    "nameEN": "Himemori Luna",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "10月10日",
+    "debutDate": "2020-01-04",
+    "height": 140,
+    "hairColor": "渐变发",
+    "eyeColor": "异色瞳",
+    "seiza": "天秤座",
+    "description": "糖果王国的公主。爱撒娇又亲近人，但说起任性的话来总是让管家生气。月亮的标记，好像是异界国度的标记的样子？",
+    "age": 0,
+    "tags": [
+      "公主",
+      "王冠",
+      "长发",
+      "连衣裙",
+      "短袖",
+      "露肩装",
+      "过膝袜",
+      "高跟鞋",
+      "蝴蝶结",
+      "发饰",
+      "手环",
+      "口癖",
+      "天然萌"
+    ],
+    "status": "active",
+    "id": "b69c8f09-7f6b-4917-adbc-370edfe53291"
   }
 ]
