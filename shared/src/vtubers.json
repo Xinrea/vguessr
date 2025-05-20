@@ -7507,5 +7507,33 @@
     ],
     "status": "retired",
     "id": "9234f414-a8cb-44f6-a7dc-922b7d1f893a"
+  },
+  {
+    "avatar": "",
+    "name": "夜霧",
+    "nameEN": "Yogiri",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "4月1日",
+    "debutDate": "2019-09-28",
+    "height": 164,
+    "hairColor": "红发",
+    "eyeColor": "金瞳",
+    "seiza": "白羊座",
+    "description": "不良少女的背后，是蕴含温柔与温暖的内心。为守护重要的东西，一步也不会退让。",
+    "age": 1,
+    "tags": [
+      "偶像",
+      "帅气",
+      "吃货",
+      "双马尾",
+      "吊眼",
+      "绷带",
+      "猫控",
+      "虎牙",
+      "挑染"
+    ],
+    "status": "retired",
+    "id": "5592fa12-ab76-4027-9df6-517a2e06dccc"
   }
 ]
