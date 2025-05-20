@@ -6096,5 +6096,55 @@
     ],
     "status": "active",
     "id": "362e23e1-11e0-4028-bf6d-cb5d3502fdbd"
+  },
+  {
+    "avatar": "",
+    "name": "赤井心",
+    "nameEN": "Akai haato",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "8月10日",
+    "debutDate": "2018-06-02",
+    "height": 154,
+    "hairColor": "金发",
+    "eyeColor": "青瞳",
+    "seiza": "狮子座",
+    "description": "傲慢的后辈。平常是态度高傲的样子，面对关系变得亲近的对方会不时撒娇。喜欢红色的缎带和心形，常常系在衣服和头发作为装饰。",
+    "age": 22,
+    "tags": [
+      "傲娇",
+      "冒失",
+      "天然疯",
+      "学妹",
+      "双重人格"
+    ],
+    "status": "active",
+    "id": "8d1887af-b384-42ae-85c0-c20cddbd6d78"
+  },
+  {
+    "avatar": "",
+    "name": "夏色祭",
+    "nameEN": "Natsuiro Matsuri",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "7月22日",
+    "debutDate": "2018-06-02",
+    "height": 152,
+    "hairColor": "棕发",
+    "eyeColor": "青瞳",
+    "seiza": "巨蟹座",
+    "description": "啦啦队的新成员。性格开朗，精力充沛，对人友好，能很快和大家打成一片，有很多朋友。喜欢有趣的事情，例如祭典和活动。",
+    "age": 16,
+    "tags": [
+      "元气",
+      "笨蛋",
+      "呆毛",
+      "单马尾",
+      "黑丝",
+      "JK",
+      "露脐装"
+    ],
+    "status": "active",
+    "id": "3b0b8e35-b49c-4cda-9b41-36bac550f38e"
   }
 ]
