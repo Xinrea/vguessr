@@ -7510,6 +7510,30 @@
   },
   {
     "avatar": "",
+    "name": "罗莎琳",
+    "nameEN": "Rosalyn",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "12月10日",
+    "debutDate": "2020-03-06",
+    "height": 160,
+    "hairColor": "深蓝发",
+    "eyeColor": "蓝瞳",
+    "seiza": "射手座",
+    "description": "来自异世界的图书管理员，为了增长见识在各个世界旅行。之后喜欢上这个世界的卡片游戏于是留在了这里。目标是参加世界大赛。",
+    "age": 16,
+    "tags": [
+      "牌佬",
+      "眼镜",
+      "星星眼",
+      "黑化",
+      "过膝袜"
+    ],
+    "status": "retired",
+    "id": "3810abfc-c02d-4305-b72b-49928ee10ccb"
+  },
+  {
+    "avatar": "",
     "name": "朵莉丝",
     "nameEN": "Doris",
     "agency": "hololive",
