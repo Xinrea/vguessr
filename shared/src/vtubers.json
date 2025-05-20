@@ -6340,5 +6340,33 @@
     ],
     "status": "retired",
     "id": "556e7991-0c3a-4235-8f31-9d09e7121e8c"
+  },
+  {
+    "avatar": "",
+    "name": "百鬼绫目",
+    "nameEN": "Nakiri Ayame",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "12月13日",
+    "debutDate": "2018-09-03",
+    "height": 152,
+    "hairColor": "白发",
+    "eyeColor": "红瞳",
+    "seiza": "射手座",
+    "description": "魔界学校所属的和服鬼神女孩，喜欢恶作剧，常常放出鬼火戏弄他人。虽然如此实际上是学生会长。",
+    "age": 1500,
+    "tags": [
+      "妖怪",
+      "双角",
+      "元气",
+      "清楚",
+      "天然呆",
+      "除妖师",
+      "剑士",
+      "虎牙",
+      "鬼神"
+    ],
+    "status": "active",
+    "id": "816a380a-71a1-4259-89a5-a8b28cb4043d"
   }
 ]
