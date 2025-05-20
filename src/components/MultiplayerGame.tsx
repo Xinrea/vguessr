@@ -92,6 +92,7 @@ export function MultiplayerGame({
     if (room.status !== "playing") {
       setTimeLeft(CHANCE_REDUCTION_INTERVAL);
       setHasUsedChance(false);
+      setSelectedAgency("");
       return;
     }
 
@@ -126,6 +127,7 @@ export function MultiplayerGame({
     if (currentPlayer && currentPlayer.chance <= 0) {
       setSearchQuery("");
       setSearchResults([]);
+      setSelectedAgency("");
     }
 
     return () => clearInterval(timer);
