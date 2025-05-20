@@ -6180,5 +6180,29 @@
     ],
     "status": "active",
     "id": "0873fdbc-fe06-49db-b27a-b6d1368daf94"
+  },
+  {
+    "avatar": "",
+    "name": "萝卜子",
+    "nameEN": "Roboco San",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "5月23日",
+    "debutDate": "2018-03-04",
+    "height": 154,
+    "hairColor": "棕发",
+    "eyeColor": "黄瞳",
+    "seiza": "双子座",
+    "description": "在某个荒地上，总是一个人孤零零呆着的废柴（自称）高性能机器人。现在作为虚拟YouTuber，目标是和很多人交流，快乐地度过每一天。",
+    "age": 0,
+    "tags": [
+      "机娘",
+      "眼镜",
+      "仆娘",
+      "天然萌",
+      "辣妹"
+    ],
+    "status": "active",
+    "id": "02b18944-a51c-4ff8-b43d-014a1e6e61e5"
   }
 ]
