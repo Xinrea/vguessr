@@ -6204,5 +6204,27 @@
     ],
     "status": "active",
     "id": "02b18944-a51c-4ff8-b43d-014a1e6e61e5"
+  },
+  {
+    "avatar": "",
+    "name": "AZKi",
+    "nameEN": "Virtual Diva AZKi",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "7月1日",
+    "debutDate": "2018-11-15",
+    "height": 158,
+    "hairColor": "黑发",
+    "eyeColor": "银瞳",
+    "seiza": "巨蟹座",
+    "description": "跨越时间、地点、空间，与众多的爱与光辉的才能一起，为了创造新的世界而转生为虚拟世界的随行歌姬。",
+    "age": 18,
+    "tags": [
+      "歌姬",
+      "双马尾",
+      "齐刘海"
+    ],
+    "status": "active",
+    "id": "df1ed9f3-231c-4415-98d7-9c89548c747b"
   }
 ]
