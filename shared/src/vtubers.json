@@ -7535,5 +7535,36 @@
     ],
     "status": "retired",
     "id": "5592fa12-ab76-4027-9df6-517a2e06dccc"
+  },
+  {
+    "avatar": "",
+    "name": "黑桃影",
+    "nameEN": "Spade Echo",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "5月30日",
+    "debutDate": "2019-10-28",
+    "height": 145,
+    "hairColor": "粉发",
+    "eyeColor": "绿瞳",
+    "seiza": "双子座",
+    "description": "充满谜团的怪盗，行动代号是「Spade Echo」。华丽身影的背后，平常是一名极其普通的高中生。",
+    "age": 17,
+    "tags": [
+      "怪盗",
+      "呆毛",
+      "萝莉",
+      "丸子头",
+      "心形瞳孔",
+      "白丝",
+      "吊带袜",
+      "病弱",
+      "社恐",
+      "宅",
+      "路痴",
+      "spade"
+    ],
+    "status": "retired",
+    "id": "617bbde7-92e2-481d-b974-30e6200403bb"
   }
 ]
