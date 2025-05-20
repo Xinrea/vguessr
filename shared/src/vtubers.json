@@ -6074,6 +6074,30 @@
   },
   {
     "avatar": "",
+    "name": "赤井心",
+    "nameEN": "Akai haato",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "8月10日",
+    "debutDate": "2018-06-02",
+    "height": 154,
+    "hairColor": "金发",
+    "eyeColor": "青瞳",
+    "seiza": "狮子座",
+    "description": "傲慢的后辈。平常是态度高傲的样子，面对关系变得亲近的对方会不时撒娇。喜欢红色的缎带和心形，常常系在衣服和头发作为装饰。",
+    "age": 22,
+    "tags": [
+      "傲娇",
+      "冒失",
+      "天然疯",
+      "学妹",
+      "双重人格"
+    ],
+    "status": "active",
+    "id": "8d1887af-b384-42ae-85c0-c20cddbd6d78"
+  },
+  {
+    "avatar": "",
     "name": "夏色祭",
     "nameEN": "Natsuiro Matsuri",
     "agency": "hololive",
