@@ -6095,5 +6095,31 @@
     ],
     "status": "active",
     "id": "8d1887af-b384-42ae-85c0-c20cddbd6d78"
+  },
+  {
+    "avatar": "",
+    "name": "夏色祭",
+    "nameEN": "Natsuiro Matsuri",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "7月22日",
+    "debutDate": "2018-06-02",
+    "height": 152,
+    "hairColor": "棕发",
+    "eyeColor": "青瞳",
+    "seiza": "巨蟹座",
+    "description": "啦啦队的新成员。性格开朗，精力充沛，对人友好，能很快和大家打成一片，有很多朋友。喜欢有趣的事情，例如祭典和活动。",
+    "age": 16,
+    "tags": [
+      "元气",
+      "笨蛋",
+      "呆毛",
+      "单马尾",
+      "黑丝",
+      "JK",
+      "露脐装"
+    ],
+    "status": "active",
+    "id": "3b0b8e35-b49c-4cda-9b41-36bac550f38e"
   }
 ]

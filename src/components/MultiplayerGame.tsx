@@ -61,21 +61,25 @@ export function MultiplayerGame({
 
   // Set correct agency when agency hint is available or when agency is correctly guessed
   useEffect(() => {
-    if (room.agencyHint) {
-      setSelectedAgency(room.agencyHint);
-    } else if (hasCorrectAgencyGuess) {
-      const correctAgency = processedRecords
-        .find((record) =>
-          record.differences.some(
-            (diff) => diff.attribute === "团体" && diff.isMatch
+    if (room.status == "playing") {
+      if (room.agencyHint) {
+        setSelectedAgency(room.agencyHint);
+      } else if (hasCorrectAgencyGuess) {
+        const correctAgency = processedRecords
+          .find((record) =>
+            record.differences.some(
+              (diff) => diff.attribute === "团体" && diff.isMatch
+            )
           )
-        )
-        ?.differences.find((diff) => diff.attribute === "团体")?.value;
-      if (correctAgency && typeof correctAgency === "string") {
-        setSelectedAgency(correctAgency);
+          ?.differences.find((diff) => diff.attribute === "团体")?.value;
+        if (correctAgency && typeof correctAgency === "string") {
+          setSelectedAgency(correctAgency);
+        }
       }
+    } else {
+        setSelectedAgency("");
     }
-  }, [room.agencyHint, hasCorrectAgencyGuess, processedRecords]);
+  }, [room.status, room.agencyHint, hasCorrectAgencyGuess, processedRecords]);
 
   const playButtonSound = () => {
     const audio = new Audio("/sounds/button.mp3");
@@ -92,7 +96,6 @@ export function MultiplayerGame({
     if (room.status !== "playing") {
       setTimeLeft(CHANCE_REDUCTION_INTERVAL);
       setHasUsedChance(false);
-      setSelectedAgency("");
       return;
     }
 
@@ -127,7 +130,6 @@ export function MultiplayerGame({
     if (currentPlayer && currentPlayer.chance <= 0) {
       setSearchQuery("");
       setSearchResults([]);
-      setSelectedAgency("");
     }
 
     return () => clearInterval(timer);
