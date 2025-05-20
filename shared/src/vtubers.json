@@ -6365,5 +6365,61 @@
     ],
     "status": "active",
     "id": "41ac95ac-4450-46cc-93ca-bd1038974c2e"
+  },
+  {
+    "avatar": "",
+    "name": "癒月巧可",
+    "nameEN": "Yuzuki Choco",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "2月14日",
+    "debutDate": "2018-09-04",
+    "height": 165,
+    "hairColor": "金发",
+    "eyeColor": "蓝瞳",
+    "seiza": "水瓶座",
+    "description": "来自魔界学校的保健医。在校内的男女学生中人气很高、特别是来自男学生的诊断请求源源不绝。喜欢甜食，看见桌子上摆满了散乱的甜食包装袋的话会生气。",
+    "age": 0,
+    "tags": [
+      "医生",
+      "教师",
+      "恶魔",
+      "魅魔",
+      "御姐",
+      "巨乳",
+      "温柔",
+      "清楚",
+      "治愈系"
+    ],
+    "status": "active",
+    "id": "b315f227-3af5-4499-9f47-136f7ed0c217"
+  },
+  {
+    "avatar": "",
+    "name": "百鬼绫目",
+    "nameEN": "Nakiri Ayame",
+    "agency": "hololive",
+    "gender": "女",
+    "birthDate": "12月13日",
+    "debutDate": "2018-09-03",
+    "height": 152,
+    "hairColor": "白发",
+    "eyeColor": "红瞳",
+    "seiza": "射手座",
+    "description": "魔界学校所属的和服鬼神女孩，喜欢恶作剧，常常放出鬼火戏弄他人。虽然如此实际上是学生会长。",
+    "age": 1500,
+    "tags": [
+      "妖怪",
+      "双角",
+      "元气",
+      "清楚",
+      "天然呆",
+      "除妖师",
+      "剑士",
+      "虎牙",
+      "鬼神"
+    ],
+    "status": "active",
+    "id": "816a380a-71a1-4259-89a5-a8b28cb4043d"
   }
 ]
