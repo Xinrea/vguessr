@@ -7904,5 +7904,32 @@
     ],
     "status": "active",
     "id": "c4046cf9-08f5-4c47-8596-6d9c1298cdda"
+  },
+  {
+    "avatar": "",
+    "name": "奈奈莉娅",
+    "nameEN": "Nanariya",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "12月25日",
+    "debutDate": "2020-07-24",
+    "height": 160,
+    "hairColor": "金发",
+    "eyeColor": "红瞳",
+    "seiza": "摩羯座",
+    "description": "一名来自于索提利亚大陆的名叫奈奈莉娅的吸血鬼女孩，目标是成为偶像，特点是心形的呆毛，拥有可以飞行的小翅膀，服装设计比较偏向闪闪发光的风格",
+    "age": 17,
+    "tags": [
+      "吸血鬼",
+      "呆毛",
+      "心形呆毛",
+      "单纯",
+      "迷糊",
+      "起床气",
+      "屑",
+      "千舰"
+    ],
+    "status": "active",
+    "id": "2057f8ec-373b-45e7-bdb8-4d0d8f9ed089"
   }
 ]
