@@ -8072,5 +8072,25 @@
     ],
     "status": "active",
     "id": "f66f6558-5216-4241-af06-65a120e7c9ee"
+  },
+  {
+    "avatar": "",
+    "name": "山羽北葵",
+    "nameEN": "sybk",
+    "agency": "个人",
+    "gender": "女",
+    "birthDate": "5月4日",
+    "debutDate": "2025-06-02",
+    "height": 167,
+    "hairColor": "蓝发",
+    "eyeColor": "绿瞳",
+    "seiza": "金牛座",
+    "description": "",
+    "age": 0,
+    "tags": [
+      "天才"
+    ],
+    "status": "active",
+    "id": "34937c2a-13bb-479f-bfad-88421351f730"
   }
 ]
