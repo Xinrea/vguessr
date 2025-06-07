@@ -8092,5 +8092,29 @@
     ],
     "status": "active",
     "id": "34937c2a-13bb-479f-bfad-88421351f730"
+  },
+  {
+    "avatar": "",
+    "name": "维柯",
+    "nameEN": "Vico",
+    "agency": "汐莉",
+    "gender": "男",
+    "birthDate": "4月1日",
+    "debutDate": "2023-10-03",
+    "height": 178,
+    "hairColor": "黑发红挑染",
+    "eyeColor": "金色",
+    "seiza": "白羊座",
+    "description": "从未成功过的大欺诈师，正在为了召集作案团伙努力直播中",
+    "age": 24,
+    "tags": [
+      "欺诈师",
+      "项圈",
+      "辫子",
+      "眼镜",
+      "画的纹身"
+    ],
+    "status": "active",
+    "id": "d93a1cd8-6758-4a61-b7cf-b178ad486886"
   }
 ]
