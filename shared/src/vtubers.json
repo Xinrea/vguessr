@@ -8080,7 +8080,7 @@
     "agency": "个人",
     "gender": "女",
     "birthDate": "5月4日",
-    "debutDate": "2025-06-02",
+    "debutDate": "2025-01-22",
     "height": 167,
     "hairColor": "蓝发",
     "eyeColor": "绿瞳",
@@ -8088,9 +8088,10 @@
     "description": "",
     "age": 0,
     "tags": [
-      "天才"
+      "天才",
+      "跑调大王"
     ],
-    "status": "active",
+    "status": "retired",
     "id": "34937c2a-13bb-479f-bfad-88421351f730"
   },
   {
