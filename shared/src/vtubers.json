@@ -8182,5 +8182,23 @@
     ],
     "status": "active",
     "id": "c033577f-6c8d-4c56-b3c3-60c58cc5f5ca"
+  },
+  {
+    "avatar": "",
+    "name": "大虫",
+    "nameEN": "cheng",
+    "agency": "群青",
+    "gender": "男",
+    "birthDate": "2月9日",
+    "debutDate": "2015-07-25",
+    "height": 188,
+    "hairColor": "褐色",
+    "eyeColor": "双色异瞳",
+    "seiza": "双鱼",
+    "description": "懒觉仙人",
+    "age": 27,
+    "tags": [],
+    "status": "inactive",
+    "id": "06836a86-2620-4eac-aff4-57bdece9874c"
   }
 ]
